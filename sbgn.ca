@@ -1,0 +1,440 @@
+context org.sbgn.epe.Sbgn (name="SBGN-ST" descr="SBGN process diagram language context" version=0.0.0)
+
+property GOTerm (name="GO term" descr="GO annotation" type = simple)
+property SBOTerm (name="SBO term" descr="SBO term" type = simple)
+property Label (name="Label" type = rich visualisable)
+property Stoich (name="STOICH" descr="Stoichiometry coefficient" type=simple visualisable)
+
+RMO	( contains ![State,UnitOfInf])
+//Utility shapes
+shape State (name = "State" descr="State variable value"
+		stype = ELLIPSE
+		size=[25,25]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [240,247,255]
+		contains []
+	)
+	
+shape UnitOfInf (name = "UnitOfInf" descr="Auxiliary information box"
+		stype = RECTANGLE
+		size = [65,25]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [240,247,255]
+		contains []
+	)
+	
+shape CloneMarker (name="CloneMarker" descr = "Mark the node to be cloned"	
+		stype = RECTANGLE
+		size = [40,20]
+		contains []
+		fcolor = [0,0,0]
+	)
+
+//Compartment
+shape 	Compartment (name="Compartment" descr="Functional compartment"
+		stype = ROUNDED_RECTANGLE
+		size = [200,200]
+		lwidth(read-only) = 3
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [248,234,190]
+		GOTerm = " "
+		contains ![State]
+		URL = "http://www.proteinatlas.org"
+	)
+//EntityPoolNodes
+//Statefull nodes
+shape Complex (name="Complex" descr="SBGN complex"
+		stype = IRREGULAR_OCTAGON
+		size = [120,80]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [201,223,198]
+		contains [State,UnitOfInf,Macromolecule,SimpleChem,Complex,CloneMarker]
+		URL = "http://"
+	)
+	
+shape GeneticUnit(name="Genetic unit" descr="Unit of genetical information"
+		stype = ROUNDED_RECTANGLE //!!!!!!!!!!!!!!!!!!!!!!!!
+		size = [60,40]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		contains [State,UnitOfInf]
+	)
+	
+shape Macromolecule(name="Macromolecule" descr="Macromolecule"
+		stype = ROUNDED_RECTANGLE
+		size = [60,40]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		contains [State,UnitOfInf,CloneMarker]
+	)
+	
+shape MMultimer (name = "Macromoleclar Multimer" descr = "Macromoleclar Multimer"
+		stype = MULTIMER
+		size = [90,40]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		contains [State,UnitOfInf,CloneMarker]
+	)
+
+//Stateless nodes	
+shape SimpleChem (name=" " descr="Simple chemical"
+		stype = ELLIPSE
+		size = [30,30]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		Label = "Simple chemical"
+		contains [CloneMarker]
+	)
+	
+shape SMultimer (name = "Chemical Multimer" descr = "Chemical Multimer"
+		stype = ELLIPSE_MULTIMER
+		size = [30,30]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		contains [CloneMarker]
+	)
+		
+	
+shape UnspecEntity (name="Unspecified entity"	descr="Unspecified entity"
+		stype = ELLIPSE
+		size = [60,40]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [219,223,254]
+		contains [CloneMarker]
+	)
+	
+//Special nodes
+shape Sink (name="Sink" descr="Sink"	
+		stype = EMPTY_SET
+		size = [30,30]
+		contains []
+	)
+	
+shape Source (name="Source" descr="Source"	
+		stype = EMPTY_SET
+		size = [30,30]
+		contains []
+	)
+
+shape Perturbation (name="Perturbation" descr="Perturbation"
+		stype= XSHAPE //to be modified!!!!!
+		size = [80,60]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [255,250,145]
+		contains []
+	)
+	
+shape Observable (name="Observable" descr="Observable"
+		stype = HEXAGON
+		size = [80,60]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [255,250,145]
+		contains []
+	)
+
+//Submap and references	
+shape Module (name="Submap" descr="collapsed part of diagram"
+		stype = RECTANGLE
+		size = [120,120]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [255,250,145]
+		contains [Port,UnitOfInf]
+	)
+	
+shape Port (name="Port" descr="Interface to the submap"
+		stype = RECTANGLE
+		size = [20,35]
+		contains []
+	)
+	
+shape Tag (name="Tag" descr="Mark node to be interface to submap"
+		stype = RH_SIGN_ARROW
+		size = [40,20]
+		lcolor(read-only) = [1,1,1]
+		fcolor(read-only) = [255,250,145]
+		contains []
+	)
+	
+//Process nodes	
+shape Transition (name="Transition" descr="transition"
+		stype = RECTANGLE
+		size = [20,20]
+		lwidth= 2
+		contains []
+	)
+	
+shape OmittedProcess (name ="Omitted process" descr= "omitted process"
+		stype = RECTANGLE
+		size = [20,20]
+		lwidth= 2
+		contains []
+		Name(read-only) = "//" //"<p align=\"center\"><font face=\"Arial\" size=\"6\" color=\"#ff0000\"><b>//</b></font></p>"
+	)
+	
+shape UncertainProcess (name ="Uncertain process" descr="Uncertain process"
+		stype=RECTANGLE
+		size = [20,20]
+		lwidth= 2
+		Name(read-only) ="?"
+		contains []
+	)
+	
+shape Association (name="Association" descr="Association"
+		stype =ELLIPSE
+		size = [20,20]
+		contains []
+		fcolor = [0,0,0]
+	)
+	
+shape Dissociation (name="Dissociation" descr="Dissociation"
+		stype = CONCENTRIC_CIRCLES
+		size = [20,20]
+		contains []
+	)
+	
+//Logic gates
+shape AndGate (name= "AND gate" descr="AndGate"
+		stype =ELLIPSE
+		size = [40,40]
+		Name ="AND"
+		contains []
+	)
+
+shape OrGate (name= "OR gate" descr="OR logic Gate"
+		stype =ELLIPSE
+		size = [40,40]
+		Name ="OR"
+		contains []
+	)
+
+shape NotGate (name= "NOT gate" descr="NOT logic Gate"
+		stype =ELLIPSE
+		size = [40,40]
+		Name ="NOT"
+		contains []
+	)
+
+//Links	
+link	Consumption (name="Consumption Link"  descr="Consumption is the arc used to represent the fact that an entity only affects a process, but is not affected by it"
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Source  target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = NONE (stype = RECTANGLE
+			offset = 0
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+
+link	Production (name="Production Link"  descr="Production is the arc used to represent the fact that an entity is produced by a process."
+		lcolor = [0,0,0]
+		source = Transition target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		source = OmittedProcess target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		source = UncertainProcess target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		source = Association target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		source = Dissociation target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		sport = NONE (stype = RECTANGLE
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = TRIANGLE[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+	
+link	Modulation (name="Modulation Link" descr="A modulation affects the flux of a process represented by the target transition."
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = EMPTY_DIAMOND[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+
+	
+link	Stimulation (name="Stimulation Link" descr="A stimulation affects positively the flux of a process represented by the target transition."
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = EMPTY_TRIANGLE[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+
+link	Catalysis (name="Catalysis Link" descr="A catalysis is a particular case of stimulation."
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = EMPTY_CIRCLE[5,5] (stype = RECTANGLE
+			offset = 10
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+
+link	Inhibition (name="Inhibition Link" descr="An inhibition affects negatively the flux of a process represented by the target transition."
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = BAR[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+	
+link	Trigger (name="Trigger Link" descr="A trigger effect, or absolute stimulation, is a stimulation that is necessary for a process to take place."
+		lcolor = [0,0,0]
+		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = TRIANGLE_BAR[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+			Stoich = "1"
+		)
+	)
+
+link	LogicArc (name="Logic arc" descr="Logic arc is the arc used to represent the fact that an entity influences outcome of logic operator."
+		lcolor = [0,0,0]
+		source = Complex target = [AndGate,OrGate,NotGate]
+		source = Macromolecule target = [AndGate,OrGate,NotGate]
+		source = MMultimer target = [AndGate,OrGate,NotGate]
+		source = SimpleChem target = [AndGate,OrGate,NotGate]
+		source = SMultimer target = [AndGate,OrGate,NotGate]
+		source = UnspecEntity target = [AndGate,OrGate,NotGate]
+		source = AndGate target = [AndGate,OrGate,NotGate]
+		source = OrGate target = [AndGate,OrGate,NotGate]
+		source = NotGate target = [AndGate,OrGate,NotGate]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = TRIANGLE_BAR[5,5] (stype = RECTANGLE
+			offset = 0
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+	)
+
+link	EquivalenceArc (name="Equivalence Arc" descr="Equivalence Arc is the arc used to represent the fact that all entities marked by the tag are equivalent."
+		lcolor = [0,0,0]
+		source = Complex target = [Tag, Port]
+		source = Macromolecule target = [Tag, Port]
+		source = MMultimer target = [Tag, Port]
+		source = SimpleChem target = [Tag, Port]
+		source = SMultimer target = [Tag, Port]
+		source = UnspecEntity target = [Tag, Port]
+		sport = NONE (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+		tport = NONE[5,5] (stype = RECTANGLE
+			offset = 5
+			size = [0,0]
+			lcolor = [0,0,0]
+			fcolor = [255,255,255]
+		)
+	)
+
