@@ -2,12 +2,12 @@ package org.pathwayeditor.notations.sbgnpd;
 
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.ConnectionRouter;
@@ -79,8 +79,10 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         return newP;
     }
 
-    private final Map<Integer, IShapeObjectType> shapeSet = new HashMap<Integer, IShapeObjectType>();
-    private final Map<Integer, ILinkObjectType> linkSet = new HashMap<Integer, ILinkObjectType>();
+    // Use a sorted map as this governs the order objects are returned in, which can be useful when this information
+    // is displayed. As a rule use a UniqueId that sorts then objects as you would like to see them displayed.
+    private final SortedMap<Integer, IShapeObjectType> shapeSet = new TreeMap<Integer, IShapeObjectType>();
+    private final SortedMap<Integer, ILinkObjectType> linkSet = new TreeMap<Integer, ILinkObjectType>();
     // private final Set <IPropertyDefinition> propSet=new
     // HashSet<IPropertyDefinition>();
 
@@ -134,58 +136,58 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.serviceProvider = serviceProvider;
         createRMO();
         // shapes
-        this.State = new ShapeObjectType(this, 10, "State");
-        createState();
-        this.UnitOfInf = new ShapeObjectType(this, 11, "UnitOfInf");
-        createUnitOfInf();
-        this.CloneMarker = new ShapeObjectType(this, 12, "CloneMarker");
-        createCloneMarker();
-        this.Compartment = new ShapeObjectType(this, 13, "Compartment");
+        this.Compartment = new ShapeObjectType(this, 1, "Compartment");
         createCompartment();
-        this.Complex = new ShapeObjectType(this, 14, "Complex");
+        this.Complex = new ShapeObjectType(this, 2, "Complex");
         createComplex();
+        this.Macromolecule = new ShapeObjectType(this, 3, "Macromolecule");
+        createMacromolecule();
+        this.State = new ShapeObjectType(this, 4, "State");
+        createState();
+        this.UnitOfInf = new ShapeObjectType(this, 5, "UnitOfInf");
+        createUnitOfInf();
+        this.SimpleChem = new ShapeObjectType(this, 6, "SimpleChem");
+        createSimpleChem();
+        this.CloneMarker = new ShapeObjectType(this, 7, "CloneMarker");
+        createCloneMarker();
+        this.MMultimer = new ShapeObjectType(this, 8, "MMultimer");
+        createMMultimer();
+        this.SMultimer = new ShapeObjectType(this, 9, "SMultimer");
+        createSMultimer();
+        this.UnspecEntity = new ShapeObjectType(this, 10, "UnspecEntity");
+        createUnspecEntity();
+        this.Sink = new ShapeObjectType(this, 11, "Sink");
+        createSink();
+        this.Source = new ShapeObjectType(this, 12, "Source");
+        createSource();
+        this.Perturbation = new ShapeObjectType(this, 13, "Perturbation");
+        createPerturbation();
+        this.Observable = new ShapeObjectType(this, 14, "Observable");
+        createObservable();
         this.GeneticUnit = new ShapeObjectType(this, 15, "GeneticUnit");
         createGeneticUnit();
-        this.Macromolecule = new ShapeObjectType(this, 16, "Macromolecule");
-        createMacromolecule();
-        this.MMultimer = new ShapeObjectType(this, 17, "MMultimer");
-        createMMultimer();
-        this.SimpleChem = new ShapeObjectType(this, 18, "SimpleChem");
-        createSimpleChem();
-        this.SMultimer = new ShapeObjectType(this, 19, "SMultimer");
-        createSMultimer();
-        this.UnspecEntity = new ShapeObjectType(this, 110, "UnspecEntity");
-        createUnspecEntity();
-        this.Sink = new ShapeObjectType(this, 111, "Sink");
-        createSink();
-        this.Source = new ShapeObjectType(this, 112, "Source");
-        createSource();
-        this.Perturbation = new ShapeObjectType(this, 113, "Perturbation");
-        createPerturbation();
-        this.Observable = new ShapeObjectType(this, 114, "Observable");
-        createObservable();
-        this.Submap = new ShapeObjectType(this, 115, "Submap");
+        this.Submap = new ShapeObjectType(this, 16, "Submap");
         createSubmap();
-        this.Interface = new ShapeObjectType(this, 116, "Interface");
+        this.Interface = new ShapeObjectType(this, 17, "Interface");
         createInterface();
-        this.Tag = new ShapeObjectType(this, 117, "Tag");
+        this.Tag = new ShapeObjectType(this, 18, "Tag");
         createTag();
-        this.Process = new ShapeObjectType(this, 118, "Process");
+        this.Process = new ShapeObjectType(this, 19, "Process");
         createTransition();
-        this.OmittedProcess = new ShapeObjectType(this, 119, "OmittedProcess");
+        this.OmittedProcess = new ShapeObjectType(this, 20, "OmittedProcess");
         createOmittedProcess();
-        this.UncertainProcess = new ShapeObjectType(this, 120,
+        this.UncertainProcess = new ShapeObjectType(this, 21,
                 "UncertainProcess");
         createUncertainProcess();
-        this.Association = new ShapeObjectType(this, 121, "Association");
+        this.Association = new ShapeObjectType(this, 22, "Association");
         createAssociation();
-        this.Dissociation = new ShapeObjectType(this, 122, "Dissociation");
+        this.Dissociation = new ShapeObjectType(this, 23, "Dissociation");
         createDissociation();
-        this.AndGate = new ShapeObjectType(this, 123, "AndGate");
+        this.AndGate = new ShapeObjectType(this, 24, "AndGate");
         createAndGate();
-        this.OrGate = new ShapeObjectType(this, 124, "OrGate");
+        this.OrGate = new ShapeObjectType(this, 25, "OrGate");
         createOrGate();
-        this.NotGate = new ShapeObjectType(this, 125, "NotGate");
+        this.NotGate = new ShapeObjectType(this, 26, "NotGate");
         createNotGate();
 
         defineParentingRMO();
@@ -218,23 +220,23 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         defineParentingNotGate();
 
         // links
-        this.Consumption = new LinkObjectType(this, 20, "Consumption");
+        this.Consumption = new LinkObjectType(this, 120, "Consumption");
         createConsumption();
-        this.Production = new LinkObjectType(this, 21, "Production");
+        this.Production = new LinkObjectType(this, 121, "Production");
         createProduction();
-        this.Modulation = new LinkObjectType(this, 22, "Modulation");
+        this.Modulation = new LinkObjectType(this, 122, "Modulation");
         createModulation();
-        this.Stimulation = new LinkObjectType(this, 23, "Stimulation");
+        this.Stimulation = new LinkObjectType(this, 123, "Stimulation");
         createStimulation();
-        this.Catalysis = new LinkObjectType(this, 24, "Catalysis");
+        this.Catalysis = new LinkObjectType(this, 124, "Catalysis");
         createCatalysis();
-        this.Inhibition = new LinkObjectType(this, 25, "Inhibition");
+        this.Inhibition = new LinkObjectType(this, 125, "Inhibition");
         createInhibition();
-        this.Trigger = new LinkObjectType(this, 26, "Trigger");
+        this.Trigger = new LinkObjectType(this, 126, "Trigger");
         createTrigger();
-        this.LogicArc = new LinkObjectType(this, 27, "LogicArc");
+        this.LogicArc = new LinkObjectType(this, 127, "LogicArc");
         createLogicArc();
-        this.EquivalenceArc = new LinkObjectType(this, 28, "EquivalenceArc");
+        this.EquivalenceArc = new LinkObjectType(this, 128, "EquivalenceArc");
         createEquivalenceArc();
 
         // shape set
@@ -282,7 +284,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
     }
 
     private void createRMO() {
-        this.rmo = new RootObjectType(-10, this);
+        this.rmo = new RootObjectType(0, this);
     }
 
     private void defineParentingRMO() {
