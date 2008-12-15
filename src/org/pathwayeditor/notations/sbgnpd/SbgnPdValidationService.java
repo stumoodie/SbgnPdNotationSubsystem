@@ -1,4 +1,4 @@
-package org.sbgn.epe.Sbgn1_1_0;
+package org.pathwayeditor.notations.sbgnpd;
 
 import java.util.List;
 
