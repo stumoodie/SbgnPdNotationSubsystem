@@ -1288,6 +1288,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.Consumption
                 .setDescription("Consumption is the arc used to represent the fact that an entity only affects a process, but is not affected by it");
 
+        this.Consumption.getDefaultLinkAttributes().setDescription("");
+        this.Consumption.getDefaultLinkAttributes().setDetailedDescription("");
         this.Consumption.getDefaultLinkAttributes().setLineWidth(1);
         this.Consumption.getDefaultLinkAttributes().setLineStyle(
                 LineStyle.SOLID);
@@ -1313,7 +1315,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Consumption
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1327,7 +1329,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Consumption
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 0);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1412,6 +1414,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
     private void createProduction() {
         HashSet<IShapeObjectType> set = null;
 
+        this.Production.getDefaultLinkAttributes().setDescription("");
+        this.Production.getDefaultLinkAttributes().setDetailedDescription("");
         this.Production.getDefaultLinkAttributes().setLineWidth(1);
         this.Production.getDefaultLinkAttributes()
                 .setLineStyle(LineStyle.SOLID);
@@ -1437,7 +1441,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Production
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 0);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1451,7 +1455,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Production
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 5);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.TRIANGLE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1522,6 +1526,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
     private void createModulation() {
         HashSet<IShapeObjectType> set = null;
 
+        this.Modulation.getDefaultLinkAttributes().setDescription("");
+        this.Modulation.getDefaultLinkAttributes().setDetailedDescription("");
         this.Modulation.getDefaultLinkAttributes().setLineWidth(1);
         this.Modulation.getDefaultLinkAttributes()
                 .setLineStyle(LineStyle.SOLID);
@@ -1547,7 +1553,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Modulation
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1561,7 +1567,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Modulation
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 5);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.EMPTY_DIAMOND);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1662,6 +1668,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
     private void createStimulation() {
         HashSet<IShapeObjectType> set = null;
 
+        this.Stimulation.getDefaultLinkAttributes().setDescription("");
+        this.Stimulation.getDefaultLinkAttributes().setDetailedDescription("");
         this.Stimulation.getDefaultLinkAttributes().setLineWidth(1);
         this.Stimulation.getDefaultLinkAttributes().setLineStyle(
                 LineStyle.SOLID);
@@ -1687,7 +1695,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Stimulation
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1701,7 +1709,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Stimulation
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 5);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.EMPTY_TRIANGLE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1804,6 +1812,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.Catalysis
                 .setDescription("A catalysis is a particular case of stimulation.");
 
+        this.Catalysis.getDefaultLinkAttributes().setDescription("");
+        this.Catalysis.getDefaultLinkAttributes().setDetailedDescription("");
         this.Catalysis.getDefaultLinkAttributes().setLineWidth(1);
         this.Catalysis.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
         this.Catalysis.getDefaultLinkAttributes().setLineColour(
@@ -1827,7 +1837,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Catalysis
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1841,7 +1851,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Catalysis
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 10);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.EMPTY_CIRCLE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1945,6 +1955,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.Inhibition
                 .setDescription("An inhibition affects negatively the flux of a process represented by the target transition.");
 
+        this.Inhibition.getDefaultLinkAttributes().setDescription("");
+        this.Inhibition.getDefaultLinkAttributes().setDetailedDescription("");
         this.Inhibition.getDefaultLinkAttributes().setLineWidth(1);
         this.Inhibition.getDefaultLinkAttributes()
                 .setLineStyle(LineStyle.SOLID);
@@ -1970,7 +1982,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Inhibition
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -1984,7 +1996,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Inhibition
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 5);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.BAR);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2088,6 +2100,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.Trigger
                 .setDescription("A trigger effect, or absolute stimulation, is a stimulation that is necessary for a process to take place.");
 
+        this.Trigger.getDefaultLinkAttributes().setDescription("");
+        this.Trigger.getDefaultLinkAttributes().setDetailedDescription("");
         this.Trigger.getDefaultLinkAttributes().setLineWidth(1);
         this.Trigger.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
         this.Trigger.getDefaultLinkAttributes().setLineColour(new RGB(0, 0, 0));
@@ -2110,7 +2124,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.Trigger
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2124,7 +2138,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.Trigger
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 0);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.TRIANGLE_BAR);
         tport.getLinkTerminusDefaults().setEndSize(new Size(5, 5));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2227,6 +2241,9 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
 
         this.LogicArc
                 .setDescription("Logic arc is the arc used to represent the fact that an entity influences outcome of logic operator.");
+
+        this.LogicArc.getDefaultLinkAttributes().setDescription("");
+        this.LogicArc.getDefaultLinkAttributes().setDetailedDescription("");
         this.LogicArc.getDefaultLinkAttributes().setLineWidth(1);
         this.LogicArc.getDefaultLinkAttributes().setLineStyle(LineStyle.SOLID);
         this.LogicArc.getDefaultLinkAttributes()
@@ -2250,7 +2267,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.LogicArc
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2264,7 +2281,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.LogicArc
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 0);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2358,6 +2375,8 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         this.EquivalenceArc
                 .setDescription("Equivalence Arc is the arc used to represent the fact that all entities marked by the tag are equivalent.");
 
+        this.EquivalenceArc.getDefaultLinkAttributes().setDescription("");
+        this.EquivalenceArc.getDefaultLinkAttributes().setDetailedDescription("");
         this.EquivalenceArc.getDefaultLinkAttributes().setLineWidth(1);
         this.EquivalenceArc.getDefaultLinkAttributes().setLineStyle(
                 LineStyle.SOLID);
@@ -2379,7 +2398,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition sport = this.EquivalenceArc
                 .getSourceTerminusDefinition();
         sport.getLinkTerminusDefaults().setGap((short) 5);
-        sport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        sport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         sport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         sport.getLinkTerminusDefaults().setTermDecoratorType(
@@ -2393,7 +2412,7 @@ public class SbgnPdSyntaxService implements INotationSyntaxService {
         LinkTerminusDefinition tport = this.EquivalenceArc
                 .getTargetTerminusDefinition();
         tport.getLinkTerminusDefaults().setGap((short) 5);
-        tport.getLinkTerminusDefaults().setLinkEndDecoratorShape(
+        tport.getLinkTerminusDefaults().setEndDecoratorType(
                 LinkEndDecoratorShape.NONE);
         tport.getLinkTerminusDefaults().setEndSize(new Size(8, 8));
         tport.getLinkTerminusDefaults().setTermDecoratorType(
