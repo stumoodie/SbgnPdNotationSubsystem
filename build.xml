@@ -20,7 +20,7 @@
 		<pathelement location="${build.dir.src}" />
 		<pathelement location="${lib.dir}/CompoundGraph/CompoundGraph.jar" />
 		<pathelement location="${lib.dir}/BusinessObjects/BusinessObjects.jar" />
-		<pathelement location="${lib.dir}/ToolKit/toolkit.jar" />
+		<pathelement location="${lib.dir}/Toolkit/toolkit.jar" />
 	</path>
 
 	<path id="test.classpath">

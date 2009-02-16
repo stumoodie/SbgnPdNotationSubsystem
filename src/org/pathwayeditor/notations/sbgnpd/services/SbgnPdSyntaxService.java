@@ -1,4 +1,4 @@
-package org.pathwayeditor.notations.sbgnpd;
+package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -27,14 +27,14 @@ import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.FormattedTextPropertyDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.LinkObjectType;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.LinkTerminusDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.NumberPropertyDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.PlainTextPropertyDefinition;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.RootObjectType;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.ShapeObjectType;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.TextPropertyDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.FormattedTextPropertyDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.NumberPropertyDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.PlainTextPropertyDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.RootObjectType;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.ShapeObjectType;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.TextPropertyDefinition;
 
 public class SbgnPdSyntaxService implements INotationSyntaxService {
 

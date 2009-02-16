@@ -1,6 +1,6 @@
-package org.pathwayeditor.notations.sbgnpd;
+package org.pathwayeditor.notations.sbgnpd.services;
 
-import java.util.List;
+import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
@@ -21,7 +21,7 @@ public class SbgnPdValidationService implements INotationValidationService {
         return serviceProvider;
     }
 
-    public ICanvas getMapBeingValidated() {
+    public ICanvas getCanvasBeingValidated() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
@@ -31,7 +31,7 @@ public class SbgnPdValidationService implements INotationValidationService {
                 "Validation service has not been implemented for this notation subsystem");
     }
 
-    public boolean hasMapBeenValidated() {
+    public boolean hasBeenValidated() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
@@ -45,7 +45,7 @@ public class SbgnPdValidationService implements INotationValidationService {
         return false;
     }
 
-    public boolean isMapValid() {
+    public boolean isValid() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
@@ -55,17 +55,17 @@ public class SbgnPdValidationService implements INotationValidationService {
                 "Validation service has not been implemented for this notation subsystem");
     }
 
-    public void setMapToValidate(ICanvas mapToValidate) {
+    public void setCanvasToValidate(ICanvas mapToValidate) {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
 
-    public void validateMap() {
+    public void validate() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
 
-    public List<IValidationRuleDefinition> getRules() {
+    public Set<IValidationRuleDefinition> getRules() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }

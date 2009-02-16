@@ -1,4 +1,4 @@
-package org.pathwayeditor.notations.sbgnpd;
+package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.util.Collections;
 import java.util.Set;
@@ -13,7 +13,7 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationImportServic
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationPluginService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationService;
-import org.pathwayeditor.contextadapter.toolkit.ctxdefn.GeneralNotation;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.GeneralNotation;
 
 public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private static final String GLOBAL_ID = "org.pathwayeditor.notations.sbgnpd";
