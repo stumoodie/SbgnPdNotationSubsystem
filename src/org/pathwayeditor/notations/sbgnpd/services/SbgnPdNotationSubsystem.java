@@ -20,13 +20,13 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private static final String DESCRIPTION = "SBGN Process Diagram Notation";
 	private static final String NAME = "SBGN-PD";
 	private static final Version VERSION = new Version(1, 1, 0);
-	private SbgnPdSyntaxService syntaxService;
+	private SbgnPdNotationSyntaxService syntaxService;
 	private SbgnPdValidationService validationService;
 	private INotation context;
 
 	public SbgnPdNotationSubsystem() {
 		this.context = new GeneralNotation(GLOBAL_ID, NAME, DESCRIPTION, VERSION);
-		this.syntaxService = new SbgnPdSyntaxService(this);
+		this.syntaxService = new SbgnPdNotationSyntaxService(this);
 		this.validationService=new SbgnPdValidationService(this);
 	}
 	
@@ -47,7 +47,7 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 		return Collections.emptySet();
 	}
 
-	public SbgnPdSyntaxService getSyntaxService() {
+	public SbgnPdNotationSyntaxService getSyntaxService() {
 		return this.syntaxService;
 	}
 

@@ -1,4 +1,4 @@
-context org.sbgn.epe.Sbgn (name="SBGN-ST" descr="SBGN process diagram language context" version=0.0.0)
+context org.sbgn.epe.SbgnPd (name="SBGN-PD" descr="SBGN process diagram language context" version=1.0.0)
 
 property GOTerm (name="GO term" descr="GO annotation" type = simple)
 property SBOTerm (name="SBO term" descr="SBO term" type = simple)
@@ -39,7 +39,7 @@ shape 	Compartment (name="Compartment" descr="Functional compartment"
 		fcolor(read-only) = [248,234,190]
 		GOTerm = " "
 		contains ![State]
-		URL = "http://www.proteinatlas.org"
+		Url = "http://www.proteinatlas.org"
 	)
 //EntityPoolNodes
 //Statefull nodes
@@ -49,7 +49,7 @@ shape Complex (name="Complex" descr="SBGN complex"
 		lcolor(read-only) = [1,1,1]
 		fcolor(read-only) = [201,223,198]
 		contains [State,UnitOfInf,Macromolecule,SimpleChem,Complex,CloneMarker]
-		URL = "http://"
+		Url = "http://"
 	)
 	
 shape GeneticUnit(name="Genetic unit" descr="Unit of genetical information"
@@ -156,7 +156,7 @@ shape Tag (name="Tag" descr="Mark node to be interface to submap"
 	)
 	
 //Process nodes	
-shape Transition (name="Transition" descr="transition"
+shape Process (name="Process" descr="Process node"
 		stype = RECTANGLE
 		size = [20,20]
 		lwidth= 2
@@ -217,13 +217,13 @@ shape NotGate (name= "NOT gate" descr="NOT logic Gate"
 //Links	
 link	Consumption (name="Consumption Link"  descr="Consumption is the arc used to represent the fact that an entity only affects a process, but is not affected by it"
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Source  target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Source  target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
@@ -241,7 +241,7 @@ link	Consumption (name="Consumption Link"  descr="Consumption is the arc used to
 
 link	Production (name="Production Link"  descr="Production is the arc used to represent the fact that an entity is produced by a process."
 		lcolor = [0,0,0]
-		source = Transition target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
+		source = Process target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
 		source = OmittedProcess target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
 		source = UncertainProcess target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
 		source = Association target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
@@ -262,15 +262,15 @@ link	Production (name="Production Link"  descr="Production is the arc used to re
 	
 link	Modulation (name="Modulation Link" descr="A modulation affects the flux of a process represented by the target transition."
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
@@ -289,15 +289,15 @@ link	Modulation (name="Modulation Link" descr="A modulation affects the flux of 
 	
 link	Stimulation (name="Stimulation Link" descr="A stimulation affects positively the flux of a process represented by the target transition."
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
@@ -315,15 +315,15 @@ link	Stimulation (name="Stimulation Link" descr="A stimulation affects positivel
 
 link	Catalysis (name="Catalysis Link" descr="A catalysis is a particular case of stimulation."
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
@@ -341,15 +341,15 @@ link	Catalysis (name="Catalysis Link" descr="A catalysis is a particular case of
 
 link	Inhibition (name="Inhibition Link" descr="An inhibition affects negatively the flux of a process represented by the target transition."
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
@@ -367,15 +367,15 @@ link	Inhibition (name="Inhibition Link" descr="An inhibition affects negatively 
 	
 link	Trigger (name="Trigger Link" descr="A trigger effect, or absolute stimulation, is a stimulation that is necessary for a process to take place."
 		lcolor = [0,0,0]
-		source = Complex target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = Macromolecule target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = MMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SimpleChem target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = SMultimer target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = UnspecEntity target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = AndGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = OrGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
-		source = NotGate target = [Transition,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Complex target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = Macromolecule target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = MMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SimpleChem target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = SMultimer target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = UnspecEntity target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = AndGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = OrGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
+		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
 			size = [0,0]
