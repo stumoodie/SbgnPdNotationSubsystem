@@ -1,4 +1,4 @@
-context org.sbgn.epe.SbgnPd (name="SBGN-PD" descr="SBGN process diagram language context" version=1.0.0)
+context org.pathwayeditor.notations.SbgnPd (name="SBGN-PD" descr="SBGN process diagram language context" version=1.0.0)
 
 property GOTerm (name="GO term" descr="GO annotation" type = simple)
 property SBOTerm (name="SBO term" descr="SBO term" type = simple)
@@ -10,16 +10,16 @@ RMO	( contains ![State,UnitOfInf])
 shape State (name = "State" descr="State variable value"
 		stype = ELLIPSE
 		size=[25,25]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [240,247,255]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains []
 	)
 	
 shape UnitOfInf (name = "UnitOfInf" descr="Auxiliary information box"
 		stype = RECTANGLE
 		size = [65,25]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [240,247,255]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains []
 	)
 	
@@ -28,69 +28,73 @@ shape CloneMarker (name="CloneMarker" descr = "Mark the node to be cloned"
 		size = [40,20]
 		contains []
 		fcolor = [0,0,0]
+		Name = "Clone"
 	)
 
 //Compartment
 shape 	Compartment (name="Compartment" descr="Functional compartment"
 		stype = ROUNDED_RECTANGLE
 		size = [200,200]
-		lwidth(read-only) = 3
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [248,234,190]
+		lwidth = 3
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		GOTerm = " "
 		contains ![State]
-		Url = "http://www.proteinatlas.org"
+		Url = " "
 	)
 //EntityPoolNodes
 //Statefull nodes
 shape Complex (name="Complex" descr="SBGN complex"
 		stype = IRREGULAR_OCTAGON
 		size = [120,80]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [201,223,198]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [State,UnitOfInf,Macromolecule,SimpleChem,Complex,CloneMarker]
-		Url = "http://"
+		Url = " "
 	)
 	
 shape GeneticUnit(name="Genetic unit" descr="Unit of genetical information"
 		stype = ROUNDED_RECTANGLE //!!!!!!!!!!!!!!!!!!!!!!!!
 		size = [60,40]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [State,UnitOfInf]
 	)
 	
 shape Macromolecule(name="Macromolecule" descr="Macromolecule"
 		stype = ROUNDED_RECTANGLE
 		size = [60,40]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [State,UnitOfInf,CloneMarker]
+		Name = "Macromolecule"
 	)
 	
 shape MMultimer (name = "Macromoleclar Multimer" descr = "Macromoleclar Multimer"
 		stype = MULTIMER
 		size = [90,40]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [State,UnitOfInf,CloneMarker]
+		Name = "Multimer"
 	)
 
 //Stateless nodes	
 shape SimpleChem (name=" " descr="Simple chemical"
 		stype = ELLIPSE
 		size = [30,30]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		Label = "Simple chemical"
+		Name = "Compound"
 		contains [CloneMarker]
 	)
 	
 shape SMultimer (name = "Chemical Multimer" descr = "Chemical Multimer"
 		stype = ELLIPSE_MULTIMER
 		size = [30,30]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [CloneMarker]
 	)
 		
@@ -98,8 +102,8 @@ shape SMultimer (name = "Chemical Multimer" descr = "Chemical Multimer"
 shape UnspecEntity (name="Unspecified entity"	descr="Unspecified entity"
 		stype = ELLIPSE
 		size = [60,40]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [219,223,254]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [CloneMarker]
 	)
 	
@@ -119,16 +123,16 @@ shape Source (name="Source" descr="Source"
 shape Perturbation (name="Perturbation" descr="Perturbation"
 		stype= XSHAPE //to be modified!!!!!
 		size = [80,60]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [255,250,145]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains []
 	)
 	
 shape Observable (name="Observable" descr="Observable"
 		stype = HEXAGON
 		size = [80,60]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [255,250,145]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains []
 	)
 
@@ -136,12 +140,12 @@ shape Observable (name="Observable" descr="Observable"
 shape Module (name="Submap" descr="collapsed part of diagram"
 		stype = RECTANGLE
 		size = [120,120]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [255,250,145]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains [Port,UnitOfInf]
 	)
 	
-shape Port (name="Port" descr="Interface to the submap"
+shape Port (name="SubmapPort" descr="Interface to the submap"
 		stype = RECTANGLE
 		size = [20,35]
 		contains []
@@ -150,8 +154,8 @@ shape Port (name="Port" descr="Interface to the submap"
 shape Tag (name="Tag" descr="Mark node to be interface to submap"
 		stype = RH_SIGN_ARROW
 		size = [40,20]
-		lcolor(read-only) = [1,1,1]
-		fcolor(read-only) = [255,250,145]
+		lcolor = [0,0,0]
+		fcolor = [255,255,255]
 		contains []
 	)
 	
@@ -160,6 +164,7 @@ shape Process (name="Process" descr="Process node"
 		stype = RECTANGLE
 		size = [20,20]
 		lwidth= 2
+		Name(read-only) = " "
 		contains []
 	)
 	
@@ -168,7 +173,7 @@ shape OmittedProcess (name ="Omitted process" descr= "omitted process"
 		size = [20,20]
 		lwidth= 2
 		contains []
-		Name(read-only) = "//" //"<p align=\"center\"><font face=\"Arial\" size=\"6\" color=\"#ff0000\"><b>//</b></font></p>"
+		Name(read-only) = "//"
 	)
 	
 shape UncertainProcess (name ="Uncertain process" descr="Uncertain process"
@@ -184,33 +189,35 @@ shape Association (name="Association" descr="Association"
 		size = [20,20]
 		contains []
 		fcolor = [0,0,0]
+		Name(read-only) = " "
 	)
 	
 shape Dissociation (name="Dissociation" descr="Dissociation"
 		stype = CONCENTRIC_CIRCLES
 		size = [20,20]
 		contains []
+		Name(read-only) = " "
 	)
 	
 //Logic gates
 shape AndGate (name= "AND gate" descr="AndGate"
 		stype =ELLIPSE
 		size = [40,40]
-		Name ="AND"
+		Name(read-only) ="AND"
 		contains []
 	)
 
 shape OrGate (name= "OR gate" descr="OR logic Gate"
 		stype =ELLIPSE
 		size = [40,40]
-		Name ="OR"
+		Name(read-only) ="OR"
 		contains []
 	)
 
 shape NotGate (name= "NOT gate" descr="NOT logic Gate"
 		stype =ELLIPSE
 		size = [40,40]
-		Name ="NOT"
+		Name(read-only) ="NOT"
 		contains []
 	)
 
@@ -226,13 +233,13 @@ link	Consumption (name="Consumption Link"  descr="Consumption is the arc used to
 		source = Source  target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 		)
 		tport = NONE (stype = RECTANGLE
 			offset = 0
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 			Stoich = "1"
@@ -247,13 +254,14 @@ link	Production (name="Production Link"  descr="Production is the arc used to re
 		source = Association target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
 		source = Dissociation target = [ Complex, Macromolecule, MMultimer, SimpleChem, SMultimer, UnspecEntity,Sink]
 		sport = NONE (stype = RECTANGLE
-			size = [0,0]
+			offset = 0
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 		)
 		tport = TRIANGLE[5,5] (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 			Stoich = "1"
@@ -273,13 +281,13 @@ link	Modulation (name="Modulation Link" descr="A modulation affects the flux of 
 		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 		)
 		tport = EMPTY_DIAMOND[5,5] (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 			Stoich = "1"
@@ -300,13 +308,13 @@ link	Stimulation (name="Stimulation Link" descr="A stimulation affects positivel
 		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 		)
 		tport = EMPTY_TRIANGLE[5,5] (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 			Stoich = "1"
@@ -326,13 +334,13 @@ link	Catalysis (name="Catalysis Link" descr="A catalysis is a particular case of
 		source = NotGate target = [Process,OmittedProcess,UncertainProcess,Association,Dissociation]
 		sport = NONE (stype = RECTANGLE
 			offset = 5
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 		)
 		tport = EMPTY_CIRCLE[5,5] (stype = RECTANGLE
 			offset = 10
-			size = [0,0]
+			size(read-only) = [0,0]
 			lcolor = [0,0,0]
 			fcolor = [255,255,255]
 			Stoich = "1"

@@ -1,5 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.services;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.Set;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.ConnectionRouter;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
@@ -113,7 +115,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	
 	private static NumberPropertyDefinition reassignVal(NumberPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
-		NumberPropertyDefinition newP=new NumberPropertyDefinition(prop.getName(),val,(prop.isVisualisable() | isVis),(prop.isEditable()&isEdit));
+		NumberPropertyDefinition newP=new NumberPropertyDefinition(prop.getName(), new BigDecimal(val),(prop.isVisualisable() | isVis),(prop.isEditable()&isEdit));
  //   if(newP.isVisualisable())newP.setAppearance(prop.getAppearance());
 		return newP;
 	}
@@ -389,19 +391,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.State.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.State.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.State.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.State.getDefaultAttributes().setLineWidth(1);
 	this.State.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.State.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.State.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{25,25};
-			this.State.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{240,247,255};
+			this.State.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.State.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.State.getDefaultAttributes().setFillEditable(false);
+	//this.State.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -418,10 +420,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.State.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.State.getDefaultAttributes().setLineColourEditable(false);
+	//this.State.getDefaultAttributes().setLineColourEditable(true);
 	this.State.setEditableAttributes(editableAttributes);
 	this.State.getDefaultAttributes().setUrl("");
 	}
@@ -439,19 +441,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UnitOfInf.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnitOfInf.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.UnitOfInf.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.UnitOfInf.getDefaultAttributes().setLineWidth(1);
 	this.UnitOfInf.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.UnitOfInf.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.UnitOfInf.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{65,25};
-			this.UnitOfInf.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{240,247,255};
+			this.UnitOfInf.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.UnitOfInf.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.UnitOfInf.getDefaultAttributes().setFillEditable(false);
+	//this.UnitOfInf.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -468,10 +470,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.UnitOfInf.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.UnitOfInf.getDefaultAttributes().setLineColourEditable(false);
+	//this.UnitOfInf.getDefaultAttributes().setLineColourEditable(true);
 	this.UnitOfInf.setEditableAttributes(editableAttributes);
 	this.UnitOfInf.getDefaultAttributes().setUrl("");
 	}
@@ -524,6 +526,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.CloneMarker.getDefaultAttributes().setLineColourEditable(true);
 	this.CloneMarker.setEditableAttributes(editableAttributes);
 	this.CloneMarker.getDefaultAttributes().setUrl("");
+	 	
+	 	this.CloneMarker.getDefaultAttributes().setName("Clone");
+	 
 	}
 
 		private void defineParentingCloneMarker(){
@@ -539,19 +544,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Compartment.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Compartment.getDefaultAttributes().setLineWidth(3);
 	this.Compartment.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Compartment.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{200,200};
-			this.Compartment.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{248,234,190};
+			this.Compartment.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Compartment.getDefaultAttributes().setFillEditable(false);
+	//this.Compartment.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -564,20 +569,20 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
 	}
 	//this.Compartment.getDefaultAttributes().setLineStyleEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
-	//this.Compartment.getDefaultAttributes().setLineWidthEditable(false);
-	if(false){
+	//this.Compartment.getDefaultAttributes().setLineWidthEditable(true);
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Compartment.getDefaultAttributes().setLineColourEditable(false);
+	//this.Compartment.getDefaultAttributes().setLineColourEditable(true);
 	this.Compartment.setEditableAttributes(editableAttributes);
 	this.Compartment.getDefaultAttributes().setUrl("");
 	IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
 	Compartment.getDefaultAttributes().addPropertyDefinition(GOTerm);
 	  	
-	 	this.Compartment.getDefaultAttributes().setUrl("http://www.proteinatlas.org");
+	 	this.Compartment.getDefaultAttributes().setUrl(" ");
 	 
 	}
 
@@ -600,19 +605,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Complex.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Complex.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Complex.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Complex.getDefaultAttributes().setLineWidth(1);
 	this.Complex.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Complex.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Complex.getDefaultAttributes().setShapeType(PrimitiveShapeType.IRREGULAR_OCTAGON);		int[] s=new int[]{120,80};
-			this.Complex.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{201,223,198};
+			this.Complex.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Complex.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Complex.getDefaultAttributes().setFillEditable(false);
+	//this.Complex.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -629,14 +634,14 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Complex.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Complex.getDefaultAttributes().setLineColourEditable(false);
+	//this.Complex.getDefaultAttributes().setLineColourEditable(true);
 	this.Complex.setEditableAttributes(editableAttributes);
 	this.Complex.getDefaultAttributes().setUrl("");
 	 	
-	 	this.Complex.getDefaultAttributes().setUrl("http://");
+	 	this.Complex.getDefaultAttributes().setUrl(" ");
 	 
 	}
 
@@ -658,19 +663,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.GeneticUnit.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.GeneticUnit.getDefaultAttributes().setLineWidth(1);
 	this.GeneticUnit.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.GeneticUnit.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
-			this.GeneticUnit.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.GeneticUnit.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setFillEditable(false);
+	//this.GeneticUnit.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -687,10 +692,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.GeneticUnit.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setLineColourEditable(false);
+	//this.GeneticUnit.getDefaultAttributes().setLineColourEditable(true);
 	this.GeneticUnit.setEditableAttributes(editableAttributes);
 	this.GeneticUnit.getDefaultAttributes().setUrl("");
 	}
@@ -713,19 +718,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Macromolecule.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Macromolecule.getDefaultAttributes().setLineWidth(1);
 	this.Macromolecule.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Macromolecule.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
-			this.Macromolecule.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.Macromolecule.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Macromolecule.getDefaultAttributes().setFillEditable(false);
+	//this.Macromolecule.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -742,12 +747,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Macromolecule.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Macromolecule.getDefaultAttributes().setLineColourEditable(false);
+	//this.Macromolecule.getDefaultAttributes().setLineColourEditable(true);
 	this.Macromolecule.setEditableAttributes(editableAttributes);
 	this.Macromolecule.getDefaultAttributes().setUrl("");
+	 	
+	 	this.Macromolecule.getDefaultAttributes().setName("Macromolecule");
+	 
 	}
 
 		private void defineParentingMacromolecule(){
@@ -768,19 +776,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.MMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.MMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.MMultimer.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.MMultimer.getDefaultAttributes().setLineWidth(1);
 	this.MMultimer.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.MMultimer.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.MMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.MULTIMER);		int[] s=new int[]{90,40};
-			this.MMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.MMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.MMultimer.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.MMultimer.getDefaultAttributes().setFillEditable(false);
+	//this.MMultimer.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -797,12 +805,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.MMultimer.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.MMultimer.getDefaultAttributes().setLineColourEditable(false);
+	//this.MMultimer.getDefaultAttributes().setLineColourEditable(true);
 	this.MMultimer.setEditableAttributes(editableAttributes);
 	this.MMultimer.getDefaultAttributes().setUrl("");
+	 	
+	 	this.MMultimer.getDefaultAttributes().setName("Multimer");
+	 
 	}
 
 		private void defineParentingMMultimer(){
@@ -823,19 +834,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.SimpleChem.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.SimpleChem.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.SimpleChem.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.SimpleChem.getDefaultAttributes().setLineWidth(1);
 	this.SimpleChem.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.SimpleChem.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.SimpleChem.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{30,30};
-			this.SimpleChem.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.SimpleChem.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.SimpleChem.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.SimpleChem.getDefaultAttributes().setFillEditable(false);
+	//this.SimpleChem.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -852,14 +863,16 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.SimpleChem.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.SimpleChem.getDefaultAttributes().setLineColourEditable(false);
+	//this.SimpleChem.getDefaultAttributes().setLineColourEditable(true);
 	this.SimpleChem.setEditableAttributes(editableAttributes);
 	this.SimpleChem.getDefaultAttributes().setUrl("");
 	IPropertyDefinition Label=reassignVal(getPropLabel(),"Simple chemical",true,false);
 	SimpleChem.getDefaultAttributes().addPropertyDefinition(Label);
+	  	
+	 	this.SimpleChem.getDefaultAttributes().setName("Compound");
 	 
 	}
 
@@ -881,19 +894,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.SMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.SMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.SMultimer.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.SMultimer.getDefaultAttributes().setLineWidth(1);
 	this.SMultimer.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.SMultimer.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.SMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE_MULTIMER);		int[] s=new int[]{30,30};
-			this.SMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.SMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.SMultimer.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.SMultimer.getDefaultAttributes().setFillEditable(false);
+	//this.SMultimer.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -910,10 +923,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.SMultimer.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.SMultimer.getDefaultAttributes().setLineColourEditable(false);
+	//this.SMultimer.getDefaultAttributes().setLineColourEditable(true);
 	this.SMultimer.setEditableAttributes(editableAttributes);
 	this.SMultimer.getDefaultAttributes().setUrl("");
 	}
@@ -936,19 +949,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UnspecEntity.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnspecEntity.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.UnspecEntity.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.UnspecEntity.getDefaultAttributes().setLineWidth(1);
 	this.UnspecEntity.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.UnspecEntity.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.UnspecEntity.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{60,40};
-			this.UnspecEntity.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{219,223,254};
+			this.UnspecEntity.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.UnspecEntity.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.UnspecEntity.getDefaultAttributes().setFillEditable(false);
+	//this.UnspecEntity.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -965,10 +978,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.UnspecEntity.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.UnspecEntity.getDefaultAttributes().setLineColourEditable(false);
+	//this.UnspecEntity.getDefaultAttributes().setLineColourEditable(true);
 	this.UnspecEntity.setEditableAttributes(editableAttributes);
 	this.UnspecEntity.getDefaultAttributes().setUrl("");
 	}
@@ -1089,19 +1102,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Perturbation.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Perturbation.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Perturbation.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Perturbation.getDefaultAttributes().setLineWidth(1);
 	this.Perturbation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Perturbation.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Perturbation.getDefaultAttributes().setShapeType(PrimitiveShapeType.XSHAPE);		int[] s=new int[]{80,60};
-			this.Perturbation.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,250,145};
+			this.Perturbation.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Perturbation.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Perturbation.getDefaultAttributes().setFillEditable(false);
+	//this.Perturbation.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -1118,10 +1131,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Perturbation.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Perturbation.getDefaultAttributes().setLineColourEditable(false);
+	//this.Perturbation.getDefaultAttributes().setLineColourEditable(true);
 	this.Perturbation.setEditableAttributes(editableAttributes);
 	this.Perturbation.getDefaultAttributes().setUrl("");
 	}
@@ -1139,19 +1152,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Observable.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Observable.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Observable.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Observable.getDefaultAttributes().setLineWidth(1);
 	this.Observable.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Observable.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Observable.getDefaultAttributes().setShapeType(PrimitiveShapeType.HEXAGON);		int[] s=new int[]{80,60};
-			this.Observable.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,250,145};
+			this.Observable.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Observable.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Observable.getDefaultAttributes().setFillEditable(false);
+	//this.Observable.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -1168,10 +1181,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Observable.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Observable.getDefaultAttributes().setLineColourEditable(false);
+	//this.Observable.getDefaultAttributes().setLineColourEditable(true);
 	this.Observable.setEditableAttributes(editableAttributes);
 	this.Observable.getDefaultAttributes().setUrl("");
 	}
@@ -1189,19 +1202,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Module.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Module.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Module.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Module.getDefaultAttributes().setLineWidth(1);
 	this.Module.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Module.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Module.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{120,120};
-			this.Module.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,250,145};
+			this.Module.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Module.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Module.getDefaultAttributes().setFillEditable(false);
+	//this.Module.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -1218,10 +1231,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Module.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Module.getDefaultAttributes().setLineColourEditable(false);
+	//this.Module.getDefaultAttributes().setLineColourEditable(true);
 	this.Module.setEditableAttributes(editableAttributes);
 	this.Module.getDefaultAttributes().setUrl("");
 	}
@@ -1240,7 +1253,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createPort(){
 	this.Port.setDescription("Interface to the submap");//ment to be TypeDescription rather
-	this.Port.getDefaultAttributes().setName("Port");
+	this.Port.getDefaultAttributes().setName("SubmapPort");
 	this.Port.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Port.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Port.getDefaultAttributes().setSize(new Size(20,20));
@@ -1293,19 +1306,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Tag.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Tag.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Tag.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{1,1,1};
+	int[] lc=new int[]{0,0,0};
 	this.Tag.getDefaultAttributes().setLineWidth(1);
 	this.Tag.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Tag.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Tag.getDefaultAttributes().setShapeType(PrimitiveShapeType.RH_SIGN_ARROW);		int[] s=new int[]{40,20};
-			this.Tag.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,250,145};
+			this.Tag.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Tag.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.Tag.getDefaultAttributes().setFillEditable(false);
+	//this.Tag.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
@@ -1322,10 +1335,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
 	//this.Tag.getDefaultAttributes().setLineWidthEditable(true);
-	if(false){
+	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.Tag.getDefaultAttributes().setLineColourEditable(false);
+	//this.Tag.getDefaultAttributes().setLineColourEditable(true);
 	this.Tag.setEditableAttributes(editableAttributes);
 	this.Tag.getDefaultAttributes().setUrl("");
 	}
@@ -1377,6 +1390,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Process.getDefaultAttributes().setLineColourEditable(true);
 	this.Process.setEditableAttributes(editableAttributes);
 	this.Process.getDefaultAttributes().setUrl("");
+	 	
+	 	this.Process.getDefaultAttributes().setName(" ");
+	 
 	}
 
 		private void defineParentingProcess(){
@@ -1531,6 +1547,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Association.getDefaultAttributes().setLineColourEditable(true);
 	this.Association.setEditableAttributes(editableAttributes);
 	this.Association.getDefaultAttributes().setUrl("");
+	 	
+	 	this.Association.getDefaultAttributes().setName(" ");
+	 
 	}
 
 		private void defineParentingAssociation(){
@@ -1580,6 +1599,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Dissociation.getDefaultAttributes().setLineColourEditable(true);
 	this.Dissociation.setEditableAttributes(editableAttributes);
 	this.Dissociation.getDefaultAttributes().setUrl("");
+	 	
+	 	this.Dissociation.getDefaultAttributes().setName(" ");
+	 
 	}
 
 		private void defineParentingDissociation(){
@@ -1757,6 +1779,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Consumption.getDefaultAttributes().setName("Consumption Link");
 	this.Consumption.getDefaultAttributes().setDescription("");
 	this.Consumption.getDefaultAttributes().setDetailedDescription("");
+	this.Consumption.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -1869,6 +1892,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Production.getDefaultAttributes().setName("Production Link");
 	this.Production.getDefaultAttributes().setDescription("");
 	this.Production.getDefaultAttributes().setDetailedDescription("");
+	this.Production.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -1889,7 +1913,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//LinkEndDefinition tport=this.Production.getLinkTarget();
 	LinkTerminusDefinition sport=this.Production.getSourceTerminusDefinition();
 	LinkTerminusDefinition tport=this.Production.getTargetTerminusDefinition();
-	sport.getDefaultAttributes().setGap((short)0);//to set default offset value
+	sport.getDefaultAttributes().setGap((short)0);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
 	sport.getDefaultAttributes().setEndSize(new Size(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
@@ -1971,6 +1995,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Modulation.getDefaultAttributes().setName("Modulation Link");
 	this.Modulation.getDefaultAttributes().setDescription("");
 	this.Modulation.getDefaultAttributes().setDetailedDescription("");
+	this.Modulation.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2093,6 +2118,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Stimulation.getDefaultAttributes().setName("Stimulation Link");
 	this.Stimulation.getDefaultAttributes().setDescription("");
 	this.Stimulation.getDefaultAttributes().setDetailedDescription("");
+	this.Stimulation.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2215,6 +2241,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Catalysis.getDefaultAttributes().setName("Catalysis Link");
 	this.Catalysis.getDefaultAttributes().setDescription("");
 	this.Catalysis.getDefaultAttributes().setDetailedDescription("");
+	this.Catalysis.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2337,6 +2364,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Inhibition.getDefaultAttributes().setName("Inhibition Link");
 	this.Inhibition.getDefaultAttributes().setDescription("");
 	this.Inhibition.getDefaultAttributes().setDetailedDescription("");
+	this.Inhibition.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2459,6 +2487,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Trigger.getDefaultAttributes().setName("Trigger Link");
 	this.Trigger.getDefaultAttributes().setDescription("");
 	this.Trigger.getDefaultAttributes().setDetailedDescription("");
+	this.Trigger.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2581,6 +2610,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.LogicArc.getDefaultAttributes().setName("Logic arc");
 	this.LogicArc.getDefaultAttributes().setDescription("");
 	this.LogicArc.getDefaultAttributes().setDetailedDescription("");
+	this.LogicArc.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -2701,6 +2731,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.EquivalenceArc.getDefaultAttributes().setName("Equivalence Arc");
 	this.EquivalenceArc.getDefaultAttributes().setDescription("");
 	this.EquivalenceArc.getDefaultAttributes().setDetailedDescription("");
+	this.EquivalenceArc.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
