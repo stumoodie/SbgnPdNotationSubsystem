@@ -47,10 +47,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
   //shapes
   private ShapeObjectType State;
   private ShapeObjectType UnitOfInf;
-  private ShapeObjectType CloneMarker;
+  private ShapeObjectType StatelessCloneMarker;
+  private ShapeObjectType StatefullCloneMarker;
   private ShapeObjectType Compartment;
   private ShapeObjectType Complex;
-  private ShapeObjectType GeneticUnit;
+  private ShapeObjectType NAFeature;
   private ShapeObjectType Macromolecule;
   private ShapeObjectType MMultimer;
   private ShapeObjectType SimpleChem;
@@ -79,7 +80,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
   private LinkObjectType Stimulation;
   private LinkObjectType Catalysis;
   private LinkObjectType Inhibition;
-  private LinkObjectType Trigger;
+  private LinkObjectType NecessaryStimulation;
   private LinkObjectType LogicArc;
   private LinkObjectType EquivalenceArc;
 
@@ -133,63 +134,66 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	createState();
 	this.UnitOfInf= new ShapeObjectType(this,11, "UnitOfInf");
 	createUnitOfInf();
-	this.CloneMarker= new ShapeObjectType(this,12, "CloneMarker");
-	createCloneMarker();
-	this.Compartment= new ShapeObjectType(this,13, "Compartment");
+	this.StatelessCloneMarker= new ShapeObjectType(this,12, "StatelessCloneMarker");
+	createStatelessCloneMarker();
+	this.StatefullCloneMarker= new ShapeObjectType(this,13, "StatefullCloneMarker");
+	createStatefullCloneMarker();
+	this.Compartment= new ShapeObjectType(this,14, "Compartment");
 	createCompartment();
-	this.Complex= new ShapeObjectType(this,14, "Complex");
+	this.Complex= new ShapeObjectType(this,15, "Complex");
 	createComplex();
-	this.GeneticUnit= new ShapeObjectType(this,15, "GeneticUnit");
-	createGeneticUnit();
-	this.Macromolecule= new ShapeObjectType(this,16, "Macromolecule");
+	this.NAFeature= new ShapeObjectType(this,16, "NAFeature");
+	createNAFeature();
+	this.Macromolecule= new ShapeObjectType(this,17, "Macromolecule");
 	createMacromolecule();
-	this.MMultimer= new ShapeObjectType(this,17, "MMultimer");
+	this.MMultimer= new ShapeObjectType(this,18, "MMultimer");
 	createMMultimer();
-	this.SimpleChem= new ShapeObjectType(this,18, "SimpleChem");
+	this.SimpleChem= new ShapeObjectType(this,19, "SimpleChem");
 	createSimpleChem();
-	this.SMultimer= new ShapeObjectType(this,19, "SMultimer");
+	this.SMultimer= new ShapeObjectType(this,110, "SMultimer");
 	createSMultimer();
-	this.UnspecEntity= new ShapeObjectType(this,110, "UnspecEntity");
+	this.UnspecEntity= new ShapeObjectType(this,111, "UnspecEntity");
 	createUnspecEntity();
-	this.Sink= new ShapeObjectType(this,111, "Sink");
+	this.Sink= new ShapeObjectType(this,112, "Sink");
 	createSink();
-	this.Source= new ShapeObjectType(this,112, "Source");
+	this.Source= new ShapeObjectType(this,113, "Source");
 	createSource();
-	this.Perturbation= new ShapeObjectType(this,113, "Perturbation");
+	this.Perturbation= new ShapeObjectType(this,114, "Perturbation");
 	createPerturbation();
-	this.Observable= new ShapeObjectType(this,114, "Observable");
+	this.Observable= new ShapeObjectType(this,115, "Observable");
 	createObservable();
-	this.Module= new ShapeObjectType(this,115, "Module");
+	this.Module= new ShapeObjectType(this,116, "Module");
 	createModule();
-	this.Port= new ShapeObjectType(this,116, "Port");
+	this.Port= new ShapeObjectType(this,117, "Port");
 	createPort();
-	this.Tag= new ShapeObjectType(this,117, "Tag");
+	this.Tag= new ShapeObjectType(this,118, "Tag");
 	createTag();
-	this.Process= new ShapeObjectType(this,118, "Process");
+	this.Process= new ShapeObjectType(this,119, "Process");
 	createProcess();
-	this.OmittedProcess= new ShapeObjectType(this,119, "OmittedProcess");
+	this.OmittedProcess= new ShapeObjectType(this,120, "OmittedProcess");
 	createOmittedProcess();
-	this.UncertainProcess= new ShapeObjectType(this,120, "UncertainProcess");
+	this.UncertainProcess= new ShapeObjectType(this,121, "UncertainProcess");
 	createUncertainProcess();
-	this.Association= new ShapeObjectType(this,121, "Association");
+	this.Association= new ShapeObjectType(this,122, "Association");
 	createAssociation();
-	this.Dissociation= new ShapeObjectType(this,122, "Dissociation");
+	this.Dissociation= new ShapeObjectType(this,123, "Dissociation");
 	createDissociation();
-	this.AndGate= new ShapeObjectType(this,123, "AndGate");
+	this.AndGate= new ShapeObjectType(this,124, "AndGate");
 	createAndGate();
-	this.OrGate= new ShapeObjectType(this,124, "OrGate");
+	this.OrGate= new ShapeObjectType(this,125, "OrGate");
 	createOrGate();
-	this.NotGate= new ShapeObjectType(this,125, "NotGate");
+	this.NotGate= new ShapeObjectType(this,126, "NotGate");
 	createNotGate();
 
 		defineParentingRMO();
 	//shapes parenting
 		defineParentingState();
 		defineParentingUnitOfInf();
-		defineParentingCloneMarker();
+		defineParentingStatelessCloneMarker();
+		defineParentingStatefullCloneMarker();
 		defineParentingCompartment();
 		defineParentingComplex();
-		defineParentingGeneticUnit();
+		defineParentingNAFeature();
 		defineParentingMacromolecule();
 		defineParentingMMultimer();
 		defineParentingSimpleChem();
@@ -224,8 +228,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	createCatalysis();
 	this.Inhibition = new LinkObjectType(this, 25, "Inhibition");
 	createInhibition();
-	this.Trigger = new LinkObjectType(this, 26, "Trigger");
-	createTrigger();
+	this.NecessaryStimulation = new LinkObjectType(this, 26, "NecessaryStimulation");
+	createNecessaryStimulation();
 	this.LogicArc = new LinkObjectType(this, 27, "LogicArc");
 	createLogicArc();
 	this.EquivalenceArc = new LinkObjectType(this, 28, "EquivalenceArc");
@@ -234,10 +238,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//shape set
 		this.shapes.put(this.State.getUniqueId(), this.State);
 		this.shapes.put(this.UnitOfInf.getUniqueId(), this.UnitOfInf);
-		this.shapes.put(this.CloneMarker.getUniqueId(), this.CloneMarker);
+		this.shapes.put(this.StatelessCloneMarker.getUniqueId(), this.StatelessCloneMarker);
+		this.shapes.put(this.StatefullCloneMarker.getUniqueId(), this.StatefullCloneMarker);
 		this.shapes.put(this.Compartment.getUniqueId(), this.Compartment);
 		this.shapes.put(this.Complex.getUniqueId(), this.Complex);
-		this.shapes.put(this.GeneticUnit.getUniqueId(), this.GeneticUnit);
+		this.shapes.put(this.NAFeature.getUniqueId(), this.NAFeature);
 		this.shapes.put(this.Macromolecule.getUniqueId(), this.Macromolecule);
 		this.shapes.put(this.MMultimer.getUniqueId(), this.MMultimer);
 		this.shapes.put(this.SimpleChem.getUniqueId(), this.SimpleChem);
@@ -266,7 +271,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.links.put(this.Stimulation.getUniqueId(), this.Stimulation);
 		this.links.put(this.Catalysis.getUniqueId(), this.Catalysis);
 		this.links.put(this.Inhibition.getUniqueId(), this.Inhibition);
-		this.links.put(this.Trigger.getUniqueId(), this.Trigger);
+		this.links.put(this.NecessaryStimulation.getUniqueId(), this.NecessaryStimulation);
 		this.links.put(this.LogicArc.getUniqueId(), this.LogicArc);
 		this.links.put(this.EquivalenceArc.getUniqueId(), this.EquivalenceArc);
 		
@@ -377,7 +382,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		private void defineParentingRMO(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.StatelessCloneMarker, this.StatefullCloneMarker, this.Compartment, this.Complex, this.NAFeature, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
 			set.removeAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf}));
 			for (IShapeObjectType child : set) {
 			  this.rmo.getParentingRules().addChild(child);
@@ -387,7 +392,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createState(){
 	this.State.setDescription("State variable value");//ment to be TypeDescription rather
-	this.State.getDefaultAttributes().setName("State");
+	//this.State.getDefaultAttributes().setName("State");
 	this.State.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.State.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.State.getDefaultAttributes().setSize(new Size(20,20));
@@ -437,7 +442,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createUnitOfInf(){
 	this.UnitOfInf.setDescription("Auxiliary information box");//ment to be TypeDescription rather
-	this.UnitOfInf.getDefaultAttributes().setName("UnitOfInf");
+	//this.UnitOfInf.getDefaultAttributes().setName("UnitOfInf");
 	this.UnitOfInf.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnitOfInf.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.UnitOfInf.getDefaultAttributes().setSize(new Size(20,20));
@@ -485,62 +490,115 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		public ShapeObjectType getUnitOfInf(){
 			return this.UnitOfInf;
 		}
-	private void createCloneMarker(){
-	this.CloneMarker.setDescription("Mark the node to be cloned");//ment to be TypeDescription rather
-	this.CloneMarker.getDefaultAttributes().setName("CloneMarker");
-	this.CloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
-	this.CloneMarker.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.CloneMarker.getDefaultAttributes().setSize(new Size(20,20));
+	private void createStatelessCloneMarker(){
+	this.StatelessCloneMarker.setDescription("Mark the simple chemical node to be cloned");//ment to be TypeDescription rather
+	//this.StatelessCloneMarker.getDefaultAttributes().setName("StatelessCloneMarker");
+	this.StatelessCloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
+	this.StatelessCloneMarker.getDefaultAttributes().setFillColour(new RGB(255,255,255));
+	this.StatelessCloneMarker.getDefaultAttributes().setSize(new Size(20,20));
 	int[] lc=new int[]{0,0,0};
-	this.CloneMarker.getDefaultAttributes().setLineWidth(1);
-	this.CloneMarker.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.CloneMarker.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.CloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{40,20};
-			this.CloneMarker.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
-	this.CloneMarker.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
+	this.StatelessCloneMarker.getDefaultAttributes().setLineWidth(1);
+	this.StatelessCloneMarker.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+	this.StatelessCloneMarker.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
+	this.StatelessCloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.BOTTOM_ROUNDED_RECTANGLE);		int[] s=new int[]{40,20};
+			this.StatelessCloneMarker.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
+	this.StatelessCloneMarker.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.CloneMarker.getDefaultAttributes().setFillEditable(true);
+	//this.StatelessCloneMarker.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
-	//this.CloneMarker.setPrimitiveShapeTypeEditable(true);
+	//this.StatelessCloneMarker.setPrimitiveShapeTypeEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
 	}
-	//this.CloneMarker.setSizeEditable(true);
+	//this.StatelessCloneMarker.setSizeEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
 	}
-	//this.CloneMarker.getDefaultAttributes().setLineStyleEditable(true);
+	//this.StatelessCloneMarker.getDefaultAttributes().setLineStyleEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
-	//this.CloneMarker.getDefaultAttributes().setLineWidthEditable(true);
+	//this.StatelessCloneMarker.getDefaultAttributes().setLineWidthEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.CloneMarker.getDefaultAttributes().setLineColourEditable(true);
-	this.CloneMarker.setEditableAttributes(editableAttributes);
-	this.CloneMarker.getDefaultAttributes().setUrl("");
+	//this.StatelessCloneMarker.getDefaultAttributes().setLineColourEditable(true);
+	this.StatelessCloneMarker.setEditableAttributes(editableAttributes);
+	this.StatelessCloneMarker.getDefaultAttributes().setUrl("");
 	 	
-	 	this.CloneMarker.getDefaultAttributes().setName("Clone");
+	 	this.StatelessCloneMarker.getDefaultAttributes().setName(" ");
 	 
 	}
 
-		private void defineParentingCloneMarker(){
-			this.CloneMarker.getParentingRules().clear();
+		private void defineParentingStatelessCloneMarker(){
+			this.StatelessCloneMarker.getParentingRules().clear();
 		}
 
-		public ShapeObjectType getCloneMarker(){
-			return this.CloneMarker;
+		public ShapeObjectType getStatelessCloneMarker(){
+			return this.StatelessCloneMarker;
+		}
+	private void createStatefullCloneMarker(){
+	this.StatefullCloneMarker.setDescription("Mark the statefull node to be cloned");//ment to be TypeDescription rather
+	//this.StatefullCloneMarker.getDefaultAttributes().setName("StatefullCloneMarker");
+	this.StatefullCloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
+	this.StatefullCloneMarker.getDefaultAttributes().setFillColour(new RGB(255,255,255));
+	this.StatefullCloneMarker.getDefaultAttributes().setSize(new Size(20,20));
+	int[] lc=new int[]{0,0,0};
+	this.StatefullCloneMarker.getDefaultAttributes().setLineWidth(1);
+	this.StatefullCloneMarker.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+	this.StatefullCloneMarker.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
+	this.StatefullCloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.BOTTOM_ROUNDED_RECTANGLE);		int[] s=new int[]{40,20};
+			this.StatefullCloneMarker.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
+	this.StatefullCloneMarker.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
+
+	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
+	}
+	//this.StatefullCloneMarker.getDefaultAttributes().setFillEditable(true);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
+	}
+	//this.StatefullCloneMarker.setPrimitiveShapeTypeEditable(true);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
+	}
+	//this.StatefullCloneMarker.setSizeEditable(true);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
+	}
+	//this.StatefullCloneMarker.getDefaultAttributes().setLineStyleEditable(true);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
+	}
+	//this.StatefullCloneMarker.getDefaultAttributes().setLineWidthEditable(true);
+	if(true){
+	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
+	}
+	//this.StatefullCloneMarker.getDefaultAttributes().setLineColourEditable(true);
+	this.StatefullCloneMarker.setEditableAttributes(editableAttributes);
+	this.StatefullCloneMarker.getDefaultAttributes().setUrl("");
+	 	
+	 	this.StatefullCloneMarker.getDefaultAttributes().setName(" ");
+	 
+	}
+
+		private void defineParentingStatefullCloneMarker(){
+			this.StatefullCloneMarker.getParentingRules().clear();
+		}
+
+		public ShapeObjectType getStatefullCloneMarker(){
+			return this.StatefullCloneMarker;
 		}
 	private void createCompartment(){
 	this.Compartment.setDescription("Functional compartment");//ment to be TypeDescription rather
-	this.Compartment.getDefaultAttributes().setName("Compartment");
+	//this.Compartment.getDefaultAttributes().setName("Compartment");
 	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Compartment.getDefaultAttributes().setSize(new Size(20,20));
@@ -548,7 +606,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Compartment.getDefaultAttributes().setLineWidth(3);
 	this.Compartment.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Compartment.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{200,200};
+	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.IRREGULAR_ROUNDED_RECTANGLE);		int[] s=new int[]{200,200};
 			this.Compartment.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
@@ -581,6 +639,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Compartment.getDefaultAttributes().setUrl("");
 	IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
 	Compartment.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition Label=reassignVal(getPropLabel()," ",true,false);
+	Compartment.getDefaultAttributes().addPropertyDefinition(Label);
 	  	
 	 	this.Compartment.getDefaultAttributes().setUrl(" ");
 	 
@@ -588,7 +648,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingCompartment(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.StatelessCloneMarker, this.StatefullCloneMarker, this.Compartment, this.Complex, this.NAFeature, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
 			set.removeAll(Arrays.asList(new IShapeObjectType[]{this.State}));
 			for (IShapeObjectType child : set) {
 			  this.Compartment.getParentingRules().addChild(child);
@@ -601,7 +661,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createComplex(){
 	this.Complex.setDescription("SBGN complex");//ment to be TypeDescription rather
-	this.Complex.getDefaultAttributes().setName("Complex");
+	//this.Complex.getDefaultAttributes().setName("Complex");
 	this.Complex.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Complex.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Complex.getDefaultAttributes().setSize(new Size(20,20));
@@ -647,7 +707,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingComplex(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Macromolecule, this.SimpleChem, this.Complex, this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Macromolecule, this.SimpleChem, this.Complex, this.StatefullCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.Complex.getParentingRules().addChild(child);
 			}
@@ -657,64 +717,64 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		public ShapeObjectType getComplex(){
 			return this.Complex;
 		}
-	private void createGeneticUnit(){
-	this.GeneticUnit.setDescription("Unit of genetical information");//ment to be TypeDescription rather
-	this.GeneticUnit.getDefaultAttributes().setName("Genetic unit");
-	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
-	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.GeneticUnit.getDefaultAttributes().setSize(new Size(20,20));
+	private void createNAFeature(){
+	this.NAFeature.setDescription("Unit of genetical information");//ment to be TypeDescription rather
+	//this.NAFeature.getDefaultAttributes().setName("Nucleic acid feature");
+	this.NAFeature.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
+	this.NAFeature.getDefaultAttributes().setFillColour(new RGB(255,255,255));
+	this.NAFeature.getDefaultAttributes().setSize(new Size(20,20));
 	int[] lc=new int[]{0,0,0};
-	this.GeneticUnit.getDefaultAttributes().setLineWidth(1);
-	this.GeneticUnit.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.GeneticUnit.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
-			this.GeneticUnit.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
-	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
+	this.NAFeature.getDefaultAttributes().setLineWidth(1);
+	this.NAFeature.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+	this.NAFeature.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
+	this.NAFeature.getDefaultAttributes().setShapeType(PrimitiveShapeType.BOTTOM_ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
+			this.NAFeature.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+	this.NAFeature.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setFillEditable(true);
+	//this.NAFeature.getDefaultAttributes().setFillEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
 	}
-	//this.GeneticUnit.setPrimitiveShapeTypeEditable(true);
+	//this.NAFeature.setPrimitiveShapeTypeEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
 	}
-	//this.GeneticUnit.setSizeEditable(true);
+	//this.NAFeature.setSizeEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setLineStyleEditable(true);
+	//this.NAFeature.getDefaultAttributes().setLineStyleEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setLineWidthEditable(true);
+	//this.NAFeature.getDefaultAttributes().setLineWidthEditable(true);
 	if(true){
 	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 	}
-	//this.GeneticUnit.getDefaultAttributes().setLineColourEditable(true);
-	this.GeneticUnit.setEditableAttributes(editableAttributes);
-	this.GeneticUnit.getDefaultAttributes().setUrl("");
+	//this.NAFeature.getDefaultAttributes().setLineColourEditable(true);
+	this.NAFeature.setEditableAttributes(editableAttributes);
+	this.NAFeature.getDefaultAttributes().setUrl("");
 	}
 
-		private void defineParentingGeneticUnit(){
+		private void defineParentingNAFeature(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.StatefullCloneMarker}));
 			for (IShapeObjectType child : set) {
-			  this.GeneticUnit.getParentingRules().addChild(child);
+			  this.NAFeature.getParentingRules().addChild(child);
 			}
 
 		}
 
-		public ShapeObjectType getGeneticUnit(){
-			return this.GeneticUnit;
+		public ShapeObjectType getNAFeature(){
+			return this.NAFeature;
 		}
 	private void createMacromolecule(){
 	this.Macromolecule.setDescription("Macromolecule");//ment to be TypeDescription rather
-	this.Macromolecule.getDefaultAttributes().setName("Macromolecule");
+	//this.Macromolecule.getDefaultAttributes().setName("Macromolecule");
 	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Macromolecule.getDefaultAttributes().setSize(new Size(20,20));
@@ -760,7 +820,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingMacromolecule(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.StatefullCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.Macromolecule.getParentingRules().addChild(child);
 			}
@@ -772,7 +832,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createMMultimer(){
 	this.MMultimer.setDescription("Macromoleclar Multimer");//ment to be TypeDescription rather
-	this.MMultimer.getDefaultAttributes().setName("Macromoleclar Multimer");
+	//this.MMultimer.getDefaultAttributes().setName("Macromoleclar Multimer");
 	this.MMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.MMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.MMultimer.getDefaultAttributes().setSize(new Size(20,20));
@@ -818,7 +878,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingMMultimer(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.StatefullCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.MMultimer.getParentingRules().addChild(child);
 			}
@@ -830,7 +890,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createSimpleChem(){
 	this.SimpleChem.setDescription("Simple chemical");//ment to be TypeDescription rather
-	this.SimpleChem.getDefaultAttributes().setName(" ");
+	//this.SimpleChem.getDefaultAttributes().setName(" ");
 	this.SimpleChem.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.SimpleChem.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.SimpleChem.getDefaultAttributes().setSize(new Size(20,20));
@@ -878,7 +938,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingSimpleChem(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.StatelessCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.SimpleChem.getParentingRules().addChild(child);
 			}
@@ -890,7 +950,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createSMultimer(){
 	this.SMultimer.setDescription("Chemical Multimer");//ment to be TypeDescription rather
-	this.SMultimer.getDefaultAttributes().setName("Chemical Multimer");
+	//this.SMultimer.getDefaultAttributes().setName("Chemical Multimer");
 	this.SMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.SMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.SMultimer.getDefaultAttributes().setSize(new Size(20,20));
@@ -933,7 +993,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingSMultimer(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.StatelessCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.SMultimer.getParentingRules().addChild(child);
 			}
@@ -945,7 +1005,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createUnspecEntity(){
 	this.UnspecEntity.setDescription("Unspecified entity");//ment to be TypeDescription rather
-	this.UnspecEntity.getDefaultAttributes().setName("Unspecified entity");
+	//this.UnspecEntity.getDefaultAttributes().setName("Unspecified entity");
 	this.UnspecEntity.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnspecEntity.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.UnspecEntity.getDefaultAttributes().setSize(new Size(20,20));
@@ -988,7 +1048,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingUnspecEntity(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.StatefullCloneMarker, this.StatelessCloneMarker}));
 			for (IShapeObjectType child : set) {
 			  this.UnspecEntity.getParentingRules().addChild(child);
 			}
@@ -1000,7 +1060,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createSink(){
 	this.Sink.setDescription("Sink");//ment to be TypeDescription rather
-	this.Sink.getDefaultAttributes().setName("Sink");
+	//this.Sink.getDefaultAttributes().setName("Sink");
 	this.Sink.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Sink.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Sink.getDefaultAttributes().setSize(new Size(20,20));
@@ -1049,7 +1109,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createSource(){
 	this.Source.setDescription("Source");//ment to be TypeDescription rather
-	this.Source.getDefaultAttributes().setName("Source");
+	//this.Source.getDefaultAttributes().setName("Source");
 	this.Source.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Source.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Source.getDefaultAttributes().setSize(new Size(20,20));
@@ -1098,7 +1158,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createPerturbation(){
 	this.Perturbation.setDescription("Perturbation");//ment to be TypeDescription rather
-	this.Perturbation.getDefaultAttributes().setName("Perturbation");
+	//this.Perturbation.getDefaultAttributes().setName("Perturbation");
 	this.Perturbation.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Perturbation.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Perturbation.getDefaultAttributes().setSize(new Size(20,20));
@@ -1148,7 +1208,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createObservable(){
 	this.Observable.setDescription("Observable");//ment to be TypeDescription rather
-	this.Observable.getDefaultAttributes().setName("Observable");
+	//this.Observable.getDefaultAttributes().setName("Observable");
 	this.Observable.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Observable.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Observable.getDefaultAttributes().setSize(new Size(20,20));
@@ -1198,7 +1258,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createModule(){
 	this.Module.setDescription("collapsed part of diagram");//ment to be TypeDescription rather
-	this.Module.getDefaultAttributes().setName("Submap");
+	//this.Module.getDefaultAttributes().setName("Submap");
 	this.Module.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Module.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Module.getDefaultAttributes().setSize(new Size(20,20));
@@ -1253,7 +1313,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createPort(){
 	this.Port.setDescription("Interface to the submap");//ment to be TypeDescription rather
-	this.Port.getDefaultAttributes().setName("SubmapPort");
+	//this.Port.getDefaultAttributes().setName("SubmapPort");
 	this.Port.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Port.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Port.getDefaultAttributes().setSize(new Size(20,20));
@@ -1302,7 +1362,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createTag(){
 	this.Tag.setDescription("Mark node to be interface to submap");//ment to be TypeDescription rather
-	this.Tag.getDefaultAttributes().setName("Tag");
+	//this.Tag.getDefaultAttributes().setName("Tag");
 	this.Tag.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Tag.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Tag.getDefaultAttributes().setSize(new Size(20,20));
@@ -1352,7 +1412,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createProcess(){
 	this.Process.setDescription("Process node");//ment to be TypeDescription rather
-	this.Process.getDefaultAttributes().setName("Process");
+	//this.Process.getDefaultAttributes().setName("Process");
 	this.Process.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Process.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Process.getDefaultAttributes().setSize(new Size(20,20));
@@ -1392,6 +1452,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Process.getDefaultAttributes().setUrl("");
 	 	
 	 	this.Process.getDefaultAttributes().setName(" ");
+	 IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
+	Process.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Process.getDefaultAttributes().addPropertyDefinition(SBOTerm);
 	 
 	}
 
@@ -1404,7 +1468,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createOmittedProcess(){
 	this.OmittedProcess.setDescription("omitted process");//ment to be TypeDescription rather
-	this.OmittedProcess.getDefaultAttributes().setName("Omitted process");
+	//this.OmittedProcess.getDefaultAttributes().setName("Omitted process");
 	this.OmittedProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.OmittedProcess.getDefaultAttributes().setSize(new Size(20,20));
@@ -1442,7 +1506,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.OmittedProcess.getDefaultAttributes().setLineColourEditable(true);
 	this.OmittedProcess.setEditableAttributes(editableAttributes);
 	this.OmittedProcess.getDefaultAttributes().setUrl("");
-	 	
+	IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
+	OmittedProcess.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	OmittedProcess.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	  	
 	 	this.OmittedProcess.getDefaultAttributes().setName("//");
 	 
 	}
@@ -1456,7 +1524,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createUncertainProcess(){
 	this.UncertainProcess.setDescription("Uncertain process");//ment to be TypeDescription rather
-	this.UncertainProcess.getDefaultAttributes().setName("Uncertain process");
+	//this.UncertainProcess.getDefaultAttributes().setName("Uncertain process");
 	this.UncertainProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.UncertainProcess.getDefaultAttributes().setSize(new Size(20,20));
@@ -1496,6 +1564,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UncertainProcess.getDefaultAttributes().setUrl("");
 	 	
 	 	this.UncertainProcess.getDefaultAttributes().setName("?");
+	 IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
+	UncertainProcess.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	UncertainProcess.getDefaultAttributes().addPropertyDefinition(SBOTerm);
 	 
 	}
 
@@ -1508,7 +1580,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createAssociation(){
 	this.Association.setDescription("Association");//ment to be TypeDescription rather
-	this.Association.getDefaultAttributes().setName("Association");
+	//this.Association.getDefaultAttributes().setName("Association");
 	this.Association.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Association.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Association.getDefaultAttributes().setSize(new Size(20,20));
@@ -1547,7 +1619,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Association.getDefaultAttributes().setLineColourEditable(true);
 	this.Association.setEditableAttributes(editableAttributes);
 	this.Association.getDefaultAttributes().setUrl("");
-	 	
+	IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
+	Association.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Association.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	  	
 	 	this.Association.getDefaultAttributes().setName(" ");
 	 
 	}
@@ -1561,7 +1637,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createDissociation(){
 	this.Dissociation.setDescription("Dissociation");//ment to be TypeDescription rather
-	this.Dissociation.getDefaultAttributes().setName("Dissociation");
+	//this.Dissociation.getDefaultAttributes().setName("Dissociation");
 	this.Dissociation.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.Dissociation.getDefaultAttributes().setSize(new Size(20,20));
@@ -1599,7 +1675,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Dissociation.getDefaultAttributes().setLineColourEditable(true);
 	this.Dissociation.setEditableAttributes(editableAttributes);
 	this.Dissociation.getDefaultAttributes().setUrl("");
-	 	
+	IPropertyDefinition GOTerm=reassignVal(getPropGOTerm()," ",true,false);
+	Dissociation.getDefaultAttributes().addPropertyDefinition(GOTerm);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Dissociation.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	  	
 	 	this.Dissociation.getDefaultAttributes().setName(" ");
 	 
 	}
@@ -1613,7 +1693,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createAndGate(){
 	this.AndGate.setDescription("AndGate");//ment to be TypeDescription rather
-	this.AndGate.getDefaultAttributes().setName("AND gate");
+	//this.AndGate.getDefaultAttributes().setName("AND gate");
 	this.AndGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.AndGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.AndGate.getDefaultAttributes().setSize(new Size(20,20));
@@ -1665,7 +1745,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createOrGate(){
 	this.OrGate.setDescription("OR logic Gate");//ment to be TypeDescription rather
-	this.OrGate.getDefaultAttributes().setName("OR gate");
+	//this.OrGate.getDefaultAttributes().setName("OR gate");
 	this.OrGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.OrGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.OrGate.getDefaultAttributes().setSize(new Size(20,20));
@@ -1717,7 +1797,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 	private void createNotGate(){
 	this.NotGate.setDescription("NOT logic Gate");//ment to be TypeDescription rather
-	this.NotGate.getDefaultAttributes().setName("NOT gate");
+	//this.NotGate.getDefaultAttributes().setName("NOT gate");
 	this.NotGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.NotGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
 	this.NotGate.getDefaultAttributes().setSize(new Size(20,20));
@@ -1796,6 +1876,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Consumption.setEditableAttributes(editableAttributes);
 
 	this.Consumption.getDefaultAttributes().setUrl("");
+	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
+	Consumption.getDefaultAttributes().addPropertyDefinition(Stoich);
+	 
 	//LinkEndDefinition sport=this.Consumption.getLinkSource();
 	//LinkEndDefinition tport=this.Consumption.getLinkTarget();
 	LinkTerminusDefinition sport=this.Consumption.getSourceTerminusDefinition();
@@ -1838,9 +1921,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
-	 
+
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
@@ -1854,10 +1935,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
-	  this.Consumption.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
+	  this.Consumption.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	for (IShapeObjectType tgt : set) {
+	  this.Consumption.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association}));
 	for (IShapeObjectType tgt : set) {
 	  this.Consumption.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
@@ -1872,7 +1958,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	  this.Consumption.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess}));
 	for (IShapeObjectType tgt : set) {
 	  this.Consumption.getLinkConnectionRules().addConnection(this.Source, tgt);
 	}
@@ -1909,6 +1995,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Production.setEditableAttributes(editableAttributes);
 
 	this.Production.getDefaultAttributes().setUrl("");
+	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
+	Production.getDefaultAttributes().addPropertyDefinition(Stoich);
+	 
 	//LinkEndDefinition sport=this.Production.getLinkSource();
 	//LinkEndDefinition tport=this.Production.getLinkTarget();
 	LinkTerminusDefinition sport=this.Production.getSourceTerminusDefinition();
@@ -1951,31 +2040,29 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
-	 
+
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.NAFeature}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Process, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.NAFeature}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.OmittedProcess, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.NAFeature}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.UncertainProcess, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SMultimer, this.UnspecEntity}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Association, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.NAFeature}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Dissociation, tgt);
 	}
@@ -2012,6 +2099,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Modulation.setEditableAttributes(editableAttributes);
 
 	this.Modulation.getDefaultAttributes().setUrl("");
+	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
+	Modulation.getDefaultAttributes().addPropertyDefinition(Stoich);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Modulation.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	 
 	//LinkEndDefinition sport=this.Modulation.getLinkSource();
 	//LinkEndDefinition tport=this.Modulation.getLinkTarget();
 	LinkTerminusDefinition sport=this.Modulation.getSourceTerminusDefinition();
@@ -2054,51 +2146,59 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
-	 
+
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.Complex, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Modulation.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Modulation.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.AndGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.OrGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.NotGate, tgt);
 	}
@@ -2135,6 +2235,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Stimulation.setEditableAttributes(editableAttributes);
 
 	this.Stimulation.getDefaultAttributes().setUrl("");
+	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
+	Stimulation.getDefaultAttributes().addPropertyDefinition(Stoich);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Stimulation.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	 
 	//LinkEndDefinition sport=this.Stimulation.getLinkSource();
 	//LinkEndDefinition tport=this.Stimulation.getLinkTarget();
 	LinkTerminusDefinition sport=this.Stimulation.getSourceTerminusDefinition();
@@ -2177,51 +2282,59 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
-	 
+
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.Complex, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Stimulation.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Stimulation.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.AndGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.OrGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.NotGate, tgt);
 	}
@@ -2258,6 +2371,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Catalysis.setEditableAttributes(editableAttributes);
 
 	this.Catalysis.getDefaultAttributes().setUrl("");
+	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
+	Catalysis.getDefaultAttributes().addPropertyDefinition(Stoich);
+	 IPropertyDefinition SBOTerm=reassignVal(getPropSBOTerm()," ",true,false);
+	Catalysis.getDefaultAttributes().addPropertyDefinition(SBOTerm);
+	 
 	//LinkEndDefinition sport=this.Catalysis.getLinkSource();
 	//LinkEndDefinition tport=this.Catalysis.getLinkTarget();
 	LinkTerminusDefinition sport=this.Catalysis.getSourceTerminusDefinition();
@@ -2300,51 +2418,59 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
-	 
+
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.Complex, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Catalysis.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Catalysis.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.AndGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.OrGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.NotGate, tgt);
 	}
@@ -2427,47 +2553,57 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
 	 
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.Complex, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Inhibition.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.Inhibition.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.AndGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.OrGate, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.NotGate, tgt);
 	}
@@ -2477,37 +2613,37 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	public LinkObjectType getInhibition(){
 		return this.Inhibition;
 	}
-	private void createTrigger(){
+	private void createNecessaryStimulation(){
 	Set<IShapeObjectType> set=null;
-	this.Trigger.setDescription("A trigger effect, or absolute stimulation, is a stimulation that is necessary for a process to take place.");
+	this.NecessaryStimulation.setDescription("A Necessary Stimulation effect, or absolute stimulation, is a stimulation that is necessary for a process to take place.");
 	int[] lc=new int[]{0,0,0};
-	this.Trigger.getDefaultAttributes().setLineWidth(1);
-	this.Trigger.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.Trigger.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.Trigger.getDefaultAttributes().setName("Trigger Link");
-	this.Trigger.getDefaultAttributes().setDescription("");
-	this.Trigger.getDefaultAttributes().setDetailedDescription("");
-	this.Trigger.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
+	this.NecessaryStimulation.getDefaultAttributes().setLineWidth(1);
+	this.NecessaryStimulation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+	this.NecessaryStimulation.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
+	this.NecessaryStimulation.getDefaultAttributes().setName("Necessary Stimulation Link");
+	this.NecessaryStimulation.getDefaultAttributes().setDescription("");
+	this.NecessaryStimulation.getDefaultAttributes().setDetailedDescription("");
+	this.NecessaryStimulation.getDefaultAttributes().setRouter(ConnectionRouter.SHORTEST_PATH);
 	EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.COLOUR);
 	}
-	//this.Trigger.getDefaultAttributes().setLineColourEditable(true);
+	//this.NecessaryStimulation.getDefaultAttributes().setLineColourEditable(true);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.LINE_STYLE);
 	}
-	//this.Trigger.getDefaultAttributes().setLineStyleEditable(true);
+	//this.NecessaryStimulation.getDefaultAttributes().setLineStyleEditable(true);
 	if(true){
 	  editableAttributes.add(LinkEditableAttributes.LINE_WIDTH);
 	}
-	//this.Trigger.getDefaultAttributes().setLineWidthEditable(true);
-	this.Trigger.setEditableAttributes(editableAttributes);
+	//this.NecessaryStimulation.getDefaultAttributes().setLineWidthEditable(true);
+	this.NecessaryStimulation.setEditableAttributes(editableAttributes);
 
-	this.Trigger.getDefaultAttributes().setUrl("");
-	//LinkEndDefinition sport=this.Trigger.getLinkSource();
-	//LinkEndDefinition tport=this.Trigger.getLinkTarget();
-	LinkTerminusDefinition sport=this.Trigger.getSourceTerminusDefinition();
-	LinkTerminusDefinition tport=this.Trigger.getTargetTerminusDefinition();
+	this.NecessaryStimulation.getDefaultAttributes().setUrl("");
+	//LinkEndDefinition sport=this.NecessaryStimulation.getLinkSource();
+	//LinkEndDefinition tport=this.NecessaryStimulation.getLinkTarget();
+	LinkTerminusDefinition sport=this.NecessaryStimulation.getSourceTerminusDefinition();
+	LinkTerminusDefinition tport=this.NecessaryStimulation.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
 	sport.getDefaultAttributes().setEndSize(new Size(8,8));
@@ -2550,55 +2686,65 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
 	 
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.Complex, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.Complex, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.AndGate, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.OrGate, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.UnspecEntity, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.NotGate, tgt);
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.AndGate, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.OrGate, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
+	for (IShapeObjectType tgt : set) {
+	  this.NecessaryStimulation.getLinkConnectionRules().addConnection(this.NotGate, tgt);
 	}
 
 	}
 
-	public LinkObjectType getTrigger(){
-		return this.Trigger;
+	public LinkObjectType getNecessaryStimulation(){
+		return this.NecessaryStimulation;
 	}
 	private void createLogicArc(){
 	Set<IShapeObjectType> set=null;
@@ -2651,8 +2797,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//sport.getDefaultAttributes().setColourEditable(true);
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)0);
-	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.TRIANGLE_BAR);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
+	tport.getDefaultAttributes().setEndSize(new Size(8,8));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
 	tport.getDefaultAttributes().setTermSize(new Size(0,0));
 	int[] ctport=new int[]{255,255,255};
@@ -2679,6 +2825,16 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
 	for (IShapeObjectType tgt : set) {
 	  this.LogicArc.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
+	for (IShapeObjectType tgt : set) {
+	  this.LogicArc.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
+	for (IShapeObjectType tgt : set) {
+	  this.LogicArc.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
@@ -2800,6 +2956,16 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
 	for (IShapeObjectType tgt : set) {
 	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
+	for (IShapeObjectType tgt : set) {
+	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.Perturbation, tgt);
+	}
+	set=new HashSet<IShapeObjectType>();
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
+	for (IShapeObjectType tgt : set) {
+	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.NAFeature, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
