@@ -47,14 +47,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
   //shapes
   private ShapeObjectType State;
   private ShapeObjectType UnitOfInf;
-  private ShapeObjectType CloneMarker;
   private ShapeObjectType Compartment;
   private ShapeObjectType Complex;
   private ShapeObjectType GeneticUnit;
   private ShapeObjectType Macromolecule;
-  private ShapeObjectType MMultimer;
   private ShapeObjectType SimpleChem;
-  private ShapeObjectType SMultimer;
   private ShapeObjectType UnspecEntity;
   private ShapeObjectType Sink;
   private ShapeObjectType Source;
@@ -86,14 +83,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
   
   
   private INotationSubsystem serviceProvider;
-
-	private static int[] getRGB(String hex) {
-		hex = hex.replace("#", "");
-		int r = Integer.parseInt(hex.substring(0, 2), 16);
-		int g = Integer.parseInt(hex.substring(2, 4), 16);
-		int b = Integer.parseInt(hex.substring(4), 16);
-		return new int[] { r, g, b };
-	}
 
 	private static IPropertyDefinition reassignVal(IPropertyDefinition prop,String val,boolean isEdit,boolean isVis){
 		if( prop instanceof TextPropertyDefinition) return reassignVal((TextPropertyDefinition) prop,val,isEdit,isVis);
@@ -133,8 +122,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	createState();
 	this.UnitOfInf= new ShapeObjectType(this,11, "UnitOfInf");
 	createUnitOfInf();
-	this.CloneMarker= new ShapeObjectType(this,12, "CloneMarker");
-	createCloneMarker();
 	this.Compartment= new ShapeObjectType(this,13, "Compartment");
 	createCompartment();
 	this.Complex= new ShapeObjectType(this,14, "Complex");
@@ -143,12 +130,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	createGeneticUnit();
 	this.Macromolecule= new ShapeObjectType(this,16, "Macromolecule");
 	createMacromolecule();
-	this.MMultimer= new ShapeObjectType(this,17, "MMultimer");
-	createMMultimer();
 	this.SimpleChem= new ShapeObjectType(this,18, "SimpleChem");
 	createSimpleChem();
-	this.SMultimer= new ShapeObjectType(this,19, "SMultimer");
-	createSMultimer();
 	this.UnspecEntity= new ShapeObjectType(this,110, "UnspecEntity");
 	createUnspecEntity();
 	this.Sink= new ShapeObjectType(this,111, "Sink");
@@ -186,14 +169,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//shapes parenting
 		defineParentingState();
 		defineParentingUnitOfInf();
-		defineParentingCloneMarker();
 		defineParentingCompartment();
 		defineParentingComplex();
 		defineParentingGeneticUnit();
 		defineParentingMacromolecule();
-		defineParentingMMultimer();
 		defineParentingSimpleChem();
-		defineParentingSMultimer();
 		defineParentingUnspecEntity();
 		defineParentingSink();
 		defineParentingSource();
@@ -234,14 +214,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//shape set
 		this.shapes.put(this.State.getUniqueId(), this.State);
 		this.shapes.put(this.UnitOfInf.getUniqueId(), this.UnitOfInf);
-		this.shapes.put(this.CloneMarker.getUniqueId(), this.CloneMarker);
 		this.shapes.put(this.Compartment.getUniqueId(), this.Compartment);
 		this.shapes.put(this.Complex.getUniqueId(), this.Complex);
 		this.shapes.put(this.GeneticUnit.getUniqueId(), this.GeneticUnit);
 		this.shapes.put(this.Macromolecule.getUniqueId(), this.Macromolecule);
-		this.shapes.put(this.MMultimer.getUniqueId(), this.MMultimer);
 		this.shapes.put(this.SimpleChem.getUniqueId(), this.SimpleChem);
-		this.shapes.put(this.SMultimer.getUniqueId(), this.SMultimer);
 		this.shapes.put(this.UnspecEntity.getUniqueId(), this.UnspecEntity);
 		this.shapes.put(this.Sink.getUniqueId(), this.Sink);
 		this.shapes.put(this.Source.getUniqueId(), this.Source);
@@ -377,7 +354,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		private void defineParentingRMO(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
 			set.removeAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf}));
 			for (IShapeObjectType child : set) {
 			  this.rmo.getParentingRules().addChild(child);
@@ -485,59 +462,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		public ShapeObjectType getUnitOfInf(){
 			return this.UnitOfInf;
 		}
-	private void createCloneMarker(){
-	this.CloneMarker.setDescription("Mark the node to be cloned");//ment to be TypeDescription rather
-	this.CloneMarker.getDefaultAttributes().setName("CloneMarker");
-	this.CloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
-	this.CloneMarker.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.CloneMarker.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{0,0,0};
-	this.CloneMarker.getDefaultAttributes().setLineWidth(1);
-	this.CloneMarker.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.CloneMarker.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.CloneMarker.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{40,20};
-			this.CloneMarker.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
-	this.CloneMarker.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
-	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
-	}
-	//this.CloneMarker.getDefaultAttributes().setFillEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
-	}
-	//this.CloneMarker.setPrimitiveShapeTypeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
-	}
-	//this.CloneMarker.setSizeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
-	}
-	//this.CloneMarker.getDefaultAttributes().setLineStyleEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
-	}
-	//this.CloneMarker.getDefaultAttributes().setLineWidthEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
-	}
-	//this.CloneMarker.getDefaultAttributes().setLineColourEditable(true);
-	this.CloneMarker.setEditableAttributes(editableAttributes);
-	this.CloneMarker.getDefaultAttributes().setUrl("");
-	 	
-	 	this.CloneMarker.getDefaultAttributes().setName("Clone");
-	 
-	}
-
-		private void defineParentingCloneMarker(){
-			this.CloneMarker.getParentingRules().clear();
-		}
-
-		public ShapeObjectType getCloneMarker(){
-			return this.CloneMarker;
-		}
 	private void createCompartment(){
 	this.Compartment.setDescription("Functional compartment");//ment to be TypeDescription rather
 	this.Compartment.getDefaultAttributes().setName("Compartment");
@@ -588,7 +513,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingCompartment(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Compartment, this.Complex, this.GeneticUnit, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink, this.Source, this.Perturbation, this.Observable, this.Module, this.Port, this.Tag, this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.AndGate, this.OrGate, this.NotGate}));
 			set.removeAll(Arrays.asList(new IShapeObjectType[]{this.State}));
 			for (IShapeObjectType child : set) {
 			  this.Compartment.getParentingRules().addChild(child);
@@ -647,7 +572,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingComplex(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Macromolecule, this.SimpleChem, this.Complex, this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.Macromolecule, this.SimpleChem, this.Complex}));
 			for (IShapeObjectType child : set) {
 			  this.Complex.getParentingRules().addChild(child);
 			}
@@ -722,7 +647,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Macromolecule.getDefaultAttributes().setLineWidth(1);
 	this.Macromolecule.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Macromolecule.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
+	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.MACROMOLECULE);		int[] s=new int[]{60,40};
 			this.Macromolecule.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
@@ -753,14 +678,18 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	//this.Macromolecule.getDefaultAttributes().setLineColourEditable(true);
 	this.Macromolecule.setEditableAttributes(editableAttributes);
 	this.Macromolecule.getDefaultAttributes().setUrl("");
-	 	
-	 	this.Macromolecule.getDefaultAttributes().setName("Macromolecule");
+	IPropertyDefinition cardinalityProp=new NumberPropertyDefinition("Cardinality", new BigDecimal(1.0),false,true);
+	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(cardinalityProp);
+	IPropertyDefinition nameProp=new PlainTextPropertyDefinition("Name", "aMacromol",true,true);
+	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(nameProp);
+	IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO"," ",false,true);
+	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(SBOTerm);
 	 
 	}
 
 		private void defineParentingMacromolecule(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf}));
 			for (IShapeObjectType child : set) {
 			  this.Macromolecule.getParentingRules().addChild(child);
 			}
@@ -770,64 +699,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		public ShapeObjectType getMacromolecule(){
 			return this.Macromolecule;
 		}
-	private void createMMultimer(){
-	this.MMultimer.setDescription("Macromoleclar Multimer");//ment to be TypeDescription rather
-	this.MMultimer.getDefaultAttributes().setName("Macromoleclar Multimer");
-	this.MMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
-	this.MMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.MMultimer.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{0,0,0};
-	this.MMultimer.getDefaultAttributes().setLineWidth(1);
-	this.MMultimer.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.MMultimer.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.MMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.MULTIMER);		int[] s=new int[]{90,40};
-			this.MMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
-	this.MMultimer.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
-	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
-	}
-	//this.MMultimer.getDefaultAttributes().setFillEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
-	}
-	//this.MMultimer.setPrimitiveShapeTypeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
-	}
-	//this.MMultimer.setSizeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
-	}
-	//this.MMultimer.getDefaultAttributes().setLineStyleEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
-	}
-	//this.MMultimer.getDefaultAttributes().setLineWidthEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
-	}
-	//this.MMultimer.getDefaultAttributes().setLineColourEditable(true);
-	this.MMultimer.setEditableAttributes(editableAttributes);
-	this.MMultimer.getDefaultAttributes().setUrl("");
-	 	
-	 	this.MMultimer.getDefaultAttributes().setName("Multimer");
-	 
-	}
-
-		private void defineParentingMMultimer(){
-			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.State, this.UnitOfInf, this.CloneMarker}));
-			for (IShapeObjectType child : set) {
-			  this.MMultimer.getParentingRules().addChild(child);
-			}
-
-		}
-
-		public ShapeObjectType getMMultimer(){
-			return this.MMultimer;
-		}
 	private void createSimpleChem(){
 	this.SimpleChem.setDescription("Simple chemical");//ment to be TypeDescription rather
 	this.SimpleChem.getDefaultAttributes().setName(" ");
@@ -878,7 +750,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingSimpleChem(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{}));
 			for (IShapeObjectType child : set) {
 			  this.SimpleChem.getParentingRules().addChild(child);
 			}
@@ -887,61 +759,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		public ShapeObjectType getSimpleChem(){
 			return this.SimpleChem;
-		}
-	private void createSMultimer(){
-	this.SMultimer.setDescription("Chemical Multimer");//ment to be TypeDescription rather
-	this.SMultimer.getDefaultAttributes().setName("Chemical Multimer");
-	this.SMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
-	this.SMultimer.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.SMultimer.getDefaultAttributes().setSize(new Size(20,20));
-	int[] lc=new int[]{0,0,0};
-	this.SMultimer.getDefaultAttributes().setLineWidth(1);
-	this.SMultimer.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-	this.SMultimer.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.SMultimer.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE_MULTIMER);		int[] s=new int[]{30,30};
-			this.SMultimer.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
-	this.SMultimer.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
-
-	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.FILL_COLOUR);
-	}
-	//this.SMultimer.getDefaultAttributes().setFillEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_TYPE);
-	}
-	//this.SMultimer.setPrimitiveShapeTypeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.SHAPE_SIZE);
-	}
-	//this.SMultimer.setSizeEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_STYLE);
-	}
-	//this.SMultimer.getDefaultAttributes().setLineStyleEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_WIDTH);
-	}
-	//this.SMultimer.getDefaultAttributes().setLineWidthEditable(true);
-	if(true){
-	    editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
-	}
-	//this.SMultimer.getDefaultAttributes().setLineColourEditable(true);
-	this.SMultimer.setEditableAttributes(editableAttributes);
-	this.SMultimer.getDefaultAttributes().setUrl("");
-	}
-
-		private void defineParentingSMultimer(){
-			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
-			for (IShapeObjectType child : set) {
-			  this.SMultimer.getParentingRules().addChild(child);
-			}
-
-		}
-
-		public ShapeObjectType getSMultimer(){
-			return this.SMultimer;
 		}
 	private void createUnspecEntity(){
 	this.UnspecEntity.setDescription("Unspecified entity");//ment to be TypeDescription rather
@@ -988,7 +805,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		private void defineParentingUnspecEntity(){
 			HashSet<IShapeObjectType> set=new HashSet<IShapeObjectType>();
-			set.addAll(Arrays.asList(new IShapeObjectType[]{this.CloneMarker}));
+			set.addAll(Arrays.asList(new IShapeObjectType[]{}));
 			for (IShapeObjectType child : set) {
 			  this.UnspecEntity.getParentingRules().addChild(child);
 			}
@@ -1516,7 +1333,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Association.getDefaultAttributes().setLineWidth(1);
 	this.Association.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Association.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.Association.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{20,20};
+	this.Association.getDefaultAttributes().setShapeType(PrimitiveShapeType.ASSOCIATION);		int[] s=new int[]{20,20};
 			this.Association.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
 	this.Association.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
@@ -1569,7 +1386,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Dissociation.getDefaultAttributes().setLineWidth(1);
 	this.Dissociation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Dissociation.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
-	this.Dissociation.getDefaultAttributes().setShapeType(PrimitiveShapeType.CONCENTRIC_CIRCLES);		int[] s=new int[]{20,20};
+	this.Dissociation.getDefaultAttributes().setShapeType(PrimitiveShapeType.DISSOCIATION);		int[] s=new int[]{20,20};
 			this.Dissociation.getDefaultAttributes().setSize(new Size(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -1854,17 +1671,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
-	  this.Consumption.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
 	  this.Consumption.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Consumption.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
@@ -1955,27 +1762,27 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
 	 
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Process, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.OmittedProcess, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.UncertainProcess, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Association, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.MMultimer, this.SimpleChem, this.SMultimer, this.UnspecEntity, this.Sink}));
+	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Complex, this.Macromolecule, this.SimpleChem, this.UnspecEntity, this.Sink}));
 	for (IShapeObjectType tgt : set) {
 	  this.Production.getLinkConnectionRules().addConnection(this.Dissociation, tgt);
 	}
@@ -2070,17 +1877,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
-	  this.Modulation.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
 	  this.Modulation.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Modulation.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
@@ -2193,17 +1990,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
 	for (IShapeObjectType tgt : set) {
-	  this.Stimulation.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
-	for (IShapeObjectType tgt : set) {
 	  this.Stimulation.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
-	for (IShapeObjectType tgt : set) {
-	  this.Stimulation.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation, this.Observable}));
@@ -2316,17 +2103,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
-	  this.Catalysis.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
 	  this.Catalysis.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Catalysis.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
@@ -2437,19 +2214,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.Macromolecule, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Inhibition.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
 	  this.Inhibition.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Inhibition.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
@@ -2562,17 +2330,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
 	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
 	  this.Trigger.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
-	for (IShapeObjectType tgt : set) {
-	  this.Trigger.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
@@ -2683,17 +2441,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
 	for (IShapeObjectType tgt : set) {
-	  this.LogicArc.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
-	for (IShapeObjectType tgt : set) {
 	  this.LogicArc.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
-	for (IShapeObjectType tgt : set) {
-	  this.LogicArc.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.AndGate, this.OrGate, this.NotGate}));
@@ -2804,17 +2552,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
 	for (IShapeObjectType tgt : set) {
-	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.MMultimer, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
-	for (IShapeObjectType tgt : set) {
 	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.SimpleChem, tgt);
-	}
-	set=new HashSet<IShapeObjectType>();
-	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
-	for (IShapeObjectType tgt : set) {
-	  this.EquivalenceArc.getLinkConnectionRules().addConnection(this.SMultimer, tgt);
 	}
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Tag, this.Port}));
@@ -2834,7 +2572,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return GOTerm;
 	}
 	private IPropertyDefinition getPropSBOTerm(){
-		IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO term"," ",false,true);
+		IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO"," ",false,true);
 		return SBOTerm;
 	}
 	private IPropertyDefinition getPropLabel(){
