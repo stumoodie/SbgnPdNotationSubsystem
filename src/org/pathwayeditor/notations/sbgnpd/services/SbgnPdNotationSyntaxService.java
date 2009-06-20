@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.ConnectionRouter;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LabelLocationPolicy;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
@@ -27,6 +28,7 @@ import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.AbstractPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.FormattedTextPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
@@ -680,7 +682,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Macromolecule.getDefaultAttributes().setUrl("");
 	IPropertyDefinition cardinalityProp=new NumberPropertyDefinition("Cardinality", new BigDecimal(1.0),false,true);
 	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(cardinalityProp);
-	IPropertyDefinition nameProp=new PlainTextPropertyDefinition("Name", "aMacromol",true,true);
+	AbstractPropertyDefinition<String> nameProp=new PlainTextPropertyDefinition("Name", "aMacromol",true,true);
+	nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
+	nameProp.setIsAlwaysDisplayed(true);
 	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(nameProp);
 	IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO"," ",false,true);
 	this.Macromolecule.getDefaultAttributes().addPropertyDefinition(SBOTerm);
@@ -1613,6 +1617,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Consumption.setEditableAttributes(editableAttributes);
 
 	this.Consumption.getDefaultAttributes().setUrl("");
+	IPropertyDefinition linkStoich=reassignVal(getPropStoich(),"1",true,true);
+	this.Consumption.getDefaultAttributes().addPropertyDefinition(linkStoich);
+
 	//LinkEndDefinition sport=this.Consumption.getLinkSource();
 	//LinkEndDefinition tport=this.Consumption.getLinkTarget();
 	LinkTerminusDefinition sport=this.Consumption.getSourceTerminusDefinition();
@@ -1636,6 +1643,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//sport.getDefaultAttributes().setColourEditable(true);
 	sport.setEditableAttributes(editablesportAttributes);
+	IPropertyDefinition srcStoich=reassignVal(getPropStoich(),"1",true,true);
+	sport.getDefaultAttributes().addPropertyDefinition(srcStoich);
 	tport.getDefaultAttributes().setGap((short)0);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
 	tport.getDefaultAttributes().setEndSize(new Size(8,8));
@@ -1655,8 +1664,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	//tport.getDefaultAttributes().setColourEditable(true);
 	tport.setEditableAttributes(editabletportAttributes);
-	IPropertyDefinition Stoich=reassignVal(getPropStoich(),"1",true,false);
-	tport.getDefaultAttributes().addPropertyDefinition(Stoich);
+	IPropertyDefinition termStoich=reassignVal(getPropStoich(),"1",true,true);
+	tport.getDefaultAttributes().addPropertyDefinition(termStoich);
 	 
 	set=new HashSet<IShapeObjectType>();
 	set.addAll(Arrays.asList(new IShapeObjectType[]{this.Process, this.OmittedProcess, this.UncertainProcess, this.Association, this.Dissociation}));
