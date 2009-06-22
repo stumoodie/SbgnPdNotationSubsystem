@@ -16,7 +16,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.PrimitiveShapeType;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Size;
+import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
@@ -369,13 +369,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.State.getDefaultAttributes().setName("State");
 	this.State.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.State.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.State.getDefaultAttributes().setSize(new Size(20,20));
+	this.State.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.State.getDefaultAttributes().setLineWidth(1);
 	this.State.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.State.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.State.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{25,25};
-			this.State.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.State.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.State.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -419,13 +419,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UnitOfInf.getDefaultAttributes().setName("UnitOfInf");
 	this.UnitOfInf.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnitOfInf.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.UnitOfInf.getDefaultAttributes().setSize(new Size(20,20));
+	this.UnitOfInf.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.UnitOfInf.getDefaultAttributes().setLineWidth(1);
 	this.UnitOfInf.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.UnitOfInf.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.UnitOfInf.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{65,25};
-			this.UnitOfInf.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.UnitOfInf.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.UnitOfInf.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -470,13 +470,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Compartment.getDefaultAttributes().setName("Compartment");
 	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Compartment.getDefaultAttributes().setSize(new Size(20,20));
+	this.Compartment.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Compartment.getDefaultAttributes().setLineWidth(3);
 	this.Compartment.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Compartment.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Compartment.getDefaultAttributes().setShapeType(PrimitiveShapeType.IRREGULAR_ROUNDED_RECTANGLE);		int[] s=new int[]{200,200};
-			this.Compartment.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Compartment.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Compartment.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -531,13 +531,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Complex.getDefaultAttributes().setName("Complex");
 	this.Complex.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Complex.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Complex.getDefaultAttributes().setSize(new Size(20,20));
+	this.Complex.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Complex.getDefaultAttributes().setLineWidth(1);
 	this.Complex.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Complex.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Complex.getDefaultAttributes().setShapeType(PrimitiveShapeType.IRREGULAR_OCTAGON);		int[] s=new int[]{120,80};
-			this.Complex.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Complex.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Complex.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -589,13 +589,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.GeneticUnit.getDefaultAttributes().setName("Genetic unit");
 	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.GeneticUnit.getDefaultAttributes().setSize(new Size(20,20));
+	this.GeneticUnit.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.GeneticUnit.getDefaultAttributes().setLineWidth(1);
 	this.GeneticUnit.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.GeneticUnit.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.GeneticUnit.getDefaultAttributes().setShapeType(PrimitiveShapeType.ROUNDED_RECTANGLE);		int[] s=new int[]{60,40};
-			this.GeneticUnit.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.GeneticUnit.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.GeneticUnit.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -644,13 +644,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Macromolecule.getDefaultAttributes().setName("Macromolecule");
 	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Macromolecule.getDefaultAttributes().setSize(new Size(20,20));
+	this.Macromolecule.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Macromolecule.getDefaultAttributes().setLineWidth(1);
 	this.Macromolecule.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Macromolecule.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Macromolecule.getDefaultAttributes().setShapeType(PrimitiveShapeType.MACROMOLECULE);		int[] s=new int[]{60,40};
-			this.Macromolecule.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Macromolecule.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Macromolecule.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -709,13 +709,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.SimpleChem.getDefaultAttributes().setName(" ");
 	this.SimpleChem.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.SimpleChem.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.SimpleChem.getDefaultAttributes().setSize(new Size(20,20));
+	this.SimpleChem.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.SimpleChem.getDefaultAttributes().setLineWidth(1);
 	this.SimpleChem.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.SimpleChem.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.SimpleChem.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{30,30};
-			this.SimpleChem.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.SimpleChem.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.SimpleChem.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -769,13 +769,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UnspecEntity.getDefaultAttributes().setName("Unspecified entity");
 	this.UnspecEntity.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.UnspecEntity.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.UnspecEntity.getDefaultAttributes().setSize(new Size(20,20));
+	this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.UnspecEntity.getDefaultAttributes().setLineWidth(1);
 	this.UnspecEntity.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.UnspecEntity.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.UnspecEntity.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{60,40};
-			this.UnspecEntity.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.UnspecEntity.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -824,13 +824,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Sink.getDefaultAttributes().setName("Sink");
 	this.Sink.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Sink.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Sink.getDefaultAttributes().setSize(new Size(20,20));
+	this.Sink.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Sink.getDefaultAttributes().setLineWidth(1);
 	this.Sink.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Sink.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Sink.getDefaultAttributes().setShapeType(PrimitiveShapeType.EMPTY_SET);		int[] s=new int[]{30,30};
-			this.Sink.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.Sink.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -873,13 +873,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Source.getDefaultAttributes().setName("Source");
 	this.Source.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Source.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Source.getDefaultAttributes().setSize(new Size(20,20));
+	this.Source.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Source.getDefaultAttributes().setLineWidth(1);
 	this.Source.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Source.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Source.getDefaultAttributes().setShapeType(PrimitiveShapeType.EMPTY_SET);		int[] s=new int[]{30,30};
-			this.Source.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.Source.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -922,13 +922,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Perturbation.getDefaultAttributes().setName("Perturbation");
 	this.Perturbation.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Perturbation.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Perturbation.getDefaultAttributes().setSize(new Size(20,20));
+	this.Perturbation.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Perturbation.getDefaultAttributes().setLineWidth(1);
 	this.Perturbation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Perturbation.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Perturbation.getDefaultAttributes().setShapeType(PrimitiveShapeType.XSHAPE);		int[] s=new int[]{80,60};
-			this.Perturbation.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Perturbation.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Perturbation.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -972,13 +972,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Observable.getDefaultAttributes().setName("Observable");
 	this.Observable.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Observable.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Observable.getDefaultAttributes().setSize(new Size(20,20));
+	this.Observable.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Observable.getDefaultAttributes().setLineWidth(1);
 	this.Observable.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Observable.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Observable.getDefaultAttributes().setShapeType(PrimitiveShapeType.HEXAGON);		int[] s=new int[]{80,60};
-			this.Observable.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Observable.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Observable.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -1022,13 +1022,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Module.getDefaultAttributes().setName("Submap");
 	this.Module.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Module.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Module.getDefaultAttributes().setSize(new Size(20,20));
+	this.Module.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Module.getDefaultAttributes().setLineWidth(1);
 	this.Module.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Module.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Module.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{120,120};
-			this.Module.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Module.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Module.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -1077,13 +1077,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Port.getDefaultAttributes().setName("SubmapPort");
 	this.Port.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Port.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Port.getDefaultAttributes().setSize(new Size(20,20));
+	this.Port.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Port.getDefaultAttributes().setLineWidth(1);
 	this.Port.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Port.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Port.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);		int[] s=new int[]{20,35};
-			this.Port.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.Port.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1126,13 +1126,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Tag.getDefaultAttributes().setName("Tag");
 	this.Tag.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Tag.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Tag.getDefaultAttributes().setSize(new Size(20,20));
+	this.Tag.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Tag.getDefaultAttributes().setLineWidth(1);
 	this.Tag.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Tag.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Tag.getDefaultAttributes().setShapeType(PrimitiveShapeType.RH_SIGN_ARROW);		int[] s=new int[]{40,20};
-			this.Tag.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{255,255,255};
+			this.Tag.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{255,255,255};
 	this.Tag.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -1176,13 +1176,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Process.getDefaultAttributes().setName("Process");
 	this.Process.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);
 	this.Process.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Process.getDefaultAttributes().setSize(new Size(20,20));
+	this.Process.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Process.getDefaultAttributes().setLineWidth(1);
 	this.Process.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Process.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Process.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);		int[] s=new int[]{45,30};
-			this.Process.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.Process.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1228,13 +1228,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.OmittedProcess.getDefaultAttributes().setName("Omitted process");
 	this.OmittedProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);
 	this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.OmittedProcess.getDefaultAttributes().setSize(new Size(20,20));
+	this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.OmittedProcess.getDefaultAttributes().setLineWidth(1);
 	this.OmittedProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.OmittedProcess.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.OmittedProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);		int[] s=new int[]{45,30};
-			this.OmittedProcess.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1280,13 +1280,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.UncertainProcess.getDefaultAttributes().setName("Uncertain process");
 	this.UncertainProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);
 	this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.UncertainProcess.getDefaultAttributes().setSize(new Size(20,20));
+	this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.UncertainProcess.getDefaultAttributes().setLineWidth(1);
 	this.UncertainProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.UncertainProcess.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.UncertainProcess.getDefaultAttributes().setShapeType(PrimitiveShapeType.PROCESS);		int[] s=new int[]{45,30};
-			this.UncertainProcess.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1332,13 +1332,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Association.getDefaultAttributes().setName("Association");
 	this.Association.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Association.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Association.getDefaultAttributes().setSize(new Size(20,20));
+	this.Association.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Association.getDefaultAttributes().setLineWidth(1);
 	this.Association.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Association.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Association.getDefaultAttributes().setShapeType(PrimitiveShapeType.ASSOCIATION);		int[] s=new int[]{20,20};
-			this.Association.getDefaultAttributes().setSize(new Size(s[0],s[1]));int[] c=new int[]{0,0,0};
+			this.Association.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));int[] c=new int[]{0,0,0};
 	this.Association.getDefaultAttributes().setFillColour(new RGB(c[0],c[1],c[2]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
@@ -1385,13 +1385,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.Dissociation.getDefaultAttributes().setName("Dissociation");
 	this.Dissociation.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.Dissociation.getDefaultAttributes().setSize(new Size(20,20));
+	this.Dissociation.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.Dissociation.getDefaultAttributes().setLineWidth(1);
 	this.Dissociation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.Dissociation.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.Dissociation.getDefaultAttributes().setShapeType(PrimitiveShapeType.DISSOCIATION);		int[] s=new int[]{20,20};
-			this.Dissociation.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.Dissociation.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1437,13 +1437,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.AndGate.getDefaultAttributes().setName("AND gate");
 	this.AndGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.AndGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.AndGate.getDefaultAttributes().setSize(new Size(20,20));
+	this.AndGate.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.AndGate.getDefaultAttributes().setLineWidth(1);
 	this.AndGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.AndGate.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.AndGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{40,40};
-			this.AndGate.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.AndGate.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1489,13 +1489,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.OrGate.getDefaultAttributes().setName("OR gate");
 	this.OrGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.OrGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.OrGate.getDefaultAttributes().setSize(new Size(20,20));
+	this.OrGate.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.OrGate.getDefaultAttributes().setLineWidth(1);
 	this.OrGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.OrGate.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.OrGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{40,40};
-			this.OrGate.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.OrGate.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1541,13 +1541,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	this.NotGate.getDefaultAttributes().setName("NOT gate");
 	this.NotGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.RECTANGLE);
 	this.NotGate.getDefaultAttributes().setFillColour(new RGB(255,255,255));
-	this.NotGate.getDefaultAttributes().setSize(new Size(20,20));
+	this.NotGate.getDefaultAttributes().setSize(new Dimension(20,20));
 	int[] lc=new int[]{0,0,0};
 	this.NotGate.getDefaultAttributes().setLineWidth(1);
 	this.NotGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 	this.NotGate.getDefaultAttributes().setLineColour(new RGB(lc[0],lc[1],lc[2]));
 	this.NotGate.getDefaultAttributes().setShapeType(PrimitiveShapeType.ELLIPSE);		int[] s=new int[]{40,40};
-			this.NotGate.getDefaultAttributes().setSize(new Size(s[0],s[1]));
+			this.NotGate.getDefaultAttributes().setSize(new Dimension(s[0],s[1]));
 
 	EnumSet<EditableShapeAttributes> editableAttributes = EnumSet.noneOf(EditableShapeAttributes.class);
 	if(true){
@@ -1626,9 +1626,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Consumption.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1647,9 +1647,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.getDefaultAttributes().addPropertyDefinition(srcStoich);
 	tport.getDefaultAttributes().setGap((short)0);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	tport.getDefaultAttributes().setEndSize(new Size(8,8));
+	tport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1731,9 +1731,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Production.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)0);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1750,9 +1750,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.TRIANGLE);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1834,9 +1834,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Modulation.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1853,9 +1853,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.EMPTY_DIAMOND);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1947,9 +1947,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Stimulation.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -1966,9 +1966,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.EMPTY_TRIANGLE);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2060,9 +2060,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Catalysis.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2079,9 +2079,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)10);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.EMPTY_CIRCLE);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2173,9 +2173,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Inhibition.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2192,9 +2192,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.BAR);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2287,9 +2287,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.Trigger.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2306,9 +2306,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.TRIANGLE_BAR);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2400,9 +2400,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.LogicArc.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2419,9 +2419,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)0);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.TRIANGLE_BAR);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2511,9 +2511,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	LinkTerminusDefinition tport=this.EquivalenceArc.getTargetTerminusDefinition();
 	sport.getDefaultAttributes().setGap((short)5);
 	sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 8,8);
-	sport.getDefaultAttributes().setEndSize(new Size(8,8));
+	sport.getDefaultAttributes().setEndSize(new Dimension(8,8));
 	sport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	sport.getDefaultAttributes().setTermSize(new Size(0,0));
+	sport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] csport=new int[]{255,255,255};
 	sport.getDefaultAttributes().setTermColour(new RGB(csport[0],csport[1],csport[2]));
 	//sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2530,9 +2530,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	sport.setEditableAttributes(editablesportAttributes);
 	tport.getDefaultAttributes().setGap((short)5);
 	tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);//, 5,5);
-	tport.getDefaultAttributes().setEndSize(new Size(5,5));
+	tport.getDefaultAttributes().setEndSize(new Dimension(5,5));
 	tport.getDefaultAttributes().setTermDecoratorType(PrimitiveShapeType.RECTANGLE);
-	tport.getDefaultAttributes().setTermSize(new Size(0,0));
+	tport.getDefaultAttributes().setTermSize(new Dimension(0,0));
 	int[] ctport=new int[]{255,255,255};
 	tport.getDefaultAttributes().setTermColour(new RGB(ctport[0],ctport[1],ctport[2]));
 	//tport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
@@ -2580,10 +2580,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		IPropertyDefinition GOTerm=new PlainTextPropertyDefinition("GO term"," ",false,true);
 		return GOTerm;
 	}
-	private IPropertyDefinition getPropSBOTerm(){
-		IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO"," ",false,true);
-		return SBOTerm;
-	}
+//	private IPropertyDefinition getPropSBOTerm(){
+//		IPropertyDefinition SBOTerm=new PlainTextPropertyDefinition("SBO"," ",false,true);
+//		return SBOTerm;
+//	}
 	private IPropertyDefinition getPropLabel(){
 		IPropertyDefinition Label=new FormattedTextPropertyDefinition("Label"," ",true,true);
 		return Label;
