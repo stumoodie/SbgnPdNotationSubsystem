@@ -19,7 +19,7 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private static final String GLOBAL_ID = "org.pathwayeditor.notations.sbgnpd";
 	private static final String DESCRIPTION = "SBGN Process Diagram Notation";
 	private static final String NAME = "SBGN-PD";
-	private static final Version VERSION = new Version(0, 9, 0);
+	private static final Version VERSION = new Version(0, 9, 1);
 	private SbgnPdNotationSyntaxService syntaxService;
 	private SbgnPdValidationService validationService;
 	private INotation context;

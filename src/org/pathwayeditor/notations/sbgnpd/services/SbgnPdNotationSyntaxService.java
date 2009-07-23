@@ -14,6 +14,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LabelLocat
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
@@ -25,6 +26,7 @@ import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAt
 import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
 import org.pathwayeditor.figure.geometry.Dimension;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.IntegerPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.NumberPropertyDefinition;
@@ -479,6 +481,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		stateDescnProp.setAlwaysDisplayed(true);
 		stateDescnProp.setEditable(true);
 		stateDescnProp.setDisplayName("Value");
+		stateDescnProp.getLabelDefaults().setNoBorder(true);
+		stateDescnProp.getLabelDefaults().setNoFill(true);
+		stateDescnProp.getLabelDefaults().setMinimumSize(new Dimension(30, 30));
 		this.State.getDefaultAttributes().addPropertyDefinition(stateDescnProp);
 		this.State.getDefaultAttributes().setShapeDefinition(STATE_DEFN);
 		this.State.getDefaultAttributes().setFillColour(RGB.WHITE);
@@ -556,11 +561,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Compartment.setDescription("Functional compartment");// ment to be
 																	// TypeDescription
 																	// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		this.Compartment.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.Compartment.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Compartment.getDefaultAttributes().setShapeDefinition(COMPARTMENT_DEFN);
 		this.Compartment.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Compartment.getDefaultAttributes().setSize(new Dimension(200, 200));
@@ -606,17 +607,35 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return this.Compartment;
 	}
 
-	private void createComplex() {
+	private IntegerPropertyDefinition createCardinalityProperty(){
+		IntegerPropertyDefinition cardinalityProp = new IntegerPropertyDefinition("cardinality", 1);
+		cardinalityProp.setVisualisable(true);
+		cardinalityProp.setEditable(true);
+		cardinalityProp.setDisplayName("Cardinality");
+		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
+		cardinalityProp.getLabelDefaults().setFillColour(RGB.WHITE);
+		cardinalityProp.getLabelDefaults().setLineColour(RGB.BLACK);
+		cardinalityProp.getLabelDefaults().setNoFill(false);
+		cardinalityProp.getLabelDefaults().setNoBorder(false);
+		cardinalityProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
+		return cardinalityProp;
+	}
+	
+	
+	private IPlainTextPropertyDefinition createNameProperty(){
 		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
 		nameProp.setAlwaysDisplayed(true);
 		nameProp.setEditable(true);
 		nameProp.setDisplayName("Name");
-		this.Complex.getDefaultAttributes().addPropertyDefinition(nameProp);
-		NumberPropertyDefinition cardinalityProp = new NumberPropertyDefinition("cardinality", new BigDecimal(1));
-		cardinalityProp.setVisualisable(false);
-		cardinalityProp.setEditable(true);
-		cardinalityProp.setDisplayName("Cardinality");
-		this.Complex.getDefaultAttributes().addPropertyDefinition(cardinalityProp);
+		nameProp.getLabelDefaults().setNoFill(true);
+		nameProp.getLabelDefaults().setNoBorder(true);
+		return nameProp;
+	}
+	
+	
+	private void createComplex() {
+		this.Complex.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.Complex.getDefaultAttributes().setShapeDefinition(COMPLEX_DEFN);
 		this.Complex.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Complex.getDefaultAttributes().setSize(new Dimension(120, 80));
@@ -661,11 +680,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 																			// be
 																			// TypeDescription
 																			// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		this.GeneticUnit.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.GeneticUnit.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.GeneticUnit.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
 		this.GeneticUnit.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.GeneticUnit.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -708,12 +723,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Macromolecule.setDescription("Macromolecule");// ment to be
 															// TypeDescription
 															// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
-		nameProp.setDisplayName("Name");
-		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Macromolecule.getDefaultAttributes().setShapeDefinition(MACROMOLECULE_DEFN);
 		this.Macromolecule.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Macromolecule.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -736,11 +746,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 			editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 		}
 		this.Macromolecule.setEditableAttributes(editableAttributes);
-		NumberPropertyDefinition cardinalityProp = new NumberPropertyDefinition("cardinality", new BigDecimal(1));
-		cardinalityProp.setVisualisable(false);
-		cardinalityProp.setEditable(true);
-		cardinalityProp.setDisplayName("Cardinality");
-		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(cardinalityProp);
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 	}
 
 	private void defineParentingMacromolecule() {
@@ -761,20 +767,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.SimpleChem.setDescription("Simple chemical");// ment to be
 															// TypeDescription
 															// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(nameProp);
-		NumberPropertyDefinition cardinalityProp = new NumberPropertyDefinition("cardinality", new BigDecimal(1));
-		cardinalityProp.setVisualisable(false);
-		cardinalityProp.setEditable(true);
-		cardinalityProp.setDisplayName("Cardinality");
-		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(cardinalityProp);
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.SimpleChem.getDefaultAttributes().setShapeDefinition(SIMPLE_CHEM_DEFN);
 		this.SimpleChem.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(30, 30));
-		this.SimpleChem.getDefaultAttributes().setLineWidth(1);
+		this.SimpleChem.getDefaultAttributes().setLineWidth(1.0);
 		this.SimpleChem.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.SimpleChem.getDefaultAttributes().setLineColour(RGB.BLACK);
 
@@ -812,11 +810,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.UnspecEntity.setDescription("Unspecified entity");// ment to be
 																// TypeDescription
 																// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.UnspecEntity.getDefaultAttributes().setShapeDefinition(UNSPECIFIED_ENTITY_DEFN);
 		this.UnspecEntity.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -930,12 +924,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Perturbation.setDescription("Perturbing Agent");// ment to be
 															// TypeDescription
 															// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		nameProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.CENTRE);
-		this.Perturbation.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.Perturbation.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Perturbation.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
 		this.Perturbation.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Perturbation.getDefaultAttributes().setSize(new Dimension(80, 60));
@@ -972,12 +961,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Observable.setDescription("Observable");// ment to be
 														// TypeDescription
 														// rather
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
 		this.Observable.getDefaultAttributes().setShapeDefinition(OBSERVABLE_DEFN);
-		this.Observable.getDefaultAttributes().addPropertyDefinition(nameProp);
+		this.Observable.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Observable.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Observable.getDefaultAttributes().setLineColour(RGB.BLACK);
 		this.Observable.getDefaultAttributes().setSize(new Dimension(80, 60));
