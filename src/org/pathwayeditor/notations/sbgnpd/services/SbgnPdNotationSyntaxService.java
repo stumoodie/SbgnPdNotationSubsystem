@@ -663,7 +663,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.State,
 				this.UnitOfInf, this.Macromolecule, this.SimpleChem,
-				this.Complex }));
+				this.Complex,this.GeneticUnit }));
 		for (IShapeObjectType child : set) {
 			this.Complex.getParentingRules().addChild(child);
 		}
