@@ -1386,6 +1386,14 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 				this.Dissociation }));
 		for (IShapeObjectType tgt : set) {
 			this.Consumption.getLinkConnectionRules().addConnection(
+					this.GeneticUnit, tgt);
+		}
+		set = new HashSet<IShapeObjectType>();
+		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process,
+				this.OmittedProcess, this.UncertainProcess, this.Association,
+				this.Dissociation }));
+		for (IShapeObjectType tgt : set) {
+			this.Consumption.getLinkConnectionRules().addConnection(
 					this.SimpleChem, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
@@ -1488,7 +1496,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1496,7 +1504,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1504,7 +1512,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1512,7 +1520,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1520,7 +1528,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
