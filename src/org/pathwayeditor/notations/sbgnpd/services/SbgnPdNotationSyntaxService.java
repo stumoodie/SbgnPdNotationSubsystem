@@ -53,20 +53,21 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "x y w h oval";
-	private static final String COMPARTMENT_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
-			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "gsave null setlinecol\n"
-			+ "x 0.10 yoffset w 0.80 h mul rect\n"
-			+ "0.39 xoffset y 0.22 w mul 0.10 h mul rect\n"
-			+ " 0.39 xoffset 0.90 yoffset 0.22 w mul 0.10 h mul rect\n"
-			+ "grestore\n"
-			+ "x 0.90 yoffset x 0.10 yoffset line 0.40 xoffset 0 yoffset 0.60 xoffset 0 yoffset line\n"
-			+ "1.00 xoffset 0.10 yoffset 1.00 xoffset 0.90 yoffset line\n"
-			+ "0.60 xoffset 1.00 yoffset 0.40 xoffset 1.00 yoffset line\n"
-			+ "0 xoffset 0 yoffset 0.80 w mul 0.20 h mul 90 90 arc\n"
-			+ "0.20 xoffset 0 yoffset 0.80 w mul 0.20 h mul 0 90 arc\n"
-			+ "0 xoffset 0.80 yoffset 0.80 w mul 0.20 h mul 180 90 arc\n"
-			+ "0.20 xoffset 0.80 yoffset 0.80 w mul 0.20 h mul 270 90 arc";
+	private static final String COMPARTMENT_DEFN =
+		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
+		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
+		+ "gsave null setlinecol\n"
+		+ "x 0.10 yoffset w 0.81 h mul rect\n"
+		+ "0.4 xoffset y 0.22 w mul 0.10 h mul rect\n"
+		+ " 0.4 xoffset 0.90 yoffset 0.22 w mul 0.10 h mul rect\n"
+		+ "grestore\n"
+		+ "x 0.90 yoffset x 0.10 yoffset line 0.40 xoffset 0 yoffset 0.60 xoffset 0 yoffset line\n"
+		+ "1.00 xoffset 0.10 yoffset 1.00 xoffset 0.90 yoffset line\n"
+		+ "0.60 xoffset 1.00 yoffset 0.40 xoffset 1.00 yoffset line\n"
+		+ "0 xoffset 0 yoffset 0.80 w mul 0.20 h mul 90 90 arc\n"
+		+ "0.20 xoffset 0 yoffset 0.80 w mul 0.20 h mul 0 90 arc\n"
+		+ "0 xoffset 0.80 yoffset 0.80 w mul 0.20 h mul 180 90 arc\n"
+		+ "0.20 xoffset 0.80 yoffset 0.80 w mul 0.20 h mul 270 90 arc";
 	private static final String COMPLEX_DEFN = 
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" + 
@@ -92,8 +93,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "gsave null setlinecol x y w 0.80 h mul rect\n"
-			+ "0.20 xoffset 0.80 yoffset 0.60 w mul 0.20 h mul rect\n"
+			+ "gsave null setlinecol x y w 0.82 h mul rect\n"
+			+ "0.20 xoffset 0.80 yoffset 0.62 w mul 0.20 h mul rect\n"
+			+ "0 xoffset 0.60 yoffset 0.40 w mul 0.40 h mul 180 90 arc\n"
+			+ "0.60 xoffset 0.60 yoffset 0.40 w mul 0.40 h mul 270 90 arc\n" 
 			+ "grestore\n"
 			+ "[0 xoffset 0.80 yoffset 0 xoffset 0 yoffset 1.00 xoffset 0 yoffset 1.00 xoffset 0.80 yoffset ] pline\n"
 			+ "0.20 xoffset 1.00 yoffset 0.80 xoffset 1.00 yoffset line\n"
