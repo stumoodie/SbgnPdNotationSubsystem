@@ -1,0 +1,130 @@
+roots					:=	mapNodes mapEdges
+						;
+
+mapNodes				:=	NODE_ROOT ^mapDiagram
+						;
+
+mapDiagram				:=	MAP_DIAGRAM ^mapChildren
+						;
+
+mapChildren				:=	mapChild mapChildren;
+						|
+						;
+
+mapChild					:=	compartment
+						|	nonCompartmentTopNode
+						|	compartmentChildren
+						;
+
+compartment				:=	COMPARTMENT ^compartmentChildren
+						;
+
+compartmentChildren		:=	compartmentChild compartmentChildren
+						|	compartmentChild
+						;
+
+compartmentChild			:=	statefulEpns
+						|	epns
+						|	UNIT_OF_INFORMATION
+						|	nonCompartmentTopNode
+						;
+
+nonCompartmentTopNode	:=	processes
+						|	perturbingAgent
+						|	SINK
+						|	SOURCE
+						;
+
+statefulEpns				:=	complex
+						|	macromolecule
+						|	naFeature
+						;
+
+epns					:=	simpleChemical
+						|	unspecifiedEntity
+						;
+
+macromolecule			:=	MACROMOLECULE ^macromoleculeChildren
+						;
+
+macromoleculeChildren		:=	MATERIAL_TYPE macromoleculeChildren
+						|	statefulEpnChild macromoleculeChildren
+						|
+						;
+
+complex					:=	COMPLEX ^compexChildren
+						;
+
+complexChildren			:=	statefulEpns complexChildren
+						|	epns complexChildren
+						|	statefulEpnChild complexChildren
+						|	
+						;
+
+naFeature				:=	NA_FEATURE ^naFeatureChildren
+						;
+
+naFeatureChildren			:=	CONCEPTUAL_TYPE naFeatureChildren
+						|	statefulEpnChild naFeatureChildren
+						|
+						;
+
+simpleChemical			:=	SIMPLE_CHEMICAL ^epnChildren
+						|
+						;
+
+unspecifiedEntity			:=	UNSPECIFIED_ENTITY ^epnChildren
+						; 
+
+epnChildren				:=	epnChild epnChildren
+						|
+						;
+
+perturbingAgent			:=	PERTURBING_AGENT ^perturbingAgentChildren
+						;
+
+perturbingAgentChildren		:=	epnChild perturbingAgentChildren
+						|	PHYSICAL_CHARACTERISTIC perturbingAgentChildren
+						|
+						;	
+
+statefulEpnChild			:=	STATE_DESCRIPTION
+						|	CARDINALITY
+						|	epnChild
+						;
+
+uoi						:=	UNIT_OF_INFORMATION
+						;
+
+processes				:=	PROCESS
+						|	UNCERTAIN_PROCESS
+						|	OMITTED_PROCESS
+						|	ASSOCIATTION
+						|	DISOCCIATION
+						|	phenotype
+						;
+
+phenotype				:=	PHENOTYPE ^phenotypeChildren
+						;
+
+phenotypeChildren			:	uoi phenotypeChildren
+						|	
+						;
+
+mapEdges				:=	EDGE_ROOT ^edgeChildren
+						;
+
+edgeChildren				:=	edgeChild edgeChildren
+						|
+						;
+
+edgeChild				:=	CONSUMPTION_ARC
+						|	PRODUCTION_ARC
+						|	MODULATION_ARC
+						|	STIMULATION_ARC
+						|	CATALYSIS_ARC
+						|	INHIBITION_ARC
+						|	NECESSARY_STIMULATION_ARC
+						|	LOGIC_ARC
+						|	EQUIVALENCE_ARC
+						;
