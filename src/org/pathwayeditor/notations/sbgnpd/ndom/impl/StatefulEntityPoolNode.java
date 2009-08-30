@@ -15,7 +15,7 @@ public abstract class StatefulEntityPoolNode extends EntityPoolNode implements I
 	private static final String STATE_VALUE_PROP_NAME = "stateValue";
 	private final Set<IStateDescription> stateDescriptions;
 	
-	protected StatefulEntityPoolNode(IEPNContainer compartmentNode, String name, String identifier,
+	protected StatefulEntityPoolNode(IEPNContainer compartmentNode, String name, int identifier,
 			String sboTerm){
 		super(identifier, compartmentNode, name, sboTerm);
 		this.stateDescriptions = new HashSet<IStateDescription>();

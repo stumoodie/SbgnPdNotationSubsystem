@@ -3,7 +3,7 @@ package org.pathwayeditor.notations.sbgnpd.ndom;
 
 public interface IBasicEntityNode {
 
-	String getIdentifier();
+	int getIdentifier();
 	
 	String getSboId();
 }

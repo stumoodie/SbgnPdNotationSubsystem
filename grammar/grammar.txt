@@ -12,8 +12,9 @@ mapChildren				:=	mapChild mapChildren;
 						;
 
 mapChild					:=	compartment
-						|	nonCompartmentTopNode
-						|	compartmentChildren
+						|	epns
+						|	statefulEpns
+						|	processLikeTopNode
 						;
 
 compartment				:=	COMPARTMENT ^compartmentChildren
@@ -26,10 +27,10 @@ compartmentChildren		:=	compartmentChild compartmentChildren
 compartmentChild			:=	statefulEpns
 						|	epns
 						|	UNIT_OF_INFORMATION
-						|	nonCompartmentTopNode
+						|	processLikeTopNode
 						;
 
-nonCompartmentTopNode	:=	processes
+processLikeTopNode		:=	processes
 						|	perturbingAgent
 						|	SINK
 						|	SOURCE

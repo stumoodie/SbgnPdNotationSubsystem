@@ -15,7 +15,7 @@ public abstract class EntityPoolNode extends BasicEntityNode implements IEntityP
 	private final UnitOfInformationHandler handler;
 	private int cardinality = DEFAULT_CARDINALITY;
 
-	protected EntityPoolNode(String identifier, IEPNContainer compartment, String name, String sboTerm){
+	protected EntityPoolNode(int identifier, IEPNContainer compartment, String name, String sboTerm){
 		super(identifier, sboTerm);
 		this.name = name;
 		this.compartment = compartment;

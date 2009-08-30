@@ -1,5 +1,7 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.parser;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingElement;
+
 
 public interface IToken {
 
@@ -16,5 +18,5 @@ public interface IToken {
 	
 	Object getElement();
 
-	<T> T getTypedElement();
+	<T extends IDrawingElement> T getTypedElement();
 }

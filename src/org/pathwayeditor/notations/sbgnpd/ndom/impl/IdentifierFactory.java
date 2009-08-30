@@ -17,10 +17,17 @@ public class IdentifierFactory {
 		
 	}
 	
-	public String createIdentifier(String prefix, IShapeNode shapeNode){
-		StringBuilder builder = new StringBuilder(prefix);
-		builder.append(shapeNode.getAttribute().getCreationSerial());
-		return builder.toString();
-	}
+//	public String createIdentifier(String prefix, IShapeNode shapeNode){
+//		StringBuilder builder = new StringBuilder(prefix);
+//		builder.append(shapeNode.getAttribute().getCreationSerial());
+//		return builder.toString();
+//	}
 	
+	public int createIdentifier(String prefix, IShapeNode shapeNode){
+		return shapeNode.getAttribute().getCreationSerial();
+	}
+
+	public int createIdentifier(IShapeNode shapeNode){
+		return shapeNode.getAttribute().getCreationSerial();
+	}
 }

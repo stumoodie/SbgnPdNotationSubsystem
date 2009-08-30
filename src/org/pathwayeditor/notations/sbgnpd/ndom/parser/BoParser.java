@@ -17,6 +17,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISimpleChemicalNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStatefulEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 import org.pathwayeditor.notations.sbgnpd.ndom.impl.MapDiagram;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.IToken.TreeTokenType;
 
@@ -58,23 +59,6 @@ public class BoParser implements IBoParser {
 		return mapDiagram;
 	}
 	
-	private IMapDiagram mapDiagramRule() throws TreeParseException{
-		lexer.match(TreeTokenType.MAP_DIAGRAM);
-		IRootNode rootNode = this.lexer.getCurrent().getTypedElement();
-		IMapDiagram mapDiagram = new MapDiagram(rootNode.getModel().getCanvas());
-		lexer.down();
-		if(lexer.isRightLookaheadMatch(TreeTokenType.COMPARTMENT)){
-			multiCompartmentRule(mapDiagram);
-		}
-		else{
-			ICompartmentNode defaultComp = mapDiagram.createDefaultCompartmentNode();
-			compartmentChildrenRule(defaultComp);
-		}
-		lexer.up();
-		return mapDiagram;
-	}
-	
-	
 	private IMapDiagram mapNodesRule() throws TreeParseException{
 		lexer.match(TreeTokenType.NODE_ROOT);
 		lexer.down();
@@ -83,20 +67,40 @@ public class BoParser implements IBoParser {
 		return retVal;
 	}
 	
-
-	private void multiCompartmentRule(IMapDiagram mapDiagram) throws TreeParseException {
+	private IMapDiagram mapDiagramRule() throws TreeParseException{
+		lexer.match(TreeTokenType.MAP_DIAGRAM);
+		IRootNode rootNode = this.lexer.getCurrent().getTypedElement();
+		IMapDiagram mapDiagram = new MapDiagram(rootNode.getModel().getCanvas());
+		lexer.down();
+		mapChildrenRule(mapDiagram);
+		lexer.up();
+		return mapDiagram;
+	}
+	
+	
+	private void mapChildrenRule(IMapDiagram mapDiagram) throws TreeParseException{
+		if(this.lexer.hasRightTokens()){
+			mapChildRule(mapDiagram);
+			mapChildrenRule(mapDiagram);
+		}
+		
+	}
+	
+	private void mapChildRule(IMapDiagram mapDiagram) throws TreeParseException{
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.COMPARTMENT)){
 			compartmentRule(mapDiagram);
-			if(this.lexer.hasRightTokens()){
-				multiCompartmentRule(mapDiagram);
-			}
 		}
-		else{
-			nonCompartmentTopNode(mapDiagram);
-			multiCompartmentRule(mapDiagram);
+		else if(this.lexer.isRightLookaheadMatch(STATEFUL_EPNS)){
+			statefulEpnRule(mapDiagram);
+		}
+		else if(this.lexer.isRightLookaheadMatch(EPN_NODES)){
+			epnsRule(mapDiagram);
+		}
+		else {
+			processLikeTopNode(mapDiagram);
 		}
 	}
-
+	
 	// we have matched a compartment so this is the
 	// current token
 	private void compartmentRule(IMapDiagram mapDiagram) throws TreeParseException {
@@ -126,11 +130,11 @@ public class BoParser implements IBoParser {
 			epnsRule(compartmentNode);
 		}
 		else{
-			nonCompartmentTopNode(compartmentNode.getMapDiagram());
+			processLikeTopNode(compartmentNode.getMapDiagram());
 		}
 	}
 	
-	private void nonCompartmentTopNode(IMapDiagram map) throws TreeParseException{
+	private void processLikeTopNode(IMapDiagram map) throws TreeParseException{
 		if(lexer.isRightLookaheadMatch(PROCESS_NODES)){
 			processesRule(map);
 		}
@@ -315,18 +319,28 @@ public class BoParser implements IBoParser {
 	private void processesRule(IMapDiagram map) throws TreeParseException{
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.PROCESS)){
 			this.lexer.match(TreeTokenType.PROCESS);
+			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
+			map.createProcessNode(shapeNode, ProcessNodeType.STANDARD);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.UNSPECIFIED_PROCESS)){
 			this.lexer.match(TreeTokenType.UNSPECIFIED_PROCESS);
+			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
+			map.createProcessNode(shapeNode, ProcessNodeType.UNCERTAIN_PROCESS);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.OMITTED_PROCESS)){
 			this.lexer.match(TreeTokenType.OMITTED_PROCESS);
+			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
+			map.createProcessNode(shapeNode, ProcessNodeType.OMITTED_PROCESS);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.ASSOCIATION)){
 			this.lexer.match(TreeTokenType.ASSOCIATION);
+			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
+			map.createProcessNode(shapeNode, ProcessNodeType.ASSOCIATION);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.DISOCCIATION)){
 			this.lexer.match(TreeTokenType.DISOCCIATION);
+			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
+			map.createProcessNode(shapeNode, ProcessNodeType.DISOCCIATION);
 		}
 		else{
 			phenotypeRule(map);

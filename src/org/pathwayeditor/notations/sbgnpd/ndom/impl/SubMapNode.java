@@ -3,25 +3,11 @@ package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISubMapNode;
 
-public class SubMapNode implements ISubMapNode {
-
+public class SubMapNode extends BasicEntityNode implements ISubMapNode {
+	private static final String SBO_TERM = null;
+	
 	public SubMapNode(IShapeNode shapeNode) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getSboId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IShapeNode getShapeNode() {
-		// TODO Auto-generated method stub
-		return null;
+		super(shapeNode.getAttribute().getCreationSerial(), SBO_TERM);
 	}
 
 }

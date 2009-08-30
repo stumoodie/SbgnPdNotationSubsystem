@@ -4,38 +4,31 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IBasicEntityNode;
 
 public abstract class BasicEntityNode implements IBasicEntityNode {
 	private final String sboTerm;
-	private final String identifier;
+	private final int identifier;
 	
-	protected BasicEntityNode(String uniqueId, String sboTerm){
+	protected BasicEntityNode(int uniqueId, String sboTerm){
 		this.identifier = uniqueId;
 		this.sboTerm = sboTerm;
 	}
 	
-	@Deprecated
-	protected final String getIdentifierPrefix(){
-		return "";
-	}
-	
- 	
 	public final String getSboId(){
 		return this.sboTerm;
 	}
 	
-	public final String getIdentifier() {
+	public final int getIdentifier() {
 		return this.identifier;
 	}
 
 	@Override
-	public final int hashCode() {
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + identifier;
 		return result;
 	}
 
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -43,11 +36,9 @@ public abstract class BasicEntityNode implements IBasicEntityNode {
 		if (!(obj instanceof BasicEntityNode))
 			return false;
 		BasicEntityNode other = (BasicEntityNode) obj;
-		if (identifier == null) {
-			if (other.identifier != null)
-				return false;
-		} else if (!identifier.equals(other.identifier))
+		if (identifier != other.identifier)
 			return false;
 		return true;
 	}
+
 }

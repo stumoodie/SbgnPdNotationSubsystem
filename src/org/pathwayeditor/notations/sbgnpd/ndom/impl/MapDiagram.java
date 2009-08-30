@@ -167,20 +167,7 @@ public class MapDiagram implements IMapDiagram {
 
 
 	public ICompartmentNode getCompartment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String getIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String getSboId() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultCompartmentNode(this);
 	}
 
 }

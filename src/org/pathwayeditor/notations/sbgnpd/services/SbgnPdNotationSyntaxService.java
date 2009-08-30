@@ -44,11 +44,20 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
 		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
-		":cardinality 1.0 gt {\n" +
-		"0.10 xoffset 0.10 yoffset 0.90 w mul 0.90 h mul oval\n" +
-		"0 xoffset 0 yoffset 0.90 w mul 0.90 h mul oval\n" +
+		"/cardinalityBox { /card exch def /fsize exch def /cpy exch def /cpx exch def\n" +
+		"fsize setfontsize\n" +
+		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
+		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
+		"gsave\n" +
+		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"grestore\n" +
+		"} def\n" +
+		":cardinality 1 gt {\n" +
+		"0.10 xoffset 0.10 yoffset 0.90 w mul 0.90 w mul oval\n" +
+		"0 xoffset 0 yoffset 0.90 w mul 0.90 w mul oval\n" +
+		"0.25 0.05 :cardFontSize :cardinality cardinalityBox\n" +
 		"}\n" +
-		"{ x y w h oval } ifelse";
+		"{ x y w w oval } ifelse";
 	private static final String UNSPECIFIED_ENTITY_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
@@ -71,11 +80,20 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String COMPLEX_DEFN = 
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" + 
-		":cardinality 1.0 gt {\n" +
+		":cardinality 1 gt {\n" +
+		"/cardinalityBox { /card exch def /fsize exch def /cpy exch def /cpx exch def\n" +
+		"fsize setfontsize\n" +
+		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
+		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
+		"gsave\n" +
+		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"grestore\n" +
+		"} def\n" +
 		"/xoffset { w 0.9 mul mul x 0.1 w mul add add } def /yoffset { h 0.9 mul mul y 0.1 h mul add add } def\n" +
 		"[0 xoffset 0.15 yoffset 0.15 xoffset 0 yoffset 0.85 xoffset 0 yoffset 1.00 xoffset 0.15 yoffset 1.00 xoffset 0.85 yoffset 0.85 xoffset 1.00 yoffset 0.15 xoffset 1.00 yoffset 0 xoffset 0.85 yoffset] pgon\n" +
 		"/xoffset { w 0.9 mul mul x add } def /yoffset { h 0.9 mul mul y add } def\n" +
 		"[0 xoffset 0.15 yoffset 0.15 xoffset 0 yoffset 0.85 xoffset 0 yoffset 1.00 xoffset 0.15 yoffset 1.00 xoffset 0.85 yoffset 0.85 xoffset 1.00 yoffset 0.15 xoffset 1.00 yoffset 0 xoffset 0.85 yoffset] pgon\n" +
+		"0.3 0 :cardFontSize :cardinality cardinalityBox\n" +
 		"}\n" +
 		"{\n" +
 		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
@@ -162,9 +180,18 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
 		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
-		":cardinality 1.0 gt {\n" +
+		"/cardinalityBox { /card exch def /fsize exch def /cpy exch def /cpx exch def\n" +
+		"fsize setfontsize\n" +
+		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
+		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
+		"gsave\n" +
+		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"grestore\n" +
+		"} def\n" +
+		":cardinality 1 gt {\n" +
 		"0.10 xoffset 0.10 yoffset 0.90 w mul 0.90 h mul 0.20 w mul 0.20 h mul rrect\n" +
 		"0 xoffset 0 yoffset 0.90 w mul 0.90 h mul 0.20 w mul 0.20 h mul rrect\n" +
+		"0.3 0 :cardFontSize :cardinality cardinalityBox\n" +
 		"}\n" +
 		"{ x y w h 0.2 w mul 0.20 h mul rrect } ifelse";
 	private static final String AND_SHAPE_DEFN =
@@ -610,9 +637,17 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return this.Compartment;
 	}
 
+	private NumberPropertyDefinition createCardFontSizeProperty(){
+		NumberPropertyDefinition cardFontSizeProp = new NumberPropertyDefinition("cardFontSize", new BigDecimal(12.0));
+		cardFontSizeProp.setVisualisable(false);
+		cardFontSizeProp.setEditable(true);
+		cardFontSizeProp.setDisplayName("Cardinality Font Size");
+		return cardFontSizeProp;
+	}
+	
 	private IntegerPropertyDefinition createCardinalityProperty(){
 		IntegerPropertyDefinition cardinalityProp = new IntegerPropertyDefinition("cardinality", 1);
-		cardinalityProp.setVisualisable(true);
+		cardinalityProp.setVisualisable(false);
 		cardinalityProp.setEditable(true);
 		cardinalityProp.setDisplayName("Cardinality");
 		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
@@ -639,6 +674,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private void createComplex() {
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
+		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.Complex.getDefaultAttributes().setShapeDefinition(COMPLEX_DEFN);
 		this.Complex.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Complex.getDefaultAttributes().setSize(new Dimension(120, 80));
@@ -750,6 +786,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		this.Macromolecule.setEditableAttributes(editableAttributes);
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 	}
 
 	private void defineParentingMacromolecule() {
@@ -767,14 +804,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createSimpleChem() {
-		this.SimpleChem.setDescription("Simple chemical");// ment to be
-															// TypeDescription
-															// rather
+		this.SimpleChem.setDescription("Simple chemical");
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.SimpleChem.getDefaultAttributes().setShapeDefinition(SIMPLE_CHEM_DEFN);
 		this.SimpleChem.getDefaultAttributes().setFillColour(RGB.WHITE);
-		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(40, 40));
 		this.SimpleChem.getDefaultAttributes().setLineWidth(1.0);
 		this.SimpleChem.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.SimpleChem.getDefaultAttributes().setLineColour(RGB.BLACK);
