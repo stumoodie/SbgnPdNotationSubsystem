@@ -2123,7 +2123,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
-		tport.getDefaultAttributes().setGap((short) 5);
+		tport.getDefaultAttributes().setGap((short) 10);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.BAR);// , 5,5);
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
