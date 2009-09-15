@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 
 public class UnitOfInformationHandler implements IAnnotateable {
@@ -23,11 +24,16 @@ public class UnitOfInformationHandler implements IAnnotateable {
 	}
 
 	public IUnitOfInformation createUnitOfInformation(IShapeNode shapeNode){
-//		String prefix = shapeNode.getAttribute().getProperty(PREFIX_PROP_NAME).getValue().toString();
 		String value = shapeNode.getAttribute().getProperty(VALUE_PROP_NAME).getValue().toString();
-		IUnitOfInformation retVal = new UnitOfInformation(this.annotateable, "", value);
+		IUnitOfInformation retVal = new UnitOfInformation(shapeNode, this.annotateable, "", value);
 		this.unitsOfInformation.add(retVal);
 		return retVal;
+	}
+
+	public void visit(IPdElementVisitor visitor) {
+		for(IUnitOfInformation uoi : this.unitsOfInformation){
+			uoi.visit(visitor);
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface ILogicArc {
+public interface ILogicArc extends IPdElement {
 
 	ILogicOperatorNode getLogicOperator();
 	

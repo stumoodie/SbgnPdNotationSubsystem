@@ -5,17 +5,18 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IConsumeableNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IConsumptionArc;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IFluxArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulationArc;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IProduceableNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IProductionArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 
-public class ProcessNode extends BasicEntityNode implements IProcessNode {
+public class ProcessNode extends PdElement implements IProcessNode {
 	private static final String SBO_TERM = "SBO:0000999";
 	private static final String ID_PREFIX = "Process";
 	private final ProcessNodeType type;
@@ -37,34 +38,58 @@ public class ProcessNode extends BasicEntityNode implements IProcessNode {
 	}
 	
 	
-	public IConsumptionArc createConsumptionArc(ILinkEdge linkEdge, IConsumeableNode consumeable) {
+	public IConsumptionArc createConsumptionArc(ILinkEdge linkEdge, IEntityPoolNode consumeable) {
 		IConsumptionArc retVal = new ConsumptionArc(linkEdge, consumeable, this);
 		this.inputs.add(retVal);
 		return retVal;
 	}
 
 	public IModulationArc createModulationArc(ILinkEdge linkEdge, ModulatingArcType type, IModulatingNode modulator) {
-		// TODO Auto-generated method stub
-		return null;
+		IModulationArc retVal = new ModulationArc(linkEdge, modulator, this, type);
+		this.modulations.add(retVal);
+		return retVal;
 	}
 
-	public IConsumptionArc createProductionArc(ILinkEdge linkEdge, IProduceableNode produceable, SidednessType type) {
-		// TODO Auto-generated method stub
-		return null;
+	public IProductionArc createProductionArc(ILinkEdge linkEdge, IEntityPoolNode produceable, SidednessType type) {
+		IProductionArc retVal = new ProductionArc(linkEdge, produceable, this);
+		if(type.equals(SidednessType.RHS)){
+			this.outputs.add(retVal);
+		}
+		else{
+			this.inputs.add(retVal);
+		}
+		return retVal;
 	}
 
-	public Set<IFluxArc> getInputs() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<IFluxArc> getLhs() {
+		return new HashSet<IFluxArc>(this.inputs);
 	}
 
-	public Set<IFluxArc> getOutputs() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<IFluxArc> getRhs() {
+		return new HashSet<IFluxArc>(this.outputs);
 	}
 
 	public ProcessNodeType getProcessType() {
 		return this.type;
+	}
+
+
+	public Set<IModulationArc> getModulationArcs() {
+		return new HashSet<IModulationArc>(this.modulations);
+	}
+
+
+	public void visit(IPdElementVisitor visitor) {
+		visitor.visitProcess(this);
+		for(IFluxArc fluxArc : this.inputs){
+			fluxArc.visit(visitor);
+		}
+		for(IFluxArc fluxArc : this.outputs){
+			fluxArc.visit(visitor);
+		}
+		for(IModulationArc modArc : this.modulations){
+			modArc.visit(visitor);
+		}
 	}
 
 }

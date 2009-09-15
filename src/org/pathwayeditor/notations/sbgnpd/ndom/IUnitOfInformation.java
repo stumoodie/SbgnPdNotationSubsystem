@@ -1,6 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IUnitOfInformation {
+public interface IUnitOfInformation extends IPdElement {
 
 	IAnnotateable getEntityPoolNode();
 	

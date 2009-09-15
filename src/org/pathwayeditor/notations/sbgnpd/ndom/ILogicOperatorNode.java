@@ -1,9 +1,11 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface ILogicOperatorNode extends IModulatingNode {
+import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
+
+public interface ILogicOperatorNode extends IModulatingNode, IPdElement {
 
 	LogicOperatorType getOperatorType();
 	
-	ILogicArc createLogicArc(IModulatingNode modulatingNode);
+	ILogicArc createLogicArc(ILinkEdge edge, IModulatingNode modulatingNode);
 	
 }

@@ -5,8 +5,9 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICloneMarker;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEPNContainer;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IIdentifiedCloneMarker;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStateDescription;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStatefulEntityPoolNode;
 
@@ -15,7 +16,7 @@ public abstract class StatefulEntityPoolNode extends EntityPoolNode implements I
 	private static final String STATE_VALUE_PROP_NAME = "stateValue";
 	private final Set<IStateDescription> stateDescriptions;
 	
-	protected StatefulEntityPoolNode(IEPNContainer compartmentNode, String name, int identifier,
+	protected StatefulEntityPoolNode(IEpnContainer compartmentNode, String name, int identifier,
 			String sboTerm){
 		super(identifier, compartmentNode, name, sboTerm);
 		this.stateDescriptions = new HashSet<IStateDescription>();
@@ -29,7 +30,7 @@ public abstract class StatefulEntityPoolNode extends EntityPoolNode implements I
 	public IStateDescription createStateDescription(IShapeNode shapeNode) {
 //		String name = shapeNode.getAttribute().getProperty(STATE_NAME_PROP_NAME).getValue().toString();
 		String value = shapeNode.getAttribute().getProperty(STATE_VALUE_PROP_NAME).getValue().toString();
-		IStateDescription retVal = new StateDescription("", value);
+		IStateDescription retVal = new StateDescription(shapeNode, "", value);
 		this.stateDescriptions.add(retVal);
 		return retVal;
 	}
@@ -47,5 +48,14 @@ public abstract class StatefulEntityPoolNode extends EntityPoolNode implements I
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	protected final void visitEpnChild(IPdElementVisitor visitor){
+		for(IStateDescription state : this.stateDescriptions){
+			state.visit(visitor);
+		}
+		visitStatefuleEpnChild(visitor);
+	}
+	
+	protected abstract void visitStatefuleEpnChild(IPdElementVisitor visitor);
 
 }

@@ -16,7 +16,7 @@ public interface IToken {
 
 	TreeTokenType getType();
 	
-	Object getElement();
+	IDrawingElement getElement();
 
 	<T extends IDrawingElement> T getTypedElement();
 }

@@ -1,5 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.parser;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingElement;
 import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.ITypedDrawingNode;
@@ -18,7 +19,7 @@ public class TokenFactory {
 		return new IToken() {
 			private final IDrawingNode element = null;
 			
-			public Object getElement() {
+			public IDrawingElement getElement() {
 				return element;
 			}
 

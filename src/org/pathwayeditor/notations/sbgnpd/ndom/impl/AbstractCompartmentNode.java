@@ -1,6 +1,5 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -11,64 +10,32 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISimpleChemicalNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISinkNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISourceNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 
-public abstract class AbstractCompartmentNode extends BasicEntityNode implements ICompartmentNode {
+public abstract class AbstractCompartmentNode extends PdElement implements ICompartmentNode {
 	private static final String SBO_TERM = "SBO:0000999";
-	private static final String PREFIX = "Compartent";
 	private final String name;
 	private final IMapDiagram map;
-	private final Set<IEntityPoolNode> epns;
+	private final EpnContainer epnContainerDelegatee;
 	
-	public AbstractCompartmentNode(IShapeNode shapeNode, IMapDiagram map, String name) {
-		super(IdentifierFactory.getInstance().createIdentifier(PREFIX, shapeNode), SBO_TERM);
+	protected AbstractCompartmentNode(IShapeNode shapeNode, IMapDiagram map, String name) {
+		super(shapeNode.getAttribute().getCreationSerial(), SBO_TERM);
 		this.name = name;
 		this.map = map;
-		this.epns = new HashSet<IEntityPoolNode>();
+		this.epnContainerDelegatee = new EpnContainer(this, this);
 	}
 
-	public AbstractCompartmentNode(IMapDiagram map, String name) {
-		this(null, map, name);
-	}
-	
-	public IComplexNode createComplexNode(IShapeNode shapeNode) {
-		IComplexNode retVal = new ComplexNode(this, shapeNode);
-		this.epns.add(retVal);
-		return retVal;
-	}
-
-	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
-		IMacromoleculeNode retVal = new MacromoleculeNode(this, shapeNode);
-		this.epns.add(retVal);
-		return retVal;
-	}
-
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(IShapeNode shapeNode) {
-		return new NucleicAcidFeatureNode(this, shapeNode);
-	}
-
-	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ISinkNode createSinkNode(IShapeNode shapeNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ISourceNode createSourceNode(IShapeNode shapeNode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(IShapeNode shapeNode) {
-		// TODO Auto-generated method stub
-		return null;
+	protected AbstractCompartmentNode(int identifier, IMapDiagram map, String name) {
+		super(identifier, SBO_TERM);
+		this.name = name;
+		this.map = map;
+		this.epnContainerDelegatee = new EpnContainer(this, this);
 	}
 
 	public String getName() {
@@ -80,12 +47,58 @@ public abstract class AbstractCompartmentNode extends BasicEntityNode implements
 		return null;
 	}
 
+	public boolean containsEntityPoolNode(int identifier) {
+		return epnContainerDelegatee.containsEntityPoolNode(identifier);
+	}
+
+	public IComplexNode createComplexNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createComplexNode(shapeNode);
+	}
+
+	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createMacromoleculeNode(shapeNode);
+	}
+
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(
+			IShapeNode shapeNode) {
+		return epnContainerDelegatee.createNucleicAcidFeatureNode(shapeNode);
+	}
+
+	public IPerturbationNode createPerturbationNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createPerturbationNode(shapeNode);
+	}
+
+	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createSimpleChemicalNode(shapeNode);
+	}
+
+	public ISinkNode createSinkNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createSinkNode(shapeNode);
+	}
+
+	public ISourceNode createSourceNode(IShapeNode shapeNode) {
+		return epnContainerDelegatee.createSourceNode(shapeNode);
+	}
+
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(
+			IShapeNode shapeNode) {
+		return epnContainerDelegatee.createUnspecifiedEntityNode(shapeNode);
+	}
+
+	public IEntityPoolNode getEntityPoolNode(int identifier) {
+		return epnContainerDelegatee.getEntityPoolNode(identifier);
+	}
+
 	public Iterator<IEntityPoolNode> nodeIterator() {
-		return this.epns.iterator();
+		return epnContainerDelegatee.nodeIterator();
 	}
 
 	public IMapDiagram getMapDiagram() {
 		return this.map;
 	}
 
+	public final void visit(IPdElementVisitor visitor) {
+		visitor.visitCompartment(this);
+		this.epnContainerDelegatee.visit(visitor);
+	}
 }

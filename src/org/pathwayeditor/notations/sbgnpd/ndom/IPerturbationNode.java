@@ -1,6 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IPerturbationNode extends IModulatingNode, IBasicEntityNode, IAnnotateable {
+public interface IPerturbationNode extends IEntityPoolNode {
 
 	String getName();
 	

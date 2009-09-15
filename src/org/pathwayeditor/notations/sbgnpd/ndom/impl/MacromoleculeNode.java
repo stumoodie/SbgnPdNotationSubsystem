@@ -1,8 +1,9 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEPNContainer;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.MaterialType;
 
 public class MacromoleculeNode extends StatefulEntityPoolNode implements IMacromoleculeNode {
@@ -12,7 +13,7 @@ public class MacromoleculeNode extends StatefulEntityPoolNode implements IMacrom
 	
 	private MaterialType materialType = null;
 	
-	public MacromoleculeNode(IEPNContainer compartment, IShapeNode shapeNode) {
+	public MacromoleculeNode(IEpnContainer compartment, IShapeNode shapeNode) {
 		super(compartment, shapeNode.getAttribute().getProperty(NAME_STRING).toString(),
 				IdentifierFactory.getInstance().createIdentifier(MACROMOLECULE_PREFIX, shapeNode), SBO_TERM);
 	}
@@ -25,13 +26,7 @@ public class MacromoleculeNode extends StatefulEntityPoolNode implements IMacrom
 		this.materialType = type;
 	}
 
-
-	public int getCardinality() {
-		return super.getCardinalityValue();
+	protected void visitStatefuleEpnChild(IPdElementVisitor visitor) {
+		visitor.visitMacromolecule(this);
 	}
-
-	public void setCardinality(int cardinality) {
-		super.setCardinalityValue(cardinality);
-	}
-
 }

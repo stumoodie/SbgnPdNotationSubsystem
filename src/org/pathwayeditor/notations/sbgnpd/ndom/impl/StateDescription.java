@@ -1,13 +1,16 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStateDescription;
 
-public class StateDescription implements IStateDescription {
+public class StateDescription extends PdElement implements IStateDescription {
 
 	private final String name;
 	private String value;
 
-	public StateDescription(String name, String value) {
+	public StateDescription(IShapeNode shapeNode, String name, String value) {
+		super(shapeNode.getAttribute().getCreationSerial(), null);
 		this.name = name;
 		this.value = value;
 	}
@@ -53,6 +56,10 @@ public class StateDescription implements IStateDescription {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	public void visit(IPdElementVisitor visitor) {
+		visitor.visitStateDescription(this);
 	}
 
 }

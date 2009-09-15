@@ -1,6 +1,6 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IStateDescription {
+public interface IStateDescription extends IPdElement {
 
 	String getName();
 	

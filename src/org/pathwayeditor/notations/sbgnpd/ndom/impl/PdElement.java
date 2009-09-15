@@ -1,12 +1,12 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import org.pathwayeditor.notations.sbgnpd.ndom.IBasicEntityNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElement;
 
-public abstract class BasicEntityNode implements IBasicEntityNode {
+public abstract class PdElement implements IPdElement {
 	private final String sboTerm;
 	private final int identifier;
 	
-	protected BasicEntityNode(int uniqueId, String sboTerm){
+	protected PdElement(int uniqueId, String sboTerm){
 		this.identifier = uniqueId;
 		this.sboTerm = sboTerm;
 	}
@@ -33,9 +33,9 @@ public abstract class BasicEntityNode implements IBasicEntityNode {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof BasicEntityNode))
+		if (!(obj instanceof PdElement))
 			return false;
-		BasicEntityNode other = (BasicEntityNode) obj;
+		PdElement other = (PdElement) obj;
 		if (identifier != other.identifier)
 			return false;
 		return true;

@@ -14,12 +14,15 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
 import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
+import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSyntaxService;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 
 public class BoParserTest {
 	private static final String CANVAS_NAME = "testCanvas";
+	private static final int EXPECTED_NUMS_PROCESSES = 1;
+	private static final int EXPECTED_NUM_EPNS = 2;
 	private ICanvas canvas;
 	private SbgnPdNotationSyntaxService sbgnSyntax;
 	private IBoParser testInstance;
@@ -44,7 +47,7 @@ public class BoParserTest {
 		IShapeNode process = createShapeNode(root, this.sbgnSyntax.getProcess());
 		createLinkEdge(mm1, process, this.sbgnSyntax.getConsumption());
 		createLinkEdge(process, na, this.sbgnSyntax.getProduction());
-		this.testInstance = new BoParser();
+		this.testInstance = new BoParser(sbgnSubsystem);
 		this.lexer = new BoTreeLexer(this.canvas);
 	}
 	
@@ -80,6 +83,9 @@ public class BoParserTest {
 	public void testParse() throws TreeParseException {
 		this.testInstance.parse(this.lexer);
 		assertNotNull("map created", this.testInstance.getMapDiagram());
+		IMapDiagram mapDiagram = this.testInstance.getMapDiagram();
+		assertEquals("expected num epns", EXPECTED_NUM_EPNS, mapDiagram.totalNumEpns());
+		assertEquals("expected num epns", EXPECTED_NUMS_PROCESSES, mapDiagram.totalNumProcesses());
 	}
 
 }

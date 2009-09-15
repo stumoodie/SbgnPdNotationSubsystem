@@ -1,14 +1,17 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 
-public final class UnitOfInformation implements IUnitOfInformation {
+public final class UnitOfInformation extends PdElement implements IUnitOfInformation {
 	private final IAnnotateable entityPoolNode;
 	private final String prefix;
 	private final String value;
 	
-	public UnitOfInformation(IAnnotateable entityPoolNode, String prefix, String value) {
+	public UnitOfInformation(IShapeNode shapeNode, IAnnotateable entityPoolNode, String prefix, String value) {
+		super(shapeNode.getAttribute().getCreationSerial(), null);
 		if(entityPoolNode == null || value == null) throw new IllegalArgumentException("parameters cannot be null");
 		
 		this.entityPoolNode = entityPoolNode;
@@ -64,5 +67,9 @@ public final class UnitOfInformation implements IUnitOfInformation {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	public void visit(IPdElementVisitor visitor) {
+		visitor.visitUnitOfInformation(this);
 	}
 }

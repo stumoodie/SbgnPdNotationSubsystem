@@ -1,8 +1,10 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IModulationArc {
+public interface IModulationArc extends IPdElement {
 
-	IModulateableNode getModulatedNode();
+	IProcessNode getModulatedNode();
 	
 	IModulatingNode getModulator();
+	
+	ModulatingArcType getType();
 }

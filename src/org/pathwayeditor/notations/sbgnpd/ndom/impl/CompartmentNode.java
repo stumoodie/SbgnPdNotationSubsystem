@@ -14,5 +14,4 @@ public class CompartmentNode extends AbstractCompartmentNode implements ICompart
 	public ICompartmentNode getCompartment() {
 		return this;
 	}
-
 }

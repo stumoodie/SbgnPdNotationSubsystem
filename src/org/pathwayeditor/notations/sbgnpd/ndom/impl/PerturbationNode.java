@@ -1,28 +1,24 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import java.util.Set;
-
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.ICloneMarker;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 import org.pathwayeditor.notations.sbgnpd.ndom.PhysicalEntityType;
 
-public class PerturbationNode extends BasicEntityNode implements IPerturbationNode {
+public class PerturbationNode extends EntityPoolNode implements IPerturbationNode {
 	private static final String SBO_TERM = "SBO:0000999";
 	private static final String PROP_NAME = "name";
 	private static final String ID_PREFIX = "PerturbingAgent";
 	private PhysicalEntityType physicalEntityType = null;
-	private UnitOfInformationHandler handler;
-	private final String name;
 	
-	public PerturbationNode(IShapeNode shapeNode) {
-		super(IdentifierFactory.getInstance().createIdentifier(ID_PREFIX, shapeNode), SBO_TERM);
-		this.handler = new UnitOfInformationHandler(this);
-		this.name = shapeNode.getAttribute().getProperty(PROP_NAME).toString();
+	public PerturbationNode(IEpnContainer container, IShapeNode shapeNode) {
+		super(IdentifierFactory.getInstance().createIdentifier(ID_PREFIX, shapeNode), container, createName(shapeNode), SBO_TERM);
 	}
-
-	public String getName() {
-		return this.name;
+	
+	private static String createName(IShapeNode shapeNode){
+		return shapeNode.getAttribute().getProperty(PROP_NAME).toString();
 	}
 
 	public PhysicalEntityType getPhysicalEntityType() {
@@ -33,12 +29,18 @@ public class PerturbationNode extends BasicEntityNode implements IPerturbationNo
 		this.physicalEntityType = type;
 	}
 
-	public Set<IUnitOfInformation> getUnitsOfInformation() {
-		return this.handler.getUnitsOfInformation();
+	public ICloneMarker createCloneMarker() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public IUnitOfInformation createUnitOfInformation(IShapeNode shapeNode) {
-		return this.handler.createUnitOfInformation(shapeNode);
+	public ICloneMarker getCloneMarker() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void visitEpnChild(IPdElementVisitor visitor) {
+		visitor.visitPerturbingAgent(this);
 	}
 
 }

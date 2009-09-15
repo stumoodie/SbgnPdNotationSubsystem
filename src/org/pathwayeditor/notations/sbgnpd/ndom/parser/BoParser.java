@@ -2,24 +2,32 @@ package org.pathwayeditor.notations.sbgnpd.ndom.parser;
 
 import java.util.EnumSet;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.IRootNode;
+import org.pathwayeditor.businessobjects.drawingprimitives.IShapeAttribute;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEPNContainer;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.ILogicOperatorNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
+import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISimpleChemicalNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStatefulEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
+import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode.SidednessType;
 import org.pathwayeditor.notations.sbgnpd.ndom.impl.MapDiagram;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.IToken.TreeTokenType;
+import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
 
 public class BoParser implements IBoParser {
 	private static final EnumSet<TreeTokenType> STATEFUL_EPN_CHILD_NODES
@@ -38,7 +46,7 @@ public class BoParser implements IBoParser {
 	private ITreeLexer lexer;
 	private IMapDiagram map;
 	
-	public BoParser(){
+	public BoParser(SbgnPdNotationSubsystem notationSubsystem){
 	}
 
 	public IMapDiagram getMapDiagram(){
@@ -52,7 +60,7 @@ public class BoParser implements IBoParser {
 	
 	private IMapDiagram rootsRule() throws TreeParseException{
 		IMapDiagram mapDiagram = mapNodesRule();
-		mapEdgesRule();
+		mapEdgesRule(mapDiagram);
 		if(this.lexer.hasRightTokens()){
 			throw new TreeParseException(this.lexer.getCurrent(), "There are unread tokens");
 		}
@@ -155,7 +163,7 @@ public class BoParser implements IBoParser {
 	}
 	
 	
-	private void statefulEpnRule(IEPNContainer compartment) throws TreeParseException{
+	private void statefulEpnRule(IEpnContainer compartment) throws TreeParseException{
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.COMPLEX)){
 			complexRule(compartment);
 		}
@@ -167,7 +175,7 @@ public class BoParser implements IBoParser {
 		}
 	}
 		
-	private void epnsRule(IEPNContainer compartment) throws TreeParseException{
+	private void epnsRule(IEpnContainer compartment) throws TreeParseException{
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.SIMPLE_CHEMICAL)){
 			simpleChemicalRule(compartment);
 		}
@@ -176,7 +184,7 @@ public class BoParser implements IBoParser {
 		}
 	}
 
-	private void macromoleculeRule(IEPNContainer container) throws TreeParseException {
+	private void macromoleculeRule(IEpnContainer container) throws TreeParseException {
 		this.lexer.match(TreeTokenType.MACROMOLECULE);
 		IShapeNode mmShape = this.lexer.getCurrent().getTypedElement();
 		IMacromoleculeNode mm = container.createMacromoleculeNode(mmShape);
@@ -199,7 +207,7 @@ public class BoParser implements IBoParser {
 		}
 	}
 
-	private void complexRule(IEPNContainer compartment) throws TreeParseException {
+	private void complexRule(IEpnContainer compartment) throws TreeParseException {
 		this.lexer.match(TreeTokenType.COMPLEX);
 		IShapeNode complexShape = this.lexer.getCurrent().getTypedElement();
 		IComplexNode complexNode = compartment.createComplexNode(complexShape);
@@ -225,7 +233,7 @@ public class BoParser implements IBoParser {
 		}
 	}
 	
-	private void naFeatureRule(IEPNContainer container) throws TreeParseException{
+	private void naFeatureRule(IEpnContainer container) throws TreeParseException{
 		this.lexer.match(TreeTokenType.NA_FEATURE);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
 		INucleicAcidFeatureNode naNode = container.createNucleicAcidFeatureNode(shapeNode);
@@ -247,7 +255,7 @@ public class BoParser implements IBoParser {
 		}
 	}
 	
-	private void simpleChemicalRule(IEPNContainer compartment) throws TreeParseException{
+	private void simpleChemicalRule(IEpnContainer compartment) throws TreeParseException{
 		this.lexer.match(TreeTokenType.SIMPLE_CHEMICAL);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
 		ISimpleChemicalNode chemicalNode = compartment.createSimpleChemicalNode(shapeNode);
@@ -257,7 +265,7 @@ public class BoParser implements IBoParser {
 	}
 	
 	
-	private void unspecifiedEntityRule(IEPNContainer compartment) throws TreeParseException{
+	private void unspecifiedEntityRule(IEpnContainer compartment) throws TreeParseException{
 		this.lexer.match(TreeTokenType.UNSPECIFIED_ENTITY);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
 		IUnspecifiedEntityNode unspecNode = compartment.createUnspecifiedEntityNode(shapeNode);
@@ -307,7 +315,6 @@ public class BoParser implements IBoParser {
 			uoiRule(statefulEpn);
 		}
 	}
-	
 	
 	private void uoiRule(IAnnotateable epn) throws TreeParseException{
 		this.lexer.match(TreeTokenType.UOI);
@@ -364,32 +371,83 @@ public class BoParser implements IBoParser {
 		}
 	}
 
-	private void mapEdgesRule() throws TreeParseException{
+	private void mapEdgesRule(IMapDiagram mapDiagram) throws TreeParseException{
 		this.lexer.match(TreeTokenType.EDGE_ROOT);
 		this.lexer.down();
-		edgeChildrenRule();
+		edgeChildrenRule(mapDiagram);
 		this.lexer.up();
 	}
 
-	private void edgeChildrenRule() throws TreeParseException{
+	private void edgeChildrenRule(IMapDiagram mapDiagram) throws TreeParseException{
 		if(this.lexer.hasRightTokens()){
-			edgeChildRule();
-			edgeChildrenRule();
+			edgeChildRule(mapDiagram);
+			edgeChildrenRule(mapDiagram);
 		}
 	}
 	
-	private void edgeChildRule() throws TreeParseException{
+	private void edgeChildRule(IMapDiagram mapDiagram) throws TreeParseException{
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.CONSUMPTION_ARC)){
 			this.lexer.match(TreeTokenType.CONSUMPTION_ARC);
-			// TODO: create consumption
+			ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
+			IEntityPoolNode epnNode = mapDiagram.findEntityPoolNode(edge.getSourceShape().getAttribute().getCreationSerial());
+			IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
+			processNode.createConsumptionArc(edge, epnNode);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.PRODUCTION_ARC)){
 			this.lexer.match(TreeTokenType.PRODUCTION_ARC);
-			// TODO: create production
+			ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
+			IShapeAttribute srcNode = edge.getSourceShape().getAttribute();
+			IShapeAttribute tgtNode = edge.getTargetShape().getAttribute();
+			SidednessType sidedNess = SidednessType.RHS; 
+			IProcessNode processNode = mapDiagram.findProcessNode(srcNode.getCreationSerial());
+			IEntityPoolNode epnNode = null;
+			if(processNode == null){
+				// process node is not src so is on LHS
+				sidedNess = SidednessType.LHS;
+				processNode = mapDiagram.findProcessNode(tgtNode.getCreationSerial());
+				epnNode = mapDiagram.findEntityPoolNode(srcNode.getCreationSerial());
+			}
+			else{
+				epnNode = mapDiagram.findEntityPoolNode(tgtNode.getCreationSerial());
+			}
+			processNode.createProductionArc(edge, epnNode, sidedNess);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.MODULATION_ARC)){
+			this.lexer.match(TreeTokenType.MODULATION_ARC);
+			createModulationArc(mapDiagram, ModulatingArcType.MODULATION);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.STIMULATION_ARC)){
+			this.lexer.match(TreeTokenType.STIMULATION_ARC);
+			createModulationArc(mapDiagram, ModulatingArcType.STIMULATION);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.NECESSARY_STIMULATION)){
+			this.lexer.match(TreeTokenType.NECESSARY_STIMULATION);
+			createModulationArc(mapDiagram, ModulatingArcType.NECESSARY_STIMULATION);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.INHIBITION_ARC)){
+			this.lexer.match(TreeTokenType.INHIBITION_ARC);
+			createModulationArc(mapDiagram, ModulatingArcType.INHIBITION);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.CATALYSIS_ARC)){
+			this.lexer.match(TreeTokenType.CATALYSIS_ARC);
+			createModulationArc(mapDiagram, ModulatingArcType.CATALYSIS);
+		}
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.LOGIC_ARC)){
+			this.lexer.match(TreeTokenType.LOGIC_ARC);
+			ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
+			IModulatingNode modulatingNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
+			ILogicOperatorNode logicalOperatorNode = mapDiagram.findLogicalOperatorNode(edge.getTargetShape().getAttribute().getCreationSerial());
+			logicalOperatorNode.createLogicArc(edge, modulatingNode);
 		}
 		else{
-			//TODO: create the rest!
 			throw new TreeParseException(this.lexer.getCurrent(), "An arc token was expected here");
 		}
+	}
+	
+	private void createModulationArc(IMapDiagram mapDiagram, ModulatingArcType type){
+		ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
+		IModulatingNode epnNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
+		IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
+		processNode.createModulationArc(edge, type, epnNode);
 	}
 }

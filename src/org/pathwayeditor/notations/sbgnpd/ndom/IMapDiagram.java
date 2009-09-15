@@ -6,7 +6,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 
 
-public interface IMapDiagram extends IEPNContainer {
+public interface IMapDiagram extends IEpnContainer {
 	
 	String getName();
 	
@@ -28,5 +28,15 @@ public interface IMapDiagram extends IEPNContainer {
 	
 	ISubMapDiagram createSubMapDiagram(ICanvas canvas);
 
-	ICompartmentNode createDefaultCompartmentNode();
+	<T extends IEntityPoolNode> T findEntityPoolNode(int identifer);
+	
+	<T extends IConceptualProcessNode> T findProcessNode(int identifier);
+
+	<T extends IModulatingNode> T findModulatingNode(int creationSerial);
+
+	ILogicOperatorNode findLogicalOperatorNode(int identifier);
+
+	int totalNumEpns();
+
+	int totalNumProcesses();
 }

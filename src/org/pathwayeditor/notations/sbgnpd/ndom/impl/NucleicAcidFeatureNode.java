@@ -2,8 +2,9 @@ package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IConceptualType;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEPNContainer;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 
 public class NucleicAcidFeatureNode extends StatefulEntityPoolNode implements INucleicAcidFeatureNode {
 
@@ -12,7 +13,7 @@ public class NucleicAcidFeatureNode extends StatefulEntityPoolNode implements IN
 	private static final String MACROMOLECULE_PREFIX = "nafeature";
 	private IConceptualType conceptualType;
 	
-	public NucleicAcidFeatureNode(IEPNContainer compartment, IShapeNode shapeNode) {
+	public NucleicAcidFeatureNode(IEpnContainer compartment, IShapeNode shapeNode) {
 		super(compartment, shapeNode.getAttribute().getProperty(NAME_STRING).toString(),
 				IdentifierFactory.getInstance().createIdentifier(MACROMOLECULE_PREFIX, shapeNode), SBO_TERM);
 	}
@@ -23,6 +24,10 @@ public class NucleicAcidFeatureNode extends StatefulEntityPoolNode implements IN
 
 	public void setConceptualType(IConceptualType type) {
 		this.conceptualType = type;
+	}
+
+	protected void visitStatefuleEpnChild(IPdElementVisitor visitor) {
+		visitor.visitNucleicAcidFeature(this);
 	}
 
 

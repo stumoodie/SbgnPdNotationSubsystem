@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 
-public interface ICompartmentNode extends IBasicEntityNode, IEPNContainer {
+public interface ICompartmentNode extends IPdElement, IEpnContainer {
 	
 	IMapDiagram getMapDiagram();
 	

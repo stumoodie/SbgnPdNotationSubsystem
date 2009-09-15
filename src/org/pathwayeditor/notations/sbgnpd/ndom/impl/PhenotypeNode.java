@@ -4,10 +4,11 @@ import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 
-public class PhenotypeNode extends BasicEntityNode implements IPhenotypeNode, IAnnotateable {
+public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotateable {
 	private static final String SBO_TERM = "SBO:0000999";
 	private static final String NAME_PROP = "name";
 	private final UnitOfInformationHandler handler;
@@ -29,6 +30,10 @@ public class PhenotypeNode extends BasicEntityNode implements IPhenotypeNode, IA
 
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
 		return handler.getUnitsOfInformation();
+	}
+
+	public void visit(IPdElementVisitor visitor) {
+		visitor.visitPhenotypeNode(this);
 	}
 
 }
