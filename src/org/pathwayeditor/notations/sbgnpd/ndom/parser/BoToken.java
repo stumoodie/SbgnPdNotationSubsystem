@@ -20,8 +20,8 @@ public class BoToken implements IToken {
 	}
 
 	@SuppressWarnings("unchecked")
-	public IDrawingElement getTypedElement() {
-		return this.drawingElement;
+	public <E extends IDrawingElement> E getTypedElement() {
+		return (E)this.drawingElement;
 	}
 
 	@Override

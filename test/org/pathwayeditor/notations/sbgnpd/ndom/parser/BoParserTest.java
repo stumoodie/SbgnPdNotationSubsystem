@@ -22,7 +22,7 @@ import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 public class BoParserTest {
 	private static final String CANVAS_NAME = "testCanvas";
 	private static final int EXPECTED_NUMS_PROCESSES = 1;
-	private static final int EXPECTED_NUM_EPNS = 2;
+	private static final int EXPECTED_NUM_EPNS = 3;
 	private ICanvas canvas;
 	private SbgnPdNotationSyntaxService sbgnSyntax;
 	private IBoParser testInstance;
@@ -41,13 +41,15 @@ public class BoParserTest {
 		IShapeNode mm1 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
 		createShapeNode(mm1, this.sbgnSyntax.getState());
 		createShapeNode(mm1, this.sbgnSyntax.getUnitOfInf());
+		IShapeNode mm2 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
 		IShapeNode na = createShapeNode(cmpt, this.sbgnSyntax.getGeneticUnit());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		IShapeNode process = createShapeNode(root, this.sbgnSyntax.getProcess());
 		createLinkEdge(mm1, process, this.sbgnSyntax.getConsumption());
 		createLinkEdge(process, na, this.sbgnSyntax.getProduction());
-		this.testInstance = new BoParser(sbgnSubsystem);
+		createLinkEdge(mm2, process, this.sbgnSyntax.getModulation());
+		this.testInstance = new BoParser(new NdomBuilder());
 		this.lexer = new BoTreeLexer(this.canvas);
 	}
 	
@@ -76,16 +78,15 @@ public class BoParserTest {
 
 	@Test
 	public void testGetMapDiagram() {
-		assertNull("no map set", this.testInstance.getMapDiagram());
+		assertNull("no map set", this.testInstance.getNDomBuilder().getNdom());
 	}
 
 	@Test
 	public void testParse() throws TreeParseException {
 		this.testInstance.parse(this.lexer);
-		assertNotNull("map created", this.testInstance.getMapDiagram());
-		IMapDiagram mapDiagram = this.testInstance.getMapDiagram();
+		assertNotNull("map created", this.testInstance.getNDomBuilder().getNdom());
+		IMapDiagram mapDiagram = this.testInstance.getNDomBuilder().getNdom();
 		assertEquals("expected num epns", EXPECTED_NUM_EPNS, mapDiagram.totalNumEpns());
 		assertEquals("expected num epns", EXPECTED_NUMS_PROCESSES, mapDiagram.totalNumProcesses());
 	}
-
 }

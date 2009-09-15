@@ -1,19 +1,13 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.parser;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
+import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 
 public interface INdomBuilder {
 
-	void createComplex(IShapeNode complexShape);
+	IMapDiagram getNdom();
+	
+	void createMap(ICanvas canvas);
 
-	void createCompartment(IShapeNode complexShape);
-
-	void createDefaultCompartment();
-
-	void addStateDescription(IShapeNode shapeNode);
-
-	void addUnitOfInformation(IShapeNode shapeNode);
-
-	void finishComplexCreation();
-
+	void buildComplete();
 }

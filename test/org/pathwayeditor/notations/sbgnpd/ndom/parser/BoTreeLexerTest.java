@@ -43,11 +43,13 @@ public class BoTreeLexerTest {
 		createShapeNode(mm1, this.sbgnSyntax.getState());
 		createShapeNode(mm1, this.sbgnSyntax.getUnitOfInf());
 		IShapeNode na = createShapeNode(cmpt, this.sbgnSyntax.getGeneticUnit());
+		IShapeNode mm2 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		IShapeNode process = createShapeNode(cmpt, this.sbgnSyntax.getProcess());
 		createLinkEdge(mm1, process, this.sbgnSyntax.getConsumption());
 		createLinkEdge(process, na, this.sbgnSyntax.getProduction());
+		createLinkEdge(mm2, process, this.sbgnSyntax.getModulation());
 		this.testInstance = new BoTreeLexer(this.canvas);
 	}
 	
@@ -212,6 +214,7 @@ public class BoTreeLexerTest {
 		this.testInstance.match(TreeTokenType.STATE_DESCN);
 		this.testInstance.match(TreeTokenType.STATE_DESCN);
 		this.testInstance.up();
+		this.testInstance.match(TreeTokenType.MACROMOLECULE);
 		this.testInstance.match(TreeTokenType.PROCESS);
 		this.testInstance.up();
 		this.testInstance.up();
@@ -220,6 +223,7 @@ public class BoTreeLexerTest {
 		this.testInstance.down();
 		this.testInstance.match(TreeTokenType.CONSUMPTION_ARC);
 		this.testInstance.match(TreeTokenType.PRODUCTION_ARC);
+		this.testInstance.match(TreeTokenType.MODULATION_ARC);
 		assertFalse("read all tokens", this.testInstance.hasRightTokens());
 	}
 

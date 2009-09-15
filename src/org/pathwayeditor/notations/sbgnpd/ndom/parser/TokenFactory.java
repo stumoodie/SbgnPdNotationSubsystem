@@ -107,7 +107,24 @@ public class TokenFactory {
 		else if(objectType.getUniqueId() == this.syntaxService.getProduction().getUniqueId()){
 			type = TreeTokenType.PRODUCTION_ARC;
 		}
-		//TODO: finish this off add the other arc types
+		else if(objectType.getUniqueId() == this.syntaxService.getModulation().getUniqueId()){
+			type = TreeTokenType.MODULATION_ARC;
+		}
+		else if(objectType.getUniqueId() == this.syntaxService.getStimulation().getUniqueId()){
+			type = TreeTokenType.STIMULATION_ARC;
+		}
+		else if(objectType.getUniqueId() == this.syntaxService.getInhibition().getUniqueId()){
+			type = TreeTokenType.INHIBITION_ARC;
+		}
+		else if(objectType.getUniqueId() == this.syntaxService.getTrigger().getUniqueId()){
+			type = TreeTokenType.NECESSARY_STIMULATION_ARC;
+		}
+		else if(objectType.getUniqueId() == this.syntaxService.getCatalysis().getUniqueId()){
+			type = TreeTokenType.CATALYSIS_ARC;
+		}
+		else{
+			throw new RuntimeException("Cannot handle edge of unknown object type: " + edge.toString());
+		}
 		return new BoToken(type, edge);
 	}
 }

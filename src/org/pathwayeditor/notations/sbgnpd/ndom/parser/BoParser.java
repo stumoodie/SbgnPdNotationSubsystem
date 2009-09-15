@@ -9,8 +9,8 @@ import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicOperatorNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
@@ -25,9 +25,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode.SidednessType;
-import org.pathwayeditor.notations.sbgnpd.ndom.impl.MapDiagram;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.IToken.TreeTokenType;
-import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
 
 public class BoParser implements IBoParser {
 	private static final EnumSet<TreeTokenType> STATEFUL_EPN_CHILD_NODES
@@ -44,27 +42,28 @@ public class BoParser implements IBoParser {
 		= EnumSet.of(TreeTokenType.SIMPLE_CHEMICAL,	TreeTokenType.UNSPECIFIED_ENTITY);
 	
 	private ITreeLexer lexer;
-	private IMapDiagram map;
+	private final INdomBuilder builder;
 	
-	public BoParser(SbgnPdNotationSubsystem notationSubsystem){
+	public BoParser(INdomBuilder builder){
+		this.builder = builder;
 	}
 
-	public IMapDiagram getMapDiagram(){
-		return this.map;
-	}
-	
 	public void parse(ITreeLexer lexer) throws TreeParseException{
 		this.lexer =lexer;
-		this.map = rootsRule();
+		rootsRule();
 	}
 	
-	private IMapDiagram rootsRule() throws TreeParseException{
+	public INdomBuilder getNDomBuilder(){
+		return this.builder;
+	}
+	
+	private void rootsRule() throws TreeParseException{
 		IMapDiagram mapDiagram = mapNodesRule();
 		mapEdgesRule(mapDiagram);
 		if(this.lexer.hasRightTokens()){
 			throw new TreeParseException(this.lexer.getCurrent(), "There are unread tokens");
 		}
-		return mapDiagram;
+		this.builder.buildComplete();
 	}
 	
 	private IMapDiagram mapNodesRule() throws TreeParseException{
@@ -78,7 +77,8 @@ public class BoParser implements IBoParser {
 	private IMapDiagram mapDiagramRule() throws TreeParseException{
 		lexer.match(TreeTokenType.MAP_DIAGRAM);
 		IRootNode rootNode = this.lexer.getCurrent().getTypedElement();
-		IMapDiagram mapDiagram = new MapDiagram(rootNode.getModel().getCanvas());
+		this.builder.createMap(rootNode.getModel().getCanvas());
+		IMapDiagram mapDiagram = this.builder.getNdom();
 		lexer.down();
 		mapChildrenRule(mapDiagram);
 		lexer.up();
@@ -420,8 +420,8 @@ public class BoParser implements IBoParser {
 			this.lexer.match(TreeTokenType.STIMULATION_ARC);
 			createModulationArc(mapDiagram, ModulatingArcType.STIMULATION);
 		}
-		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.NECESSARY_STIMULATION)){
-			this.lexer.match(TreeTokenType.NECESSARY_STIMULATION);
+		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.NECESSARY_STIMULATION_ARC)){
+			this.lexer.match(TreeTokenType.NECESSARY_STIMULATION_ARC);
 			createModulationArc(mapDiagram, ModulatingArcType.NECESSARY_STIMULATION);
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.INHIBITION_ARC)){
