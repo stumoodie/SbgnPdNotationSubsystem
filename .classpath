@@ -22,10 +22,5 @@
 	<classpathentry kind="lib" path="lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/stringtemplate-3.2/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/stringtemplate-3.2/lib/stringtemplate.jar" sourcepath="lib/stringtemplate-3.2/src"/>
-	<classpathentry kind="lib" path="lib/easymock-2.5.2/easymock-2.5.2.jar" sourcepath="lib/easymock-2.5.2/easymock-2.5.2-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SbgnPdNotationSubsystem/lib/easymock-2.5.2/easymock-2.5.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
