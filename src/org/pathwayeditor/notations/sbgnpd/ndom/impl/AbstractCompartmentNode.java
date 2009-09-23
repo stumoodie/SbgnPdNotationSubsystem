@@ -1,9 +1,9 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
@@ -23,19 +23,15 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 	private final String name;
 	private final IMapDiagram map;
 	private final EpnContainer epnContainerDelegatee;
+	private final UnitOfInformationHandler uoiHandler;
+	private BigDecimal volume = BigDecimal.ZERO;
 	
-	protected AbstractCompartmentNode(IShapeNode shapeNode, IMapDiagram map, String name) {
-		super(shapeNode.getAttribute().getCreationSerial(), SBO_TERM);
-		this.name = name;
-		this.map = map;
-		this.epnContainerDelegatee = new EpnContainer(this, this);
-	}
-
 	protected AbstractCompartmentNode(int identifier, IMapDiagram map, String name) {
 		super(identifier, SBO_TERM);
 		this.name = name;
 		this.map = map;
 		this.epnContainerDelegatee = new EpnContainer(this, this);
+		this.uoiHandler = new UnitOfInformationHandler(this);
 	}
 
 	public String getName() {
@@ -43,46 +39,48 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 	}
 
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.uoiHandler.getUnitsOfInformation();
+	}
+
+	public IUnitOfInformation createUnitOfInformation(int identifier,
+			String value) {
+		return uoiHandler.createUnitOfInformation(identifier, value);
 	}
 
 	public boolean containsEntityPoolNode(int identifier) {
 		return epnContainerDelegatee.containsEntityPoolNode(identifier);
 	}
 
-	public IComplexNode createComplexNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createComplexNode(shapeNode);
+	public IComplexNode createComplexNode(int identifier) {
+		return epnContainerDelegatee.createComplexNode(identifier);
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createMacromoleculeNode(shapeNode);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
+		return epnContainerDelegatee.createMacromoleculeNode(identifier, name);
 	}
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(
-			IShapeNode shapeNode) {
-		return epnContainerDelegatee.createNucleicAcidFeatureNode(shapeNode);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
+		return epnContainerDelegatee.createNucleicAcidFeatureNode(identifier, name);
 	}
 
-	public IPerturbationNode createPerturbationNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createPerturbationNode(shapeNode);
+	public IPerturbationNode createPerturbationNode(int identifier, String name) {
+		return epnContainerDelegatee.createPerturbationNode(identifier, name);
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createSimpleChemicalNode(shapeNode);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
+		return epnContainerDelegatee.createSimpleChemicalNode(identifier, name);
 	}
 
-	public ISinkNode createSinkNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createSinkNode(shapeNode);
+	public ISinkNode createSinkNode(int identifier) {
+		return epnContainerDelegatee.createSinkNode(identifier);
 	}
 
-	public ISourceNode createSourceNode(IShapeNode shapeNode) {
-		return epnContainerDelegatee.createSourceNode(shapeNode);
+	public ISourceNode createSourceNode(int identifier) {
+		return epnContainerDelegatee.createSourceNode(identifier);
 	}
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(
-			IShapeNode shapeNode) {
-		return epnContainerDelegatee.createUnspecifiedEntityNode(shapeNode);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
+		return epnContainerDelegatee.createUnspecifiedEntityNode(identifier, name);
 	}
 
 	public IEntityPoolNode getEntityPoolNode(int identifier) {
@@ -100,5 +98,13 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 	public final void visit(IPdElementVisitor visitor) {
 		visitor.visitCompartment(this);
 		this.epnContainerDelegatee.visit(visitor);
+	}
+
+	public BigDecimal getVolume() {
+		return volume;
+	}
+
+	public void setVolume(BigDecimal volume) {
+		this.volume = volume;
 	}
 }

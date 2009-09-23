@@ -1,5 +1,5 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IModulatingNode {
+public interface IModulatingNode extends IPdElement {
 
 }

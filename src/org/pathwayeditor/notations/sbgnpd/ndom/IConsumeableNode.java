@@ -1,5 +1,5 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-public interface IConsumeableNode {
+public interface IConsumeableNode extends IPdElement {
 
 }

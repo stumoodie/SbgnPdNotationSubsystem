@@ -2,32 +2,27 @@ package org.pathwayeditor.notations.sbgnpd.ndom;
 
 import java.util.Iterator;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-
 
 public interface IMapDiagram extends IEpnContainer {
 	
 	String getName();
 	
-	ICompartmentNode createCompartmentNode(IShapeNode shapeNode);
+	ICompartmentNode createCompartmentNode(int identifier, String name);
 	
 	Iterator<ICompartmentNode> compartmentIterator();
 	
 	int numCompartments();
 	
-	IProcessNode createProcessNode(IShapeNode shapeNode, ProcessNodeType type);
+	IProcessNode createProcessNode(int integer, ProcessNodeType type);
 	
-	IPhenotypeNode createPhenotypeNode(IShapeNode shapeNode);
+	IPhenotypeNode createPhenotypeNode(int identifier, String name);
 	
-	IPerturbationNode createPerturbationNode(IShapeNode shapeNode);
+	IPerturbationNode createPerturbationNode(int identifier, String name);
 	
-	ILogicOperatorNode createLogicOperatorNode(IShapeNode shapeNode, LogicOperatorType type);
+	ILogicOperatorNode createLogicOperatorNode(int integer, LogicOperatorType type);
 	
-	ISubMapNode createSubmapNode(IShapeNode shapeNode);
+	<T extends IPdElement> T findElement(int identifer);
 	
-	ISubMapDiagram createSubMapDiagram(ICanvas canvas);
-
 	<T extends IEntityPoolNode> T findEntityPoolNode(int identifer);
 	
 	<T extends IConceptualProcessNode> T findProcessNode(int identifier);

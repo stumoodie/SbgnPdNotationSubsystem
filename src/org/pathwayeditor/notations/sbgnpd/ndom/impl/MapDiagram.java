@@ -1,18 +1,13 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IConceptualProcessNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IConsumptionArc;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicOperatorNode;
@@ -21,6 +16,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulationArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElement;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
@@ -30,10 +26,6 @@ import org.pathwayeditor.notations.sbgnpd.ndom.ISimpleChemicalNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISinkNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ISourceNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStateDescription;
-import org.pathwayeditor.notations.sbgnpd.ndom.ISubMapDiagram;
-import org.pathwayeditor.notations.sbgnpd.ndom.ISubMapNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.ISubMapTerminalNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.ITagNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.LogicOperatorType;
@@ -41,77 +33,57 @@ import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 
 public class MapDiagram implements IMapDiagram {
 	private final Map<Integer, IConceptualProcessNode> processMap; 
-	private final Set<ICompartmentNode> compartments;
+	private final Map<Integer, ICompartmentNode> compartments;
 	private final String name;
-	private final IEpnContainer epnContainerDelegate;
 	private final ICompartmentNode defaultCompartment;
 	private final Map<Integer, ILogicOperatorNode> logicOperatorMap;
 	
-	public MapDiagram(ICanvas canvas){
-		this.name = canvas.getName();
-		this.compartments = new HashSet<ICompartmentNode>();
+	public MapDiagram(String name){
+		this.name = name;
+		this.compartments = new HashMap<Integer, ICompartmentNode>();
 		this.processMap = new HashMap<Integer, IConceptualProcessNode>();
 		this.logicOperatorMap = new HashMap<Integer, ILogicOperatorNode>();
 		this.defaultCompartment = createDefaultCompartmentNode();
-		this.epnContainerDelegate = new EpnContainer(this, this.defaultCompartment);
+//		this.epnContainerDelegate = new EpnContainer(this, this.defaultCompartment);
 	}
 	
 	
-	public ISinkNode createSinkNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createSinkNode(shapeNode);
+	public ISinkNode createSinkNode(int identifier) {
+		return this.defaultCompartment.createSinkNode(identifier);
 	}
 
 
-	public ISourceNode createSourceNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createSourceNode(shapeNode);
+	public ISourceNode createSourceNode(int identifier) {
+		return this.defaultCompartment.createSourceNode(identifier);
 	}
 
 
 	public Iterator<IEntityPoolNode> nodeIterator() {
-		return epnContainerDelegate.nodeIterator();
+		return this.defaultCompartment.nodeIterator();
 	}
 
 
-	public ICompartmentNode createCompartmentNode(IShapeNode node) {
-		CompartmentNode retVal = new CompartmentNode(this, node);
-		if(this.compartments.contains(retVal)){
-			throw new IllegalArgumentException("A compartment with this name already exists. name=" + name);
-		}
-		this.compartments.add(retVal);
+	public ICompartmentNode createCompartmentNode(int identifier, String name) {
+		CompartmentNode retVal = new CompartmentNode(this, identifier, name);
+		this.compartments.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ILogicOperatorNode createLogicOperatorNode(IShapeNode shapeNode, LogicOperatorType type) {
-		LogicOperatorNode retVal = new LogicOperatorNode(shapeNode, type);
+	public ILogicOperatorNode createLogicOperatorNode(int identifier, LogicOperatorType type) {
+		LogicOperatorNode retVal = new LogicOperatorNode(identifier, type);
 		return retVal;
 	}
 
 
-	public IPhenotypeNode createPhenotypeNode(IShapeNode shapeNode) {
-		PhenotypeNode retVal = new PhenotypeNode(shapeNode);
-		//FIXME: fix phenotype
-//		if(this.phenotypes.contains(retVal)){
-//			throw new IllegalArgumentException("A phenotype with this name already exists: name=" + name);
-//		}
-		return retVal;
-	}
-
-	public IProcessNode createProcessNode(IShapeNode shapeNode, ProcessNodeType type) {
-		ProcessNode retVal = new ProcessNode(shapeNode, type);
+	public IPhenotypeNode createPhenotypeNode(int identifier, String name) {
+		PhenotypeNode retVal = new PhenotypeNode(identifier, name);
 		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISubMapDiagram createSubMapDiagram(ICanvas canvas) {
-		throw new UnsupportedOperationException("Not implemented");
-	}
-
-	public ISubMapNode createSubmapNode(IShapeNode shapeNode) {
-		SubMapNode retVal = new SubMapNode(shapeNode);
-		//FIXME: fix submap
-//		if(this.submapNodes.contains(retVal)){
-//			throw new IllegalArgumentException("SubMapNode with this name already exists: name=" + name);
-//		}
+	public IProcessNode createProcessNode(int identifier, ProcessNodeType type) {
+		ProcessNode retVal = new ProcessNode(identifier, type);
+		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
@@ -121,7 +93,7 @@ public class MapDiagram implements IMapDiagram {
 
 
 	public Iterator<ICompartmentNode> compartmentIterator() {
-		return this.compartments.iterator();
+		return this.compartments.values().iterator();
 	}
 
 
@@ -159,18 +131,18 @@ public class MapDiagram implements IMapDiagram {
 
 	private ICompartmentNode createDefaultCompartmentNode() {
 		ICompartmentNode retVal = new DefaultCompartmentNode(this);
-		this.compartments.add(retVal);
+		this.compartments.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
 
-	public IComplexNode createComplexNode(IShapeNode shapeNode) {
-		return this.epnContainerDelegate.createComplexNode(shapeNode);
+	public IComplexNode createComplexNode(int identifier) {
+		return this.defaultCompartment.createComplexNode(identifier);
 	}
 
 
 	public IEntityPoolNode getEntityPoolNode(int nodeId) {
-		return this.epnContainerDelegate.getEntityPoolNode(nodeId);
+		return this.defaultCompartment.getEntityPoolNode(nodeId);
 	}
 
 
@@ -180,47 +152,42 @@ public class MapDiagram implements IMapDiagram {
 
 
 	public boolean containsEntityPoolNode(int identifier) {
-		return epnContainerDelegate.containsEntityPoolNode(identifier);
+		return this.defaultCompartment.containsEntityPoolNode(identifier);
 	}
 
 
-	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createMacromoleculeNode(shapeNode);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
+		return this.defaultCompartment.createMacromoleculeNode(identifier, name);
 	}
 
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createNucleicAcidFeatureNode(shapeNode);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
+		return this.defaultCompartment.createNucleicAcidFeatureNode(identifier, name);
 	}
 
 
-	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createSimpleChemicalNode(shapeNode);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
+		return this.defaultCompartment.createSimpleChemicalNode(identifier, name);
 	}
 
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createUnspecifiedEntityNode(shapeNode);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
+		return this.defaultCompartment.createUnspecifiedEntityNode(identifier, name);
 	}
 
 
-	public IPerturbationNode createPerturbationNode(IShapeNode shapeNode) {
-		return epnContainerDelegate.createPerturbationNode(shapeNode);
+	public IPerturbationNode createPerturbationNode(int identifier, String name) {
+		return this.defaultCompartment.createPerturbationNode(identifier, name);
 	}
 
 
 	@SuppressWarnings("unchecked")
 	public <T extends IEntityPoolNode> T findEntityPoolNode(int identifier) {
 		IEntityPoolNode retVal = null;
-		Iterator<IEntityPoolNode> nodeIter = this.epnContainerDelegate.nodeIterator();
+		Iterator<ICompartmentNode> nodeIter = this.compartments.values().iterator();
 		while(nodeIter.hasNext() && retVal == null){
-			IEntityPoolNode node = nodeIter.next();
-			if(node.getIdentifier() == identifier){
-				retVal = node;
-			}
-			else if(node instanceof IEpnContainer){
-				retVal = ((IEpnContainer)node).getEntityPoolNode(identifier);
-			}
+			ICompartmentNode cmpt = nodeIter.next();
+			retVal = cmpt.getEntityPoolNode(identifier);
 		}
 		return (T)retVal;
 	}
@@ -238,13 +205,17 @@ public class MapDiagram implements IMapDiagram {
 
 
 	public ICompartmentNode getCompartment() {
-		return epnContainerDelegate.getCompartment();
+		return this.defaultCompartment.getCompartment();
 	}
 
 
 	@SuppressWarnings("unchecked")
 	public <T extends IModulatingNode> T findModulatingNode(int identifier) {
-		IModulatingNode modNode = this.findEntityPoolNode(identifier);
+		IEntityPoolNode epn = this.findEntityPoolNode(identifier);
+		IModulatingNode modNode = null;
+		if(epn instanceof IModulatingNode){
+			modNode = (IModulatingNode)epn;
+		}
 		if(modNode == null){
 			modNode = this.findLogicalOperatorNode(identifier);
 		}
@@ -252,6 +223,22 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@SuppressWarnings("unchecked")
+	public <T extends IPdElement> T findElement(int identifier) {
+		IPdElement retVal = this.findEntityPoolNode(identifier);
+		if(retVal == null){
+			retVal = this.processMap.get(identifier);
+			if(retVal == null){
+				retVal = this.compartments.get(identifier);
+				if(retVal == null){
+					retVal = this.logicOperatorMap.get(identifier);
+				}
+			}
+		}
+		return (T)retVal;
+	}
+
+	
 	public int totalNumEpns() {
 		EpnCounter counter = new EpnCounter();
 		this.visit(counter);
@@ -267,11 +254,10 @@ public class MapDiagram implements IMapDiagram {
 
 
 	public void visit(IPdElementVisitor visitor) {
-		this.epnContainerDelegate.visit(visitor);
 		for(IConceptualProcessNode processNode: this.processMap.values()){
 			processNode.visit(visitor);
 		}
-		for(ICompartmentNode compartment : this.compartments){
+		for(ICompartmentNode compartment : this.compartments.values()){
 			compartment.visit(visitor);
 		}
 		for(ILogicOperatorNode logicOp : this.logicOperatorMap.values()){
@@ -280,6 +266,7 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 	
+
 	private static class ProcessCounter implements IPdElementVisitor{
 		private int count = 0;
 		
@@ -363,21 +350,6 @@ public class MapDiagram implements IMapDiagram {
 		}
 
 		public void visitStateDescription(IStateDescription pdElement) {
-
-			
-		}
-
-		public void visitSubmapNode(ISubMapNode pdElement) {
-
-			
-		}
-
-		public void visitSubmapTerminalNode(ISubMapTerminalNode pdElement) {
-
-			
-		}
-
-		public void visitTagNode(ITagNode pdElement) {
 
 			
 		}
@@ -469,21 +441,6 @@ public class MapDiagram implements IMapDiagram {
 		}
 
 		public void visitStateDescription(IStateDescription pdElement) {
-
-			
-		}
-
-		public void visitSubmapNode(ISubMapNode pdElement) {
-
-			
-		}
-
-		public void visitSubmapTerminalNode(ISubMapTerminalNode pdElement) {
-
-			
-		}
-
-		public void visitTagNode(ITagNode pdElement) {
 
 			
 		}

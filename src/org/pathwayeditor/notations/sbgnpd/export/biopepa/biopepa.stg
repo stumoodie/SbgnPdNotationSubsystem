@@ -1,0 +1,96 @@
+group biopepa;
+
+header() ::= <<
+SBGN {  
+        Process Diagram Level = 1 Version = 1 
+        Graphical Release = 1 Date = "2008-08-01" 
+        Textual   Release = 1 Date = "2009-07-24"  
+}
+
+
+>>
+
+
+mapStart(name) ::= <<
+Submap default ( 
+        SubmapLabel = "<name>";
+        ParentMapID = null;
+        )
+{
+
+
+>>
+
+
+mapEnd() ::= <<
+} // End of map
+
+>>
+
+
+compartment(id, name) ::= <<
+Compartment element<id> {
+	Label = "<name>";
+	CompartmentInformation = { };
+	QuantitativeProperties = { };
+}
+
+
+>>
+
+
+epn(id, name, type, cardinality, compartment, count) ::= <<
+EntityPoolNode element<id> {
+     EPNName = "<name>";
+     EPNType =  <type>; 
+     Compartment       = element<compartment>;
+     ParentComplex     = free ;
+     Cardinality       = <cardinality> ;
+     MaterialType      = "";
+     ConceptualType    = "";
+     EPNState       = { };
+     EPNInformation = { };
+	 CloneMarkerIsOn   = false;
+     CloneMarkerLabel  = "";
+     InitialMoleculeCount  = <count>;  
+}
+
+
+>>
+
+
+process(id, type, propFunc) ::= <<
+ProcessNode element<id> {
+     ProcessType = <type> ;
+     PropensityFunction = "<propFunc>" ;
+}
+
+
+>>
+
+fluxArc(id, type, stoich, epnId, processId) ::= <<
+Arc element<id> {
+	ManualEquationArcID = element<id>;
+	ArcType = <type>;
+	Entity = element<epnId>;
+	Process = element<processId>;
+	Stoichiometry = <stoich>;
+	QuantitativeProperties = { } ;
+}
+
+
+>>
+
+
+modulationArc(id, type, epnId, processId) ::= <<
+Arc element<id> {
+	ManualEquationArcID = element<id>;
+	ArcType = <type>;
+	Entity = element<epnId>;
+	Process = element<processId>;
+	Stoichiometry = 1;
+	QuantitativeProperties = { };
+}
+
+
+>>

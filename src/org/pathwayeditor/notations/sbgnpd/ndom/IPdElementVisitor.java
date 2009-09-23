@@ -39,9 +39,4 @@ public interface IPdElementVisitor {
 	
 	void visitCompartment(ICompartmentNode pdElement);
 	
-	void visitSubmapNode(ISubMapNode pdElement);
-	
-	void visitTagNode(ITagNode pdElement);
-	
-	void visitSubmapTerminalNode(ISubMapTerminalNode pdElement);
 }

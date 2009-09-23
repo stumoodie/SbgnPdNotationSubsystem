@@ -14,6 +14,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LabelLocat
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.properties.INumberPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
@@ -36,50 +37,50 @@ import org.pathwayeditor.notationsubsystem.toolkit.definition.ShapeObjectType;
 
 public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final int NUM_ROOT_OTS = 1;
-	private static final String ancorsAround=" [\n"
-		+ "0 xoffset 0.00 yoffset\n"
-		+ "0 xoffset 0.10 yoffset\n"
-		+ "0 xoffset 0.20 yoffset\n"
-		+ "0 xoffset 0.30 yoffset\n"
-		+ "0 xoffset 0.40 yoffset\n"
-		+ "0 xoffset 0.50 yoffset\n"
-		+ "0 xoffset 0.60 yoffset\n"
-		+ "0 xoffset 0.70 yoffset\n"
-		+ "0 xoffset 0.80 yoffset\n"
-		+ "0 xoffset 0.90 yoffset\n"
-		+ "0 xoffset 1.00 yoffset\n"
-		+ "1 xoffset 0.00 yoffset\n"
-		+ "1 xoffset 0.10 yoffset\n"
-		+ "1 xoffset 0.20 yoffset\n"
-		+ "1 xoffset 0.30 yoffset\n"
-		+ "1 xoffset 0.40 yoffset\n"
-		+ "1 xoffset 0.50 yoffset\n"
-		+ "1 xoffset 0.60 yoffset\n"
-		+ "1 xoffset 0.70 yoffset\n"
-		+ "1 xoffset 0.80 yoffset\n"
-		+ "1 xoffset 0.90 yoffset\n"
-		+ "1 xoffset 1.00 yoffset\n"
-		+ "0.10 xoffset 0 yoffset\n"
-		+ "0.20 xoffset 0 yoffset\n"
-		+ "0.30 xoffset 0 yoffset\n"
-		+ "0.40 xoffset 0 yoffset\n"
-		+ "0.50 xoffset 0 yoffset\n"
-		+ "0.60 xoffset 0 yoffset\n"
-		+ "0.70 xoffset 0 yoffset\n"
-		+ "0.80 xoffset 0 yoffset\n"
-		+ "0.90 xoffset 0 yoffset\n"
-		+ "0.00 xoffset 1 yoffset\n"
-		+ "0.10 xoffset 1 yoffset\n"
-		+ "0.20 xoffset 1 yoffset\n"
-		+ "0.30 xoffset 1 yoffset\n"
-		+ "0.40 xoffset 1 yoffset\n"
-		+ "0.50 xoffset 1 yoffset\n"
-		+ "0.60 xoffset 1 yoffset\n"
-		+ "0.70 xoffset 1 yoffset\n"
-		+ "0.80 xoffset 1 yoffset\n"
-		+ "0.90 xoffset 1 yoffset\n"
-		+ "1.00 xoffset 1 yoffset\n"
-		+"] (S) setanchor\n";
+//	private static final String ancorsAround=" [\n"
+//		+ "0 xoffset 0.00 yoffset\n"
+//		+ "0 xoffset 0.10 yoffset\n"
+//		+ "0 xoffset 0.20 yoffset\n"
+//		+ "0 xoffset 0.30 yoffset\n"
+//		+ "0 xoffset 0.40 yoffset\n"
+//		+ "0 xoffset 0.50 yoffset\n"
+//		+ "0 xoffset 0.60 yoffset\n"
+//		+ "0 xoffset 0.70 yoffset\n"
+//		+ "0 xoffset 0.80 yoffset\n"
+//		+ "0 xoffset 0.90 yoffset\n"
+//		+ "0 xoffset 1.00 yoffset\n"
+//		+ "1 xoffset 0.00 yoffset\n"
+//		+ "1 xoffset 0.10 yoffset\n"
+//		+ "1 xoffset 0.20 yoffset\n"
+//		+ "1 xoffset 0.30 yoffset\n"
+//		+ "1 xoffset 0.40 yoffset\n"
+//		+ "1 xoffset 0.50 yoffset\n"
+//		+ "1 xoffset 0.60 yoffset\n"
+//		+ "1 xoffset 0.70 yoffset\n"
+//		+ "1 xoffset 0.80 yoffset\n"
+//		+ "1 xoffset 0.90 yoffset\n"
+//		+ "1 xoffset 1.00 yoffset\n"
+//		+ "0.10 xoffset 0 yoffset\n"
+//		+ "0.20 xoffset 0 yoffset\n"
+//		+ "0.30 xoffset 0 yoffset\n"
+//		+ "0.40 xoffset 0 yoffset\n"
+//		+ "0.50 xoffset 0 yoffset\n"
+//		+ "0.60 xoffset 0 yoffset\n"
+//		+ "0.70 xoffset 0 yoffset\n"
+//		+ "0.80 xoffset 0 yoffset\n"
+//		+ "0.90 xoffset 0 yoffset\n"
+//		+ "0.00 xoffset 1 yoffset\n"
+//		+ "0.10 xoffset 1 yoffset\n"
+//		+ "0.20 xoffset 1 yoffset\n"
+//		+ "0.30 xoffset 1 yoffset\n"
+//		+ "0.40 xoffset 1 yoffset\n"
+//		+ "0.50 xoffset 1 yoffset\n"
+//		+ "0.60 xoffset 1 yoffset\n"
+//		+ "0.70 xoffset 1 yoffset\n"
+//		+ "0.80 xoffset 1 yoffset\n"
+//		+ "0.90 xoffset 1 yoffset\n"
+//		+ "1.00 xoffset 1 yoffset\n"
+//		+"] (S) setanchor\n";
 	private static final String UNIT_OF_INFO_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "x y w h rect";
 	private static final String STATE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
@@ -170,7 +171,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 			+ "0.05 xoffset 0.05 yoffset 0.90 w mul 0.90 h mul oval 1.00 xoffset 0 yoffset 0 xoffset 1.00 yoffset line";
-	private static final String OBSERVABLE_DEFN =
+	private static final String PHENOTYPE_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
@@ -282,13 +283,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private ShapeObjectType UnitOfInf;
 	private ShapeObjectType Compartment;
 	private ShapeObjectType Complex;
-	private ShapeObjectType GeneticUnit;
+	private ShapeObjectType nucleicAcidFeature;
 	private ShapeObjectType Macromolecule;
 	private ShapeObjectType SimpleChem;
 	private ShapeObjectType UnspecEntity;
 	private ShapeObjectType Sink;
 	private ShapeObjectType Source;
-	private ShapeObjectType Perturbation;
+	private ShapeObjectType PerturbingAgent;
 	private ShapeObjectType Observable;
 	private ShapeObjectType Process;
 	private ShapeObjectType ProcessV;
@@ -329,8 +330,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		createCompartment();
 		this.Complex = new ShapeObjectType(this, 14, "Complex");
 		createComplex();
-		this.GeneticUnit = new ShapeObjectType(this, 15, "Nucleic Acid Feature");
-		createGeneticUnit();
+		this.nucleicAcidFeature = new ShapeObjectType(this, 15, "Nucleic Acid Feature");
+		createNucleicAcidFeature();
 		this.Macromolecule = new ShapeObjectType(this, 16, "Macromolecule");
 		createMacromolecule();
 		this.SimpleChem = new ShapeObjectType(this, 18, "Simple Chemical");
@@ -341,10 +342,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		createSink();
 		this.Source = new ShapeObjectType(this, 112, "Source");
 		createSource();
-		this.Perturbation = new ShapeObjectType(this, 113, "Perturbing Agent");
-		createPerturbation();
+		this.PerturbingAgent = new ShapeObjectType(this, 113, "Perturbing Agent");
+		createPerturbingAgent();
 		this.Observable = new ShapeObjectType(this, 114, "Observable");
-		createObservable();
+		createPhenotype();
 		this.Process = new ShapeObjectType(this, 118, "Process");
 		createProcess();
 		this.ProcessV = new ShapeObjectType(this, 1018, "ProcessV");
@@ -413,13 +414,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.shapes.put(this.UnitOfInf.getUniqueId(), this.UnitOfInf);
 		this.shapes.put(this.Compartment.getUniqueId(), this.Compartment);
 		this.shapes.put(this.Complex.getUniqueId(), this.Complex);
-		this.shapes.put(this.GeneticUnit.getUniqueId(), this.GeneticUnit);
+		this.shapes.put(this.nucleicAcidFeature.getUniqueId(), this.nucleicAcidFeature);
 		this.shapes.put(this.Macromolecule.getUniqueId(), this.Macromolecule);
 		this.shapes.put(this.SimpleChem.getUniqueId(), this.SimpleChem);
 		this.shapes.put(this.UnspecEntity.getUniqueId(), this.UnspecEntity);
 		this.shapes.put(this.Sink.getUniqueId(), this.Sink);
 		this.shapes.put(this.Source.getUniqueId(), this.Source);
-		this.shapes.put(this.Perturbation.getUniqueId(), this.Perturbation);
+		this.shapes.put(this.PerturbingAgent.getUniqueId(), this.PerturbingAgent);
 		this.shapes.put(this.Observable.getUniqueId(), this.Observable);
 		this.shapes.put(this.ProcessV.getUniqueId(), this.ProcessV);
 		this.shapes.put(this.Process.getUniqueId(), this.Process);
@@ -554,8 +555,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.State,
 				this.UnitOfInf, this.Compartment, this.Complex,
-				this.GeneticUnit, this.Macromolecule, this.SimpleChem,
-				this.UnspecEntity, this.Sink, this.Source, this.Perturbation,
+				this.nucleicAcidFeature, this.Macromolecule, this.SimpleChem,
+				this.UnspecEntity, this.Sink, this.Source, this.PerturbingAgent,
 				this.Observable,
 				this.Process,  this.ProcessV,this.OmittedProcess, this.UncertainProcess,
 				this.Association, this.Dissociation, this.AndGate, this.OrGate, this.OrGateV,
@@ -658,6 +659,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 																	// TypeDescription
 																	// rather
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Compartment.getDefaultAttributes().addPropertyDefinition(createCompartmentVolumeProperty());
 		this.Compartment.getDefaultAttributes().setShapeDefinition(COMPARTMENT_DEFN);
 		this.Compartment.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Compartment.getDefaultAttributes().setSize(new Dimension(200, 200));
@@ -686,8 +688,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.State,
 				this.UnitOfInf, this.Compartment, this.Complex,
-				this.GeneticUnit, this.Macromolecule, this.SimpleChem,
-				this.UnspecEntity, this.Sink, this.Source, this.Perturbation,
+				this.nucleicAcidFeature, this.Macromolecule, this.SimpleChem,
+				this.UnspecEntity, this.Sink, this.Source, this.PerturbingAgent,
 				this.Observable,
 				this.Process, this.ProcessV, this.OmittedProcess, this.UncertainProcess,
 				this.Association, this.Dissociation, this.AndGate, this.OrGate, this.OrGateV,
@@ -716,6 +718,21 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		cardinalityProp.setVisualisable(false);
 		cardinalityProp.setEditable(true);
 		cardinalityProp.setDisplayName("Cardinality");
+//		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
+//		cardinalityProp.getLabelDefaults().setFillColour(RGB.WHITE);
+//		cardinalityProp.getLabelDefaults().setLineColour(RGB.BLACK);
+//		cardinalityProp.getLabelDefaults().setNoFill(false);
+//		cardinalityProp.getLabelDefaults().setNoBorder(false);
+//		cardinalityProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
+		return cardinalityProp;
+	}
+	
+	
+	private IntegerPropertyDefinition createStoichiometryProperty(){
+		IntegerPropertyDefinition cardinalityProp = new IntegerPropertyDefinition("stoich", 1);
+		cardinalityProp.setVisualisable(true);
+		cardinalityProp.setEditable(true);
+		cardinalityProp.setDisplayName("Stoichiometry");
 		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
 		cardinalityProp.getLabelDefaults().setFillColour(RGB.WHITE);
 		cardinalityProp.getLabelDefaults().setLineColour(RGB.BLACK);
@@ -736,11 +753,45 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return nameProp;
 	}
 	
+	private IntegerPropertyDefinition createEntityCountProperty(){
+		IntegerPropertyDefinition retVal = new IntegerPropertyDefinition("entityCount", 0);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDisplayName("Entity Count");
+		return retVal;
+	}
+	
+	private IPlainTextPropertyDefinition createForwardRateEquationProperty(){
+		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("fwdRate", "");
+		retVal.setAlwaysDisplayed(false);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDisplayName("Forward Rate");
+		return retVal;
+	}
+	
+	private IPlainTextPropertyDefinition createReverseRateEquationProperty(){
+		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("revRate", "");
+		retVal.setAlwaysDisplayed(false);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDisplayName("Reverse Rate");
+		return retVal;
+	}
+	
+	private INumberPropertyDefinition createCompartmentVolumeProperty(){
+		NumberPropertyDefinition retVal = new NumberPropertyDefinition("compVol", BigDecimal.ZERO);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDisplayName("Volume (nL)");
+		return retVal;
+	}
 	
 	private void createComplex() {
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
+		this.Complex.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.Complex.getDefaultAttributes().setShapeDefinition(COMPLEX_DEFN);
 		this.Complex.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Complex.getDefaultAttributes().setSize(new Dimension(120, 80));
@@ -768,7 +819,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		HashSet<IShapeObjectType> set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.State,
 				this.UnitOfInf, this.Macromolecule, this.SimpleChem,
-				this.Complex,this.GeneticUnit }));
+				this.Complex,this.nucleicAcidFeature }));
 		for (IShapeObjectType child : set) {
 			this.Complex.getParentingRules().addChild(child);
 		}
@@ -779,19 +830,16 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return this.Complex;
 	}
 
-	private void createGeneticUnit() {
-		this.GeneticUnit.setDescription("Nucleic Acid Feature");// ment
-																			// to
-																			// be
-																			// TypeDescription
-																			// rather
-		this.GeneticUnit.getDefaultAttributes().addPropertyDefinition(createNameProperty());
-		this.GeneticUnit.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
-		this.GeneticUnit.getDefaultAttributes().setFillColour(RGB.WHITE);
-		this.GeneticUnit.getDefaultAttributes().setSize(new Dimension(60, 40));
-		this.GeneticUnit.getDefaultAttributes().setLineWidth(1);
-		this.GeneticUnit.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.GeneticUnit.getDefaultAttributes().setLineColour(RGB.BLACK);
+	private void createNucleicAcidFeature() {
+		this.nucleicAcidFeature.setDescription("Nucleic Acid Feature");
+		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.nucleicAcidFeature.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
+		this.nucleicAcidFeature.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.nucleicAcidFeature.getDefaultAttributes().setSize(new Dimension(60, 40));
+		this.nucleicAcidFeature.getDefaultAttributes().setLineWidth(1);
+		this.nucleicAcidFeature.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+		this.nucleicAcidFeature.getDefaultAttributes().setLineColour(RGB.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -807,7 +855,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		if (true) {
 			editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 		}
-		this.GeneticUnit.setEditableAttributes(editableAttributes);
+		this.nucleicAcidFeature.setEditableAttributes(editableAttributes);
 	}
 
 	private void defineParentingGeneticUnit() {
@@ -815,13 +863,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.State,
 				this.UnitOfInf }));
 		for (IShapeObjectType child : set) {
-			this.GeneticUnit.getParentingRules().addChild(child);
+			this.nucleicAcidFeature.getParentingRules().addChild(child);
 		}
 
 	}
 
 	public ShapeObjectType getGeneticUnit() {
-		return this.GeneticUnit;
+		return this.nucleicAcidFeature;
 	}
 
 	private void createMacromolecule() {
@@ -829,6 +877,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 															// TypeDescription
 															// rather
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.Macromolecule.getDefaultAttributes().setShapeDefinition(MACROMOLECULE_DEFN);
 		this.Macromolecule.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Macromolecule.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -874,6 +923,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.SimpleChem.getDefaultAttributes().setShapeDefinition(SIMPLE_CHEM_DEFN);
 		this.SimpleChem.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(40, 40));
@@ -916,6 +966,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 																// TypeDescription
 																// rather
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.UnspecEntity.getDefaultAttributes().setShapeDefinition(UNSPECIFIED_ENTITY_DEFN);
 		this.UnspecEntity.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -1025,17 +1076,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return this.Source;
 	}
 
-	private void createPerturbation() {
-		this.Perturbation.setDescription("Perturbing Agent");// ment to be
-															// TypeDescription
-															// rather
-		this.Perturbation.getDefaultAttributes().addPropertyDefinition(createNameProperty());
-		this.Perturbation.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
-		this.Perturbation.getDefaultAttributes().setFillColour(RGB.WHITE);
-		this.Perturbation.getDefaultAttributes().setSize(new Dimension(80, 60));
-		this.Perturbation.getDefaultAttributes().setLineWidth(1);
-		this.Perturbation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Perturbation.getDefaultAttributes().setLineColour(RGB.BLACK);
+	private void createPerturbingAgent() {
+		this.PerturbingAgent.setDescription("Perturbing Agent");
+		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.PerturbingAgent.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
+		this.PerturbingAgent.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.PerturbingAgent.getDefaultAttributes().setSize(new Dimension(80, 60));
+		this.PerturbingAgent.getDefaultAttributes().setLineWidth(1);
+		this.PerturbingAgent.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+		this.PerturbingAgent.getDefaultAttributes().setLineColour(RGB.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1051,22 +1100,20 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		if (true) {
 			editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 		}
-		this.Perturbation.setEditableAttributes(editableAttributes);
+		this.PerturbingAgent.setEditableAttributes(editableAttributes);
 	}
 
 	private void defineParentingPerturbation() {
-		this.Perturbation.getParentingRules().clear();
+		this.PerturbingAgent.getParentingRules().clear();
 	}
 
 	public ShapeObjectType getPerturbation() {
-		return this.Perturbation;
+		return this.PerturbingAgent;
 	}
 
-	private void createObservable() {
-		this.Observable.setDescription("Observable");// ment to be
-														// TypeDescription
-														// rather
-		this.Observable.getDefaultAttributes().setShapeDefinition(OBSERVABLE_DEFN);
+	private void createPhenotype() {
+		this.Observable.setDescription("Phenotype");
+		this.Observable.getDefaultAttributes().setShapeDefinition(PHENOTYPE_DEFN);
 		this.Observable.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Observable.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Observable.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1101,8 +1148,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 
 	private void createProcess() {
-		this.Process.setDescription("Process node");// ment to be
-													// TypeDescription rather
+		this.Process.setDescription("Process node");
+		this.Process.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.Process.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
 		this.Process.getDefaultAttributes().setShapeDefinition(PROCESS_DEFN);
 		this.Process.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Process.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1128,8 +1176,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createProcessV() {
-		this.ProcessV.setDescription("Process node");// ment to be
-													// TypeDescription rather
+		this.ProcessV.setDescription("Process node");
+		this.ProcessV.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.ProcessV.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
 		this.ProcessV.getDefaultAttributes().setShapeDefinition(PROCESS_V_DEFN);
 		this.ProcessV.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.ProcessV.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1169,9 +1218,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createOmittedProcess() {
-		this.OmittedProcess.setDescription("omitted process");// ment to be
-																// TypeDescription
-																// rather
+		this.OmittedProcess.setDescription("Omitted process");
+		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
 		this.OmittedProcess.getDefaultAttributes().setShapeDefinition(OMITTED_PROCESS_DEFN);
 		this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1205,9 +1254,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createUncertainProcess() {
-		this.UncertainProcess.setDescription("Uncertain process");// ment to be
-																	// TypeDescription
-																	// rather
+		this.UncertainProcess.setDescription("Uncertain process");
+		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
 		this.UncertainProcess.getDefaultAttributes().setShapeDefinition(UNCERTAIN_PROCESS_DEFN);
 		this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1242,9 +1291,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createAssociation() {
-		this.Association.setDescription("Association");// ment to be
-														// TypeDescription
-														// rather
+		this.Association.setDescription("Association");
+		this.Association.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Association.getDefaultAttributes().setShapeDefinition(ASSOC_DEFN);
 		this.Association.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Association.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1284,9 +1332,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createDissociation() {
-		this.Dissociation.setDescription("Dissociation");// ment to be
-															// TypeDescription
-															// rather
+		this.Dissociation.setDescription("Dissociation");
+		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Dissociation.getDefaultAttributes().setShapeDefinition(DISSOC_DEFN);
 		this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Dissociation.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1482,11 +1529,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		// this.Consumption.getDefaultAttributes().setLineWidthEditable(true);
 		this.Consumption.setEditableAttributes(editableAttributes);
 
-		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
-		Stoich.setEditable(true);
-		Stoich.setVisualisable(true);
-		Stoich.setDisplayName("Stoichiometry");
-		this.Consumption.getDefaultAttributes().addPropertyDefinition(Stoich);
+//		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
+//		Stoich.setEditable(true);
+//		Stoich.setVisualisable(true);
+//		Stoich.setDisplayName("Stoichiometry");
+		this.Consumption.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
 
 		// LinkEndDefinition sport=this.Consumption.getLinkSource();
 		// LinkEndDefinition tport=this.Consumption.getLinkTarget();
@@ -1556,7 +1603,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 				this.Dissociation }));
 		for (IShapeObjectType tgt : set) {
 			this.Consumption.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process,this.ProcessV,
@@ -1613,11 +1660,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		// this.Production.getDefaultAttributes().setLineWidthEditable(true);
 		this.Production.setEditableAttributes(editableAttributes);
-		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
-		Stoich.setEditable(true);
-		Stoich.setVisualisable(true);
-		Stoich.setDisplayName("Stoichiometry");
-		this.Production.getDefaultAttributes().addPropertyDefinition(Stoich);
+//		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
+//		Stoich.setEditable(true);
+//		Stoich.setVisualisable(true);
+//		Stoich.setDisplayName("Stoichiometry");
+		this.Production.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
 
 		// LinkEndDefinition sport=this.Production.getLinkSource();
 		// LinkEndDefinition tport=this.Production.getLinkTarget();
@@ -1666,7 +1713,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.nucleicAcidFeature,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1678,7 +1725,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.nucleicAcidFeature,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1686,7 +1733,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.nucleicAcidFeature,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1694,7 +1741,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.nucleicAcidFeature,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1702,7 +1749,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Complex,
-				this.Macromolecule, this.GeneticUnit,this.SimpleChem, this.UnspecEntity,
+				this.Macromolecule, this.nucleicAcidFeature,this.SimpleChem, this.UnspecEntity,
 				this.Sink }));
 		for (IShapeObjectType tgt : set) {
 			this.Production.getLinkConnectionRules().addConnection(
@@ -1803,11 +1850,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Modulation.getLinkConnectionRules().addConnection(
-					this.Perturbation, tgt);
+					this.PerturbingAgent, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Modulation.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Modulation.getLinkConnectionRules().addConnection(
@@ -1932,7 +1979,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
-					this.Perturbation, tgt);
+					this.PerturbingAgent, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, this.ProcessV,
@@ -1952,7 +1999,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, this.ProcessV,
@@ -2066,7 +2113,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Catalysis.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, this.ProcessV,
@@ -2197,7 +2244,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Inhibition.getLinkConnectionRules().addConnection(
-					this.Perturbation, tgt);
+					this.PerturbingAgent, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Inhibition.getLinkConnectionRules().addConnection(
@@ -2209,7 +2256,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Inhibition.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Inhibition.getLinkConnectionRules().addConnection(
@@ -2318,7 +2365,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Trigger.getLinkConnectionRules().addConnection(
-					this.Perturbation, tgt);
+					this.PerturbingAgent, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Trigger.getLinkConnectionRules().addConnection(
@@ -2330,7 +2377,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Trigger.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.Trigger.getLinkConnectionRules().addConnection(
@@ -2459,11 +2506,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		for (IShapeObjectType tgt : set) {
 			this.LogicArc.getLinkConnectionRules().addConnection(
-					this.Perturbation, tgt);
+					this.PerturbingAgent, tgt);
 		}
 		for (IShapeObjectType tgt : set) {
 			this.LogicArc.getLinkConnectionRules().addConnection(
-					this.GeneticUnit, tgt);
+					this.nucleicAcidFeature, tgt);
 		}
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.AndGate,

@@ -1,7 +1,5 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProduceableNode;
@@ -9,12 +7,14 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IProductionArc;
 
 public class ProductionArc extends PdElement implements IProductionArc {
 	private final static String SBO_TERM = "SBO:000999";
-	private final IEntityPoolNode produceable;
+	private final IProduceableNode produceable;
 	private final IProcessNode process;
 	private int stoichiometry;
 	
-	public ProductionArc(ILinkEdge linkEdge, IEntityPoolNode produceable, IProcessNode processNode) {
-		super(linkEdge.getAttribute().getCreationSerial(), SBO_TERM);
+	public ProductionArc(int identifier, IProduceableNode produceable, IProcessNode processNode) {
+		super(identifier, SBO_TERM);
+		if(produceable == null || processNode == null) throw new IllegalArgumentException("Process node or produceable cannot be null.");
+		
 		this.produceable = produceable;
 		this.process = processNode;
 	}

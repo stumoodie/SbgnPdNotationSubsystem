@@ -108,14 +108,14 @@ processes				:=	PROCESS
 phenotype				:=	PHENOTYPE ^phenotypeChildren
 						;
 
-phenotypeChildren			:	uoi phenotypeChildren
+phenotypeChildren		:	uoi phenotypeChildren
 						|	
 						;
 
 mapEdges				:=	EDGE_ROOT ^edgeChildren
 						;
 
-edgeChildren				:=	edgeChild edgeChildren
+edgeChildren			:=	edgeChild edgeChildren
 						|
 						;
 

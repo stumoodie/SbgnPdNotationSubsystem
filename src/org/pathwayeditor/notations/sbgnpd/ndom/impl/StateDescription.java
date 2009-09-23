@@ -1,16 +1,14 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStateDescription;
 
 public class StateDescription extends PdElement implements IStateDescription {
-
 	private final String name;
 	private String value;
 
-	public StateDescription(IShapeNode shapeNode, String name, String value) {
-		super(shapeNode.getAttribute().getCreationSerial(), null);
+	public StateDescription(int identifier, String name, String value) {
+		super(identifier, null);
 		this.name = name;
 		this.value = value;
 	}
@@ -25,37 +23,6 @@ public class StateDescription extends PdElement implements IStateDescription {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof StateDescription))
-			return false;
-		StateDescription other = (StateDescription) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.equals(other.value))
-			return false;
-		return true;
 	}
 
 	public void visit(IPdElementVisitor visitor) {

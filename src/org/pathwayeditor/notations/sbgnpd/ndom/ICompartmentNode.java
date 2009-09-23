@@ -1,22 +1,15 @@
 package org.pathwayeditor.notations.sbgnpd.ndom;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.math.BigDecimal;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 
-public interface ICompartmentNode extends IPdElement, IEpnContainer {
+public interface ICompartmentNode extends IPdElement, IEpnContainer, IAnnotateable {
 	
 	IMapDiagram getMapDiagram();
 	
 	String getName();
-	
-	Iterator<IEntityPoolNode> nodeIterator();
 
-	Set<IUnitOfInformation> getUnitsOfInformation();
+	BigDecimal getVolume();
 	
-	ISourceNode createSourceNode(IShapeNode shapeNode);
-	
-	ISinkNode createSinkNode(IShapeNode shapeNode);
-	
+	void setVolume(BigDecimal volume);
 }

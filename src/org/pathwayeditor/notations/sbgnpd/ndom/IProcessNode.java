@@ -2,8 +2,6 @@ package org.pathwayeditor.notations.sbgnpd.ndom;
 
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
-
 public interface IProcessNode extends IPdElement, IModulateableNode, IConceptualProcessNode {
 	enum SidednessType { LHS, RHS };
 	
@@ -14,11 +12,15 @@ public interface IProcessNode extends IPdElement, IModulateableNode, IConceptual
 	
 	Set<IFluxArc> getRhs();
 	
-	Set<IModulationArc> getModulationArcs();
+	IConsumptionArc createConsumptionArc(int identifier, IConsumeableNode consumeable);
 	
-	IConsumptionArc createConsumptionArc(ILinkEdge linkEdge, IEntityPoolNode consumeable);
+	IProductionArc createProductionArc(int identifier, IProduceableNode produceable, SidednessType type);
 	
-	IProductionArc createProductionArc(ILinkEdge linkEdge, IEntityPoolNode produceable, SidednessType type);
+	String getFwdRateEquation();
 	
-	IModulationArc createModulationArc(ILinkEdge linkEdge, ModulatingArcType type, IModulatingNode modulator);
+	void setFwdRateEquation(String rateFunction);
+	
+	String getRevRateEquation();
+	
+	void setRevRateEquation(String rateFunction);
 }

@@ -1,31 +1,35 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
+import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IModulationArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
+import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 
 public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotateable {
 	private static final String SBO_TERM = "SBO:0000999";
-	private static final String NAME_PROP = "name";
 	private final UnitOfInformationHandler handler;
-	private final IShapeNode shapeNode;
+	private final Set<IModulationArc> modulations;
+	private final String name;
 	
-	public PhenotypeNode(IShapeNode shapeNode) {
-		super(shapeNode.getAttribute().getCreationSerial(), SBO_TERM);
+	public PhenotypeNode(int identifier, String name) {
+		super(identifier, SBO_TERM);
 		handler = new UnitOfInformationHandler(this);
-		this.shapeNode = shapeNode;
+		this.modulations = new HashSet<IModulationArc>();
+		this.name = name;
 	}
 
 	public String getName() {
-		return this.shapeNode.getAttribute().getProperty(NAME_PROP).getValue().toString();
+		return this.name;
 	}
 
-	public IUnitOfInformation createUnitOfInformation(IShapeNode shapeNode) {
-		return handler.createUnitOfInformation(shapeNode);
+	public IUnitOfInformation createUnitOfInformation(int identifier, String name) {
+		return handler.createUnitOfInformation(identifier, name);
 	}
 
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
@@ -35,5 +39,22 @@ public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotat
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitPhenotypeNode(this);
 	}
+
+	public String getRateFunction() {
+		return "";
+	}
+
+	public IModulationArc createModulationArc(int identifier, ModulatingArcType type, IModulatingNode modulator) {
+		IModulationArc retVal = new ModulationArc(identifier, modulator, this, type);
+		this.modulations.add(retVal);
+		return retVal;
+	}
+
+
+	public Set<IModulationArc> getModulationArcs() {
+		return new HashSet<IModulationArc>(this.modulations);
+	}
+
+
 
 }

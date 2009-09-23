@@ -2,25 +2,23 @@ package org.pathwayeditor.notations.sbgnpd.ndom;
 
 import java.util.Iterator;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
-
 public interface IEpnContainer {
 	
-	IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode);
+	IMacromoleculeNode createMacromoleculeNode(int identifier, String name);
 	
-	INucleicAcidFeatureNode createNucleicAcidFeatureNode(IShapeNode shapeNode);
+	INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name);
 	
-	IComplexNode createComplexNode(IShapeNode shapeNode);
+	IComplexNode createComplexNode(int identifier);
 	
-	ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode);
+	ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name);
 	
-	IUnspecifiedEntityNode createUnspecifiedEntityNode(IShapeNode shapeNode);
+	IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name);
 	
-	IPerturbationNode createPerturbationNode(IShapeNode shapeNode);
+	IPerturbationNode createPerturbationNode(int identifier, String name);
 	
-	ISinkNode createSinkNode(IShapeNode shapeNode);
+	ISinkNode createSinkNode(int identifier);
 	
-	ISourceNode createSourceNode(IShapeNode shapeNode);
+	ISourceNode createSourceNode(int identifier);
 	
 	boolean containsEntityPoolNode(int integer);
 	

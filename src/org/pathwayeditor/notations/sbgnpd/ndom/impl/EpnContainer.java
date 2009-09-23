@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
@@ -29,32 +28,32 @@ public class EpnContainer implements IEpnContainer {
 		this.epnMap = new HashMap<Integer, IEntityPoolNode>();
 	}
 	
-	public IComplexNode createComplexNode(IShapeNode shapeNode) {
-		IComplexNode retVal = new ComplexNode(this.container, shapeNode);
+	public IComplexNode createComplexNode(int identifier) {
+		IComplexNode retVal = new ComplexNode(this.container, identifier);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
-		IMacromoleculeNode retVal = new MacromoleculeNode(this.container, shapeNode);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
+		IMacromoleculeNode retVal = new MacromoleculeNode(this.container, name, identifier);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(IShapeNode shapeNode) {
-		INucleicAcidFeatureNode retVal = new NucleicAcidFeatureNode(this.container, shapeNode);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
+		INucleicAcidFeatureNode retVal = new NucleicAcidFeatureNode(this.container, identifier, name);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
-		ISimpleChemicalNode retVal = new SimpleChemicalNode(this.container, shapeNode);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
+		ISimpleChemicalNode retVal = new SimpleChemicalNode(this.container, identifier, name);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(IShapeNode shapeNode) {
-		IUnspecifiedEntityNode retVal = new UnspecifiedEntityNode(this.container, shapeNode);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
+		IUnspecifiedEntityNode retVal = new UnspecifiedEntityNode(this.container, identifier, name);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
@@ -67,20 +66,20 @@ public class EpnContainer implements IEpnContainer {
 		return this.epnMap.get(identifier);
 	}
 
-	public IPerturbationNode createPerturbationNode(IShapeNode shapeNode) {
-		IPerturbationNode retVal = new PerturbationNode(this, shapeNode);
+	public IPerturbationNode createPerturbationNode(int identifier, String name) {
+		IPerturbationNode retVal = new PerturbationNode(this, identifier, name);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISinkNode createSinkNode(IShapeNode shapeNode) {
-		ISinkNode retVal = new SinkNode(this, shapeNode);
+	public ISinkNode createSinkNode(int identifier) {
+		ISinkNode retVal = new SinkNode(this, identifier);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISourceNode createSourceNode(IShapeNode shapeNode) {
-		ISourceNode retVal = new SourceNode(this, shapeNode);
+	public ISourceNode createSourceNode(int identifier) {
+		ISourceNode retVal = new SourceNode(this, identifier);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}

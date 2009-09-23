@@ -1,6 +1,9 @@
 package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
@@ -22,12 +25,15 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private static final Version VERSION = new Version(0, 9, 3);
 	private SbgnPdNotationSyntaxService syntaxService;
 	private SbgnPdValidationService validationService;
+	private final List<INotationExportService> exportServices;
 	private INotation context;
 
 	public SbgnPdNotationSubsystem() {
 		this.context = new GeneralNotation(GLOBAL_ID, NAME, DESCRIPTION, VERSION);
 		this.syntaxService = new SbgnPdNotationSyntaxService(this);
 		this.validationService=new SbgnPdValidationService(this);
+		this.exportServices = new LinkedList<INotationExportService>();
+		this.exportServices.add(new SbgnPdBioPepaExportService(this));
 	}
 	
 
@@ -36,7 +42,7 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	}
 
 	public Set<INotationExportService> getExportServices() {
-		return Collections.emptySet();
+		return new HashSet<INotationExportService>(this.exportServices);
 	}
 
 	public Set<INotationImportService> getImportServices() {
@@ -66,15 +72,9 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 
 	private class DefaultAutolayoutService implements INotationAutolayoutService {
 
-		public INotation getContext() {
-			return context;
-		}
 
 		public boolean isImplemented() {
 			return false;
-		}
-		public INotationSubsystem getServiceProvider() {
-			return SbgnPdNotationSubsystem.this;
 		}
 
         public void layout(ICanvas canvas) {
@@ -97,13 +97,11 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 
 
 	public void registerCanvas(ICanvas canvasToRegister) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing at the moment
 	}
 
 
 	public void unregisterCanvas(ICanvas canvasToRegister) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing at the moment
 	}
 }

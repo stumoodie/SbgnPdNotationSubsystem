@@ -2,10 +2,9 @@ package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
 import java.util.Iterator;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
-import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IEntityPoolNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IEpnContainer;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
@@ -17,56 +16,49 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 
 public class ComplexNode extends StatefulEntityPoolNode implements IComplexNode {
 	private static final String SBO_TERM = "SBO:000999";
-	private static final String NAME_PROP_NAME = "name";
-	private static final String ID_PREFIX = "complex";
 	private final EpnContainer epnContainer;
 	
-	protected ComplexNode(IEpnContainer compartmentNode, IShapeNode shapeNode) {
-		super(compartmentNode, getNameProperty(shapeNode),
-				IdentifierFactory.getInstance().createIdentifier(ID_PREFIX, shapeNode), SBO_TERM);
+	protected ComplexNode(IEpnContainer compartmentNode, int identifier) {
+		super(compartmentNode, identifier, SBO_TERM);
 		this.epnContainer = new EpnContainer(this, compartmentNode.getCompartment());
 	}
 
-	private static String getNameProperty(IShapeNode shapeNode){
-		return shapeNode.getAttribute().getProperty(NAME_PROP_NAME).toString();
-	}
-	
 	public boolean containsEntityPoolNode(int identifier) {
 		return epnContainer.containsEntityPoolNode(identifier);
 	}
 
-	public IComplexNode createComplexNode(IShapeNode shapeNode) {
-		return epnContainer.createComplexNode(shapeNode);
+	public IComplexNode createComplexNode(int identifier) {
+		return epnContainer.createComplexNode(identifier);
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(IShapeNode shapeNode) {
-		return epnContainer.createMacromoleculeNode(shapeNode);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
+		return epnContainer.createMacromoleculeNode(identifier, name);
 	}
 
 	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(
-			IShapeNode shapeNode) {
-		return epnContainer.createNucleicAcidFeatureNode(shapeNode);
+			int identifier, String name) {
+		return epnContainer.createNucleicAcidFeatureNode(identifier, name);
 	}
 
-	public IPerturbationNode createPerturbationNode(IShapeNode shapeNode) {
-		return epnContainer.createPerturbationNode(shapeNode);
+	public IPerturbationNode createPerturbationNode(int identifier, String name) {
+		return epnContainer.createPerturbationNode(identifier, name);
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(IShapeNode shapeNode) {
-		return epnContainer.createSimpleChemicalNode(shapeNode);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
+		return epnContainer.createSimpleChemicalNode(identifier, name);
 	}
 
-	public ISinkNode createSinkNode(IShapeNode shapeNode) {
-		return epnContainer.createSinkNode(shapeNode);
+	public ISinkNode createSinkNode(int identifier) {
+		return epnContainer.createSinkNode(identifier);
 	}
 
-	public ISourceNode createSourceNode(IShapeNode shapeNode) {
-		return epnContainer.createSourceNode(shapeNode);
+	public ISourceNode createSourceNode(int identifier) {
+		return epnContainer.createSourceNode(identifier);
 	}
 
 	public IUnspecifiedEntityNode createUnspecifiedEntityNode(
-			IShapeNode shapeNode) {
-		return epnContainer.createUnspecifiedEntityNode(shapeNode);
+			int identifier, String name) {
+		return epnContainer.createUnspecifiedEntityNode(identifier, name);
 	}
 
 	public IEntityPoolNode getEntityPoolNode(int identifier) {
