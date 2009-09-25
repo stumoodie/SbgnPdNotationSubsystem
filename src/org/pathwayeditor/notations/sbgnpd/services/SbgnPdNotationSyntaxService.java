@@ -86,6 +86,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String STATE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "h w le  {x y w h 1 h mul 1 h mul rrect}\n"
 		+ "{x y w h 1 w mul 1 w mul rrect} ifelse";
+//	private static final String STATE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
+//		+ "x y w h oval";
 	private static final String SIMPLE_CHEM_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +

@@ -1,0 +1,294 @@
+group postscript;
+
+header() ::= <<
+%!
+/rrect { /harc exch def /warc exch def /h exch def /w exch def /y exch def /x exch def
+     x y harc add moveto x y x y x warc add y curveto w warc sub warc sub 0 rlineto
+     warc 0 warc 0 warc harc rcurveto 0 h harc sub harc sub rlineto
+     0 harc 0 harc warc neg harc rcurveto w warc sub warc sub neg 0 rlineto
+     warc neg 0 warc neg 0 warc neg harc neg rcurveto 0 h harc sub harc sub neg rlineto
+     } bind def
+
+/oval {
+/lengthangle exch def
+/startangle exch def
+/startangle startangle def
+/endangle startangle lengthangle add def
+
+/yrad exch 2 div def
+/xrad exch 2 div def
+/rawy exch def
+/rawx exch def
+%rawx rawy xrad 2 mul yrad 2 mul rectstroke
+%rawx rawy 2 0 360 arc fill
+/y rawy yrad add def
+/x rawx xrad add def
+/savematrix matrix currentmatrix def
+x y translate
+xrad yrad neg scale
+0 0 1 startangle endangle arc
+savematrix setmatrix
+%rawx rawy moveto
+%0 -20 rmoveto
+%gsave
+%1 -1 scale
+%startangle 15 string cvs show
+%(, ) show
+%endangle 15 string cvs show
+%grestore
+rawx rawy
+} bind def
+
+/polyline { /arr exch def arr 0 2 getinterval aload pop moveto %10 10 rlineto
+       2 2 arr length 1 sub {arr exch 2 getinterval aload pop lineto } for
+       } bind def
+
+
+% drawrect x y w h
+/drawrrect { newpath rrect stroke } bind def
+
+% fillrect x y w h
+/fillrrect { newpath rrect fill } bind def
+
+% drawrect x y w h cornerw cornerh
+/drawrect { newpath rectstroke } bind def
+
+% fillrect x y w h cornerw cornerh
+/fillrect { newpath rectfill } bind def
+
+% drawoval x y w h
+/drawoval { newpath 0 360 oval stroke } bind def
+% filloval x y w h
+/filloval { newpath 0 360 oval fill } bind def
+
+% drawarc x y w h startDeg lenDeg
+/drawarc { newpath oval stroke } def
+% fillarc x y w h startDeg lenDeg
+/fillarc { newpath oval lineto closepath fill } bind def
+
+% drawpoint x y
+/drawpoint { /y exch def /x exch def gsave newpath [] 0 setdash x y currentlinewidth 2 sub 0 360 arc fill grestore } bind def
+
+% drawline x1 y1 x2 y2
+/drawline { /y2 exch def /x2 exch def /y1 exch def /x1 exch def newpath x1 y1 moveto x2 y2 lineto stroke } bind def
+
+% drawpolyline 
+/drawpolyline { newpath polyline stroke } bind def
+
+% drawpolygon 
+/drawpolygon { newpath polyline closepath stroke } bind def
+
+% fillpolygon 
+/fillpolygon { newpath polyline closepath fill } bind def
+
+/textAlignmentPosn { /ury exch def /urx exch def /lly exch def /llx exch def
+    /wr urx llx sub 2 div def /hr ury lly sub 2 div def
+    /northy 0 def
+    /middley hr neg def
+    /southy hr 2 mul neg def
+    /westx wr 2 mul neg def
+    /centrex wr neg def
+    /eastx 0 def
+    aligntype (N) eq { centrex northy }
+    {
+      aligntype (NW) eq { westx northy }
+      {
+        aligntype (W) eq { westx middley }
+        {
+          aligntype (SW) eq { westx southy }
+          {
+            aligntype (S) eq { centrex southy }
+            {
+              aligntype (SE) eq { eastx southy }
+              {
+                aligntype (E) eq { eastx middley }
+                {
+                  aligntype (NE) eq { eastx northy }
+                  {
+                    %C
+                    centrex middley
+                  } ifelse  
+                } ifelse  
+                } ifelse  
+              } ifelse  
+          } ifelse  
+        } ifelse  
+      } ifelse  
+    } ifelse
+  } bind def
+
+/drawstring { /txt exch def /aligntype exch def /y exch def /x exch def  
+    newpath x y moveto gsave txt false charpath pathbbox grestore
+    gsave 1 -1 scale textAlignmentPosn rmoveto txt show grestore
+  } bind def
+
+/fillstring { /txt exch def /aligntype exch def /y exch def /x exch def
+    newpath x y moveto gsave txt false charpath pathbbox grestore
+    gsave 1 -1 scale textAlignmentPosn rmoveto
+    txt true charpath pathbbox /ury exch def /urx exch def /lly exch def /llx exch def
+    llx lly moveto llx ury lineto urx ury lineto urx lly lineto closepath
+    fill
+    grestore
+} bind def
+
+/setfontinfo {
+  /size exch def /styles exch def
+  mark
+  styles (I) search /isItalic exch def
+  styles (B) search /isBold exch def
+  cleartomark
+  isItalic isBold and { /Helvetica-BoldOblique }
+  {
+    isItalic { /Helvetica-Oblique  }
+    {
+      isBold { /Helvetica-Bold }
+      {
+        /Helvetica
+      } ifelse
+    } ifelse
+  } ifelse
+  findfont
+  size scalefont
+  setfont
+} bind def
+
+/setlinestyle {
+  /style exch def
+  style (S) eq {
+    []
+  }
+  {
+    style (D) eq {
+      [6]
+    }
+    {
+      style (DT) eq {
+        [6 2 2 2]
+      }
+      {
+        style (DTT) eq {
+          [6 2 2 2 2 2]
+        }
+        {
+          % T - dots
+          [2]
+        } ifelse
+      } ifelse
+    } ifelse
+  } ifelse
+  0 setdash
+} bind def
+
+% set coordinate system to have origin at top left corner
+%  and y-axis pointing down the page and x-axis pointing right
+0 700 translate
+1 -1 scale
+
+% End of Header
+
+>>
+
+
+drawRect(x, y, w, h) ::= <<
+<x> <y> <w> <h> drawrect 
+
+>>
+
+fillRect(x, y, w, h) ::= <<
+<x> <y> <w> <h> fillrect
+ 
+>>
+
+drawRRect(x, y, w, h, cornerWidth, cornerHeight) ::= <<
+<x> <y> <w> <h> <cornerWidth> <cornerHeight> drawrrect
+
+>>
+
+fillRRect(x, y, w, h, cornerWidth, cornerHeight) ::= <<
+<x> <y> <w> <h> <cornerWidth> <cornerHeight> fillrrect
+
+>>
+
+
+drawLine(x1, y1, x2, y2) ::= <<
+<x1> <y1> <x2> <y2> drawline
+ 
+>>
+
+drawPoint(x1, y1) ::= <<
+<x1> <y1> drawpoint
+ 
+>>
+
+drawArc(x, y, w, h, startAng, lenAng) ::= <<
+<x> <y> <w> <h> <startAng> <lenAng> drawarc
+
+>>
+
+fillArc(x, y, w, h, startAng, lenAng) ::= <<
+<x> <y> <w> <h> <startAng> <lenAng> fillarc
+
+>>
+
+drawOval(x, y, w, h) ::= <<
+<x> <y> <w> <h> drawoval
+
+>>
+
+fillOval(x, y, w, h) ::= <<
+<x> <y> <w> <h> filloval
+
+>>
+
+drawPolygon(points) ::= <<
+[<points; separator=" ">] drawpolygon
+
+>>
+
+drawPolyline(points) ::= <<
+[<points; separator=" ">] drawpolyline
+
+>>
+
+fillPolygon(points) ::= <<
+[<points; separator=" ">] fillpolygon
+
+>>
+
+drawString(x, y, alignment, text) ::= <<
+<x> <y> (<alignment>) (<text>) drawstring
+
+>>
+
+fillString(x, y, alignment, text) ::= <<
+<x> <y> (<alignment>) (<text>) fillstring
+
+>>
+
+setFont(styles, size) ::= <<
+(<styles>) <size> setfontinfo
+
+>>
+
+setColour(red, green, blue) ::= <<
+<red> <green> <blue> setrgbcolor
+
+>>
+
+setLineWidth(lw) ::= <<
+<lw> setlinewidth
+
+>>
+
+setLineStyle(ls) ::= <<
+(<ls>) setlinestyle
+
+>>
+
+footer() ::= <<
+% footer
+showpage
+>>
+
+
+

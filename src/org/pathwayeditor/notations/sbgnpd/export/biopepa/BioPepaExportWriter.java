@@ -40,6 +40,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 
 public class BioPepaExportWriter implements IExportWriter {
+	private static final String BIOPEPA_TEMPLATE_FILE_NAME = "biopepa.stg";
 	private final IMapDiagram ndom;
 	private final File exportFile;
 	private final IReportLog reportLog;
@@ -67,7 +68,7 @@ public class BioPepaExportWriter implements IExportWriter {
 	public void writeExport() {
 		try {
 			this.stream = new BufferedWriter(new FileWriter(this.exportFile));
-			Reader r = new InputStreamReader(this.getClass().getResourceAsStream("biopepa.stg"));
+			Reader r = new InputStreamReader(this.getClass().getResourceAsStream(BIOPEPA_TEMPLATE_FILE_NAME));
 			stg = new StringTemplateGroup(r);
 			writeHeader();
 			writeMapStart();

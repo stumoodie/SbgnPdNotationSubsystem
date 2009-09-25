@@ -21,6 +21,8 @@
 		<pathelement location="${lib.dir}/CompoundGraph/CompoundGraph.jar" />
 		<pathelement location="${lib.dir}/BusinessObjects/BusinessObjects.jar" />
 		<pathelement location="${lib.dir}/Toolkit/toolkit.jar" />
+		<pathelement location="${lib.dir}/stringtemplate-3.2/lib/stringtemplate.jar" />
+		<pathelement location="${lib.dir}/stringtemplate-3.2/lib/antlr-2.7.7.jar" />
 	</path>
 
 	<path id="test.classpath">
@@ -71,10 +73,6 @@
 	<target name="buildSrc" description="src build task" depends="mkdirs">
 		<!--echo>running with classpath ${toString:classpath}</echo-->
 		<javac classpathref="classpath" srcdir="${src.dir}" source="${source}" target="${target}" debug="true" debuglevel="lines,vars,source" destdir="${build.dir.src}">
-			<exclude name="**/export/*"/>
-			<exclude name="**/ndom/*"/>
-			<exclude name="**/ndoAPI/*"/>
-			<exclude name="**/validation/*"/>
 		</javac>
 		<copy todir="${build.dir.src}">
 			<fileset dir="${src.dir}">
