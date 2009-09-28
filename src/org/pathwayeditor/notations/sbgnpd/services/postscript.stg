@@ -3,6 +3,8 @@ group postscript;
 header() ::= <<
 %!
 /rrect { /harc exch def /warc exch def /h exch def /w exch def /y exch def /x exch def
+     warc w 2 div gt { /warc w 2 div def }if
+     harc h 2 div gt { /harc h 2 div def }if
      x y harc add moveto x y x y x warc add y curveto w warc sub warc sub 0 rlineto
      warc 0 warc 0 warc harc rcurveto 0 h harc sub harc sub rlineto
      0 harc 0 harc warc neg harc rcurveto w warc sub warc sub neg 0 rlineto
@@ -36,7 +38,6 @@ savematrix setmatrix
 %(, ) show
 %endangle 15 string cvs show
 %grestore
-rawx rawy
 } bind def
 
 /polyline { /arr exch def arr 0 2 getinterval aload pop moveto %10 10 rlineto
@@ -64,7 +65,15 @@ rawx rawy
 % drawarc x y w h startDeg lenDeg
 /drawarc { newpath oval stroke } def
 % fillarc x y w h startDeg lenDeg
-/fillarc { newpath oval lineto closepath fill } bind def
+/fillarc {
+  /lengthangle exch def
+  /startangle exch def
+  /yrad exch def
+  /xrad exch def
+  /y exch def
+  /x exch def
+  newpath x y xrad yrad startangle lengthangle oval x y lineto closepath fill
+} bind def
 
 % drawpoint x y
 /drawpoint { /y exch def /x exch def gsave newpath [] 0 setdash x y currentlinewidth 2 sub 0 360 arc fill grestore } bind def

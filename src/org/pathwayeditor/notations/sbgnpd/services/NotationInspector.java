@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IBooleanPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IIntegerPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.INumberPropertyDefinition;
@@ -35,8 +36,8 @@ public class NotationInspector {
 	private static final double SEP_WIDTH = 10.0;
 	private static final double MAX_WIDTH = 400.0;
 	private static final double SEP_HEIGHT = 40.0;
-	private static final double SHAPE_WIDTH = 50.0;
-	private static final double SHAPE_HEIGHT = 40.0;
+//	private static final double SHAPE_WIDTH = 50.0;
+//	private static final double SHAPE_HEIGHT = 40.0;
 	private static final double MIN_WIDTH = 100.0;
 	private final INotationSubsystem notationSubsystem;
 	private final PostscriptGraphicsEngine graphicsEngine;
@@ -69,6 +70,7 @@ public class NotationInspector {
 			assignedBoundValues(controller, boundProps);
 			Dimension shapeSize = objectType.getDefaultAttributes().getSize();
 			controller.setRequestedEnvelope(new Envelope(new Point(x, y), shapeSize));
+			controller.setFillColour(RGB.GREEN);
 			controller.generateFigureDefinition();
 			shapeSize = controller.getEnvelope().getDimension();
 			GraphicsInstructionList graphicsInst = controller.getFigureDefinition();

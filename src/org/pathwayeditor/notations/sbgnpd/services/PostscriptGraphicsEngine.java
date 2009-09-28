@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
@@ -27,10 +31,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	private final StringTemplateGroup stg;
 	private RGB fillColour;
 	private RGB lineColour;
+	private final Map<Style, String> fontStyleMapping;
 
 	public PostscriptGraphicsEngine(){
 		Reader r = new InputStreamReader(this.getClass().getResourceAsStream(PS_TEMPLATE_FILE_NAME));
 		stg = new StringTemplateGroup(r);
+		this.fontStyleMapping = new HashMap<Style, String>();
+		this.fontStyleMapping.put(Style.BOLD, "B");
+		this.fontStyleMapping.put(Style.ITALIC, "I");
+		this.fontStyleMapping.put(Style.NORMAL, "N");
 	}
 	
 	private void writeColour(RGB col){
@@ -182,7 +191,10 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 			t.setAttribute("x", pos);
 			t.setAttribute("y", pos2);
 			t.setAttribute("alignment", alignment.toString());
-			t.setAttribute("text", text);
+			Pattern pat = Pattern.compile("\\\\");
+			Matcher mat = pat.matcher(text);
+			String processedText = mat.replaceAll("\\\\\\\\");
+			t.setAttribute("text", processedText);
 			this.writer.append(t.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -284,12 +296,14 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		this.fillColour = color;
 	}
 
+	
+	
 	public void setFont(IFont modifiedFont) {
 		try {
 			StringTemplate t = stg.getInstanceOf("setFont");
 			StringBuilder styles = new StringBuilder();
 			for(Style style : modifiedFont.getStyle()){
-				styles.append(style.toString());
+				styles.append(this.fontStyleMapping.get(style));
 			}
 			t.setAttribute("styles", styles.toString());
 			t.setAttribute("size", modifiedFont.getFontSize());
