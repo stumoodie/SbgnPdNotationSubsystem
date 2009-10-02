@@ -19,10 +19,14 @@ import org.pathwayeditor.businessobjects.notationsubsystem.INotationValidationSe
 import org.pathwayeditor.notationsubsystem.toolkit.definition.GeneralNotation;
 
 public class SbgnPdNotationSubsystem implements INotationSubsystem {
-	private static final String GLOBAL_ID = "org.pathwayeditor.notations.sbgnpd";
-	private static final String DESCRIPTION = "SBGN Process Description Notation";
-	private static final String NAME = "SBGN-PD";
-	private static final Version VERSION = new Version(0, 9, 3);
+	private static final String GLOBAL_ID = NotationResources.getString("SbgnPdNotationSubsystem.notation_global_id"); //$NON-NLS-1$
+	private static final String DESCRIPTION = NotationResources.getString("SbgnPdNotationSubsystem.notation_description"); //$NON-NLS-1$
+	private static final String NAME = NotationResources.getString("SbgnPdNotationSubsystem.notation_short_name"); //$NON-NLS-1$
+	private static final String MAJOR_REVISION_NUM = NotationResources.getString("SbgnPdNotationSubsystem.notation_major_revision"); //$NON-NLS-1$
+	private static final String MINOR_REVISION_NUM = NotationResources.getString("SbgnPdNotationSubsystem.notation_minor_revision"); //$NON-NLS-1$
+	private static final String PATCH_VERSION_NUM = NotationResources.getString("SbgnPdNotationSubsystem.notation_patch_revision"); //$NON-NLS-1$
+	private static final Version VERSION = new Version(Integer.valueOf(MAJOR_REVISION_NUM),
+				Integer.valueOf(MINOR_REVISION_NUM), Integer.valueOf(PATCH_VERSION_NUM));
 	private SbgnPdNotationSyntaxService syntaxService;
 	private SbgnPdValidationService validationService;
 	private final List<INotationExportService> exportServices;
@@ -78,7 +82,7 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 		}
 
         public void layout(ICanvas canvas) {
-            throw new UnsupportedOperationException("Notation subsystem does not support this operation");
+            throw new UnsupportedOperationException("Notation subsystem does not support this operation"); //$NON-NLS-1$
         }
 
         public INotation getNotation() {

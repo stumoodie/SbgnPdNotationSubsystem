@@ -20,7 +20,8 @@ public class SbgnPdBioPepaExportService implements INotationExportService {
 	}
 	
 	public void exportMap(ICanvas canvas, File exportFile) throws ExportServiceException {
-		if(exportFile.canWrite()){
+		if(exportFile.getParentFile().canWrite()
+				&& ((exportFile.exists() && exportFile.canWrite()) || !exportFile.exists())){
 			this.controller.setExportFile(exportFile);
 			this.controller.setCanvasToExport(canvas);
 			this.controller.exportFile();
