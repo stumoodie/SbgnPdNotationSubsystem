@@ -18,8 +18,8 @@ public class ComplexNode extends StatefulEntityPoolNode implements IComplexNode 
 	private static final String SBO_TERM = "SBO:000999";
 	private final EpnContainer epnContainer;
 	
-	protected ComplexNode(IEpnContainer compartmentNode, int identifier) {
-		super(compartmentNode, identifier, SBO_TERM);
+	protected ComplexNode(IEpnContainer compartmentNode, int identifier, String asciiName) {
+		super(compartmentNode, identifier, SBO_TERM, asciiName);
 		this.epnContainer = new EpnContainer(this, compartmentNode.getCompartment());
 	}
 
@@ -27,38 +27,37 @@ public class ComplexNode extends StatefulEntityPoolNode implements IComplexNode 
 		return epnContainer.containsEntityPoolNode(identifier);
 	}
 
-	public IComplexNode createComplexNode(int identifier) {
-		return epnContainer.createComplexNode(identifier);
+	public IComplexNode createComplexNode(int identifier, String asciiName) {
+		return epnContainer.createComplexNode(identifier, asciiName);
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
-		return epnContainer.createMacromoleculeNode(identifier, name);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
+		return epnContainer.createMacromoleculeNode(identifier, name, asciiName);
 	}
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(
-			int identifier, String name) {
-		return epnContainer.createNucleicAcidFeatureNode(identifier, name);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
+		return epnContainer.createNucleicAcidFeatureNode(identifier, name, asciiName);
 	}
 
-	public IPerturbationNode createPerturbationNode(int identifier, String name) {
-		return epnContainer.createPerturbationNode(identifier, name);
+	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
+		return epnContainer.createPerturbationNode(identifier, name, asciiName);
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
-		return epnContainer.createSimpleChemicalNode(identifier, name);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
+		return epnContainer.createSimpleChemicalNode(identifier, name, asciiName);
 	}
 
-	public ISinkNode createSinkNode(int identifier) {
-		return epnContainer.createSinkNode(identifier);
+	public ISinkNode createSinkNode(int identifier, String asciiName) {
+		return epnContainer.createSinkNode(identifier, asciiName);
 	}
 
-	public ISourceNode createSourceNode(int identifier) {
-		return epnContainer.createSourceNode(identifier);
+	public ISourceNode createSourceNode(int identifier, String asciiName) {
+		return epnContainer.createSourceNode(identifier, asciiName);
 	}
 
 	public IUnspecifiedEntityNode createUnspecifiedEntityNode(
-			int identifier, String name) {
-		return epnContainer.createUnspecifiedEntityNode(identifier, name);
+			int identifier, String name, String asciiName) {
+		return epnContainer.createUnspecifiedEntityNode(identifier, name, asciiName);
 	}
 
 	public IEntityPoolNode getEntityPoolNode(int identifier) {

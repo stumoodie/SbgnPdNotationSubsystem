@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.pathwayeditor.notations.sbgnpd.export.sbgntext.SbgnTextExportWriter;
 import org.pathwayeditor.notations.sbgnpd.ndom.IConsumptionArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMacromoleculeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
@@ -18,7 +19,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode.SidednessType;
 import org.pathwayeditor.notations.sbgnpd.ndom.impl.MapDiagram;
 
 public class PepaExportWriterTest {
-	private BioPepaExportWriter testInstance = null;
+	private SbgnTextExportWriter testInstance = null;
 	private IMapDiagram mockNdom = null;
 	
 	@Before
@@ -112,20 +113,20 @@ public class PepaExportWriterTest {
 
 		
 		this.mockNdom = new MapDiagram("mockNdom");
-		IMacromoleculeNode mm1 = this.mockNdom.createMacromoleculeNode(1, "mm1");
-		IMacromoleculeNode mm2 = this.mockNdom.createMacromoleculeNode(2, "mm2");
+		IMacromoleculeNode mm1 = this.mockNdom.createMacromoleculeNode(1, "mm1", "ascmm1");
+		IMacromoleculeNode mm2 = this.mockNdom.createMacromoleculeNode(2, "mm2", "ascmm2");
 		mm2.setCardinality(2);
-		IMacromoleculeNode mm3 = this.mockNdom.createMacromoleculeNode(3, "mm3");
+		IMacromoleculeNode mm3 = this.mockNdom.createMacromoleculeNode(3, "mm3", "ascmm3");
 		
-		IProcessNode p1 = this.mockNdom.createProcessNode(4, ProcessNodeType.STANDARD);
+		IProcessNode p1 = this.mockNdom.createProcessNode(4, "ascp1", ProcessNodeType.STANDARD);
 		
-		IConsumptionArc ca1 = p1.createConsumptionArc(5, mm1);
+		IConsumptionArc ca1 = p1.createConsumptionArc(5, "ascca1", mm1);
 		ca1.setStoichiometry(1);
-		IProductionArc pa1 = p1.createProductionArc(6, mm2, SidednessType.RHS);
+		IProductionArc pa1 = p1.createProductionArc(6, "ascpa1", mm2, SidednessType.RHS);
 		pa1.setStoichiometry(2);
-		p1.createModulationArc(7, ModulatingArcType.STIMULATION, mm3);
+		p1.createModulationArc(7, "ascmod1", ModulatingArcType.STIMULATION, mm3);
 		
-		this.testInstance = new BioPepaExportWriter(this.mockNdom, new File("foo.txt"), null);
+		this.testInstance = new SbgnTextExportWriter(this.mockNdom, new File("foo.txt"), null);
 	}
 
 	@After

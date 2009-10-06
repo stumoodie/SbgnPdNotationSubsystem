@@ -7,19 +7,19 @@ public interface IMapDiagram extends IEpnContainer {
 	
 	String getName();
 	
-	ICompartmentNode createCompartmentNode(int identifier, String name);
+	ICompartmentNode createCompartmentNode(int identifier, String name, String asciiName);
 	
 	Iterator<ICompartmentNode> compartmentIterator();
 	
 	int numCompartments();
 	
-	IProcessNode createProcessNode(int integer, ProcessNodeType type);
+	IProcessNode createProcessNode(int integer, String asciiName, ProcessNodeType type);
 	
-	IPhenotypeNode createPhenotypeNode(int identifier, String name);
+	IPhenotypeNode createPhenotypeNode(int identifier, String name, String asciiName);
 	
-	IPerturbationNode createPerturbationNode(int identifier, String name);
+	IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName);
 	
-	ILogicOperatorNode createLogicOperatorNode(int integer, LogicOperatorType type);
+	ILogicOperatorNode createLogicOperatorNode(int integer, String asciiName, LogicOperatorType type);
 	
 	<T extends IPdElement> T findElement(int identifer);
 	

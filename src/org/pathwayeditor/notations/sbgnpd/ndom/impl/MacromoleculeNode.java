@@ -10,8 +10,8 @@ public class MacromoleculeNode extends StatefulEntityPoolNode implements IMacrom
 	
 	private MaterialType materialType = null;
 	
-	public MacromoleculeNode(IEpnContainer compartment, String name, int identifier) {
-		super(compartment, name, identifier, SBO_TERM);
+	public MacromoleculeNode(IEpnContainer compartment, String name, int identifier, String asciiName) {
+		super(compartment, name, identifier, SBO_TERM, asciiName);
 	}
 
 	public MaterialType getMaterialType() {

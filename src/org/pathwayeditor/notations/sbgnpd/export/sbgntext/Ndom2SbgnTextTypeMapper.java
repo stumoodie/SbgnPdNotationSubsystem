@@ -1,4 +1,4 @@
-package org.pathwayeditor.notations.sbgnpd.export.biopepa;
+package org.pathwayeditor.notations.sbgnpd.export.sbgntext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,18 +6,18 @@ import java.util.Map;
 import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 
-public class Ndom2BiopepaTypeMapper {
-	private static Ndom2BiopepaTypeMapper anInstance = null;
+public class Ndom2SbgnTextTypeMapper {
+	private static Ndom2SbgnTextTypeMapper anInstance = null;
 	private final Map<Enum<?>, String> lookup;
 	
-	public static Ndom2BiopepaTypeMapper getInstance() {
+	public static Ndom2SbgnTextTypeMapper getInstance() {
 		if(anInstance == null){
-			anInstance = new Ndom2BiopepaTypeMapper();
+			anInstance = new Ndom2SbgnTextTypeMapper();
 		}
 		return anInstance;
 	}
 
-	private Ndom2BiopepaTypeMapper(){
+	private Ndom2SbgnTextTypeMapper(){
 		this.lookup = new HashMap<Enum<?>, String>();
 		this.lookup.put(ProcessNodeType.ASSOCIATION, "Association");
 		this.lookup.put(ProcessNodeType.DISSOCIATION, "Dissociation");

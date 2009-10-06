@@ -9,11 +9,11 @@ public class DefaultCompartmentNode extends AbstractCompartmentNode {
 	private static final String DEFAULT_NAME = "Default";
 	
 	public DefaultCompartmentNode(IMapDiagram map) {
-		this(map, DEFAULT_NAME);
+		this(map, DEFAULT_NAME, DEFAULT_NAME);
 	}
 
-	public DefaultCompartmentNode(IMapDiagram map, String name) {
-		super(createNewIdentidier(), map, name);
+	public DefaultCompartmentNode(IMapDiagram map, String name, String asciiName) {
+		super(createNewIdentidier(), asciiName, map, name);
 	}
 
 	private static int createNewIdentidier(){

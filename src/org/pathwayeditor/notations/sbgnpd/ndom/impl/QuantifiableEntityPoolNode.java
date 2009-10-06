@@ -13,8 +13,8 @@ public abstract class QuantifiableEntityPoolNode extends EntityPoolNode implemen
 	private final UnitOfInformationHandler handler;
 	private int moleculeCount = DEFAULT_MOLECULE_COUNT;
 
-	protected QuantifiableEntityPoolNode(int identifier, IEpnContainer compartment, String name, String sboTerm) {
-		super(identifier, compartment, sboTerm);
+	protected QuantifiableEntityPoolNode(int identifier, IEpnContainer compartment, String name, String sboTerm, String asciiName) {
+		super(identifier, asciiName, compartment, sboTerm);
 		this.name = name;
 		this.handler = new UnitOfInformationHandler(this);
 	}

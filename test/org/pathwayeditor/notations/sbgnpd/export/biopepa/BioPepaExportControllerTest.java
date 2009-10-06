@@ -19,6 +19,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainText
 import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
+import org.pathwayeditor.notations.sbgnpd.export.sbgntext.SbgnTextExportController;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSyntaxService;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
@@ -29,7 +30,7 @@ public class BioPepaExportControllerTest {
 	private static final String RATE_FWD_EQN_PROP_NAME = "fwdRate";
 	private static final String RATE_REV_EQN_PROP_NAME = "revRate";
 	
-	private BioPepaExportController testInstance;
+	private SbgnTextExportController testInstance;
 	private File testFile;
 
 	private ICanvas createTestCanvas(){
@@ -90,7 +91,7 @@ public class BioPepaExportControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.testInstance = new BioPepaExportController();
+		this.testInstance = new SbgnTextExportController();
 		this.testFile = File.createTempFile("foo", "txt");
 		this.testInstance.setExportFile(testFile);
 		ICanvas canvasToExport = createTestCanvas();

@@ -6,15 +6,13 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IUnitOfInformation;
 
 public final class UnitOfInformation extends PdElement implements IUnitOfInformation {
 	private final IAnnotateable entityPoolNode;
-	private final String prefix;
-	private final String value;
+	private String value;
 	
-	public UnitOfInformation(int identifier, IAnnotateable entityPoolNode, String prefix, String value) {
-		super(identifier, null);
+	public UnitOfInformation(int identifier, IAnnotateable entityPoolNode, String value, String asciiName) {
+		super(identifier, null, asciiName);
 		if(entityPoolNode == null || value == null) throw new IllegalArgumentException("parameters cannot be null");
 		
 		this.entityPoolNode = entityPoolNode;
-		this.prefix = prefix;
 		this.value = value;
 	}
 
@@ -22,8 +20,8 @@ public final class UnitOfInformation extends PdElement implements IUnitOfInforma
 		return this.value;
 	}
 
-	public String getPrefix() {
-		return this.prefix;
+	public void setAnnotation(String annotation) {
+		this.value = annotation;
 	}
 
 	public IAnnotateable getEntityPoolNode(){

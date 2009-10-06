@@ -9,8 +9,8 @@ public class PerturbationNode extends QuantifiableEntityPoolNode implements IPer
 	private static final String SBO_TERM = "SBO:0000999";
 	private PhysicalEntityType physicalEntityType = null;
 	
-	public PerturbationNode(IEpnContainer container, int identifier, String name) {
-		super(identifier, container, name, SBO_TERM);
+	public PerturbationNode(IEpnContainer container, int identifier, String name, String asciiName) {
+		super(identifier, container, name, SBO_TERM, asciiName);
 	}
 	
 	public PhysicalEntityType getPhysicalEntityType() {

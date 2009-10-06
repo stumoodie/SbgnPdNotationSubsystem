@@ -1,6 +1,5 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicOperatorNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
@@ -11,8 +10,8 @@ public class LogicArc extends PdElement implements ILogicArc {
 	private final IModulatingNode modulatingNode;
 	private final ILogicOperatorNode logicalOperator;
 
-	public LogicArc(ILinkEdge edge, IModulatingNode modulatingNode,	ILogicOperatorNode logicOperatorNode) {
-		super(edge.getAttribute().getCreationSerial(), SBO_TERM);
+	public LogicArc(int identifier, String asciiName, IModulatingNode modulatingNode,	ILogicOperatorNode logicOperatorNode) {
+		super(identifier, SBO_TERM, asciiName);
 		this.modulatingNode = modulatingNode;
 		this.logicalOperator = logicOperatorNode;
 	}

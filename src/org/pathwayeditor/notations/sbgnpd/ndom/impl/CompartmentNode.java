@@ -5,8 +5,8 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 
 public class CompartmentNode extends AbstractCompartmentNode implements ICompartmentNode {
 	
-	public CompartmentNode(IMapDiagram map, int identifier, String name) {
-		super(identifier, map,name);
+	public CompartmentNode(IMapDiagram map, int identifier, String name, String asciiName) {
+		super(identifier, asciiName, map,name);
 	}
 
 	public ICompartmentNode getCompartment() {

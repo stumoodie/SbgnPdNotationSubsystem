@@ -60,6 +60,7 @@ public class BoParser implements IBoParser {
 	private static final String REV_EQN_PROP_NAME = "revRate";
 	private static final String ENTITY_COUNT_PROP_NAME = "entityCount";
 	private static final String COMPARTMENT_VOL_PROP_NAME = "compVol";
+	private static final String ASCII_NAME_PROP_NAME = "exportName";
 	
 	private ITreeLexer lexer;
 	private final INdomBuilder builder;
@@ -144,6 +145,10 @@ public class BoParser implements IBoParser {
 		return getTextProperty(NAME_PROP_NAME, annotatedAttrib);
 	}
 	
+	private static String getAsciiNameProperty(IAnnotatedObject annotatedAttrib){
+		return getTextProperty(ASCII_NAME_PROP_NAME, annotatedAttrib);
+	}
+	
 	private static String getTextProperty(String propertyName, IAnnotatedObject annotatedAttrib){
 		String retVal = null;
 		IAnnotationProperty prop = annotatedAttrib.getProperty(propertyName);
@@ -182,7 +187,8 @@ public class BoParser implements IBoParser {
 	
 	private ICompartmentNode createCompartmentNode(IMapDiagram mapDiagram, IShapeNode compartmentShape){
 		String name = getNameProperty(compartmentShape.getAttribute());
-		ICompartmentNode compartmentNode = mapDiagram.createCompartmentNode(compartmentShape.getAttribute().getCreationSerial(), name);
+		String asciiName = getAsciiNameProperty(compartmentShape.getAttribute());
+		ICompartmentNode compartmentNode = mapDiagram.createCompartmentNode(compartmentShape.getAttribute().getCreationSerial(), name, asciiName);
 		compartmentNode.setVolume(getNumberProperty(COMPARTMENT_VOL_PROP_NAME, compartmentShape.getAttribute()));
 		return compartmentNode;
 	}
@@ -232,12 +238,14 @@ public class BoParser implements IBoParser {
 	
 	private void createSinkNode(IEpnContainer container) {
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		container.createSinkNode(shapeNode.getAttribute().getCreationSerial());	
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		container.createSinkNode(shapeNode.getAttribute().getCreationSerial(), asciiName);	
 	}
 
 	private void createSourceNode(IEpnContainer container) {
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		container.createSourceNode(shapeNode.getAttribute().getCreationSerial());	
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		container.createSourceNode(shapeNode.getAttribute().getCreationSerial(), asciiName);	
 	}
 
 	private void statefulEpnRule(IEpnContainer compartment) throws TreeParseException{
@@ -264,7 +272,8 @@ public class BoParser implements IBoParser {
 	private void macromoleculeRule(IEpnContainer container) throws TreeParseException {
 		this.lexer.match(TreeTokenType.MACROMOLECULE);
 		IShapeNode mmShape = this.lexer.getCurrent().getTypedElement();
-		IMacromoleculeNode mm = container.createMacromoleculeNode(mmShape.getAttribute().getCreationSerial(), getNameProperty(mmShape.getAttribute()));
+		String asciiName = getAsciiNameProperty(mmShape.getAttribute());
+		IMacromoleculeNode mm = container.createMacromoleculeNode(mmShape.getAttribute().getCreationSerial(), getNameProperty(mmShape.getAttribute()), asciiName);
 		mm.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, mmShape.getAttribute()));
 		this.lexer.down();
 		macromoleculeChildrenRule(mm);
@@ -288,7 +297,8 @@ public class BoParser implements IBoParser {
 	private void complexRule(IEpnContainer compartment) throws TreeParseException {
 		this.lexer.match(TreeTokenType.COMPLEX);
 		IShapeNode complexShape = this.lexer.getCurrent().getTypedElement();
-		IComplexNode complexNode = compartment.createComplexNode(complexShape.getAttribute().getCreationSerial());
+		String asciiName = getAsciiNameProperty(complexShape.getAttribute());
+		IComplexNode complexNode = compartment.createComplexNode(complexShape.getAttribute().getCreationSerial(), asciiName);
 		complexNode.setName(getNameProperty(complexShape.getAttribute()));
 		complexNode.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, complexShape.getAttribute()));
 		this.lexer.down();
@@ -316,8 +326,9 @@ public class BoParser implements IBoParser {
 	private void naFeatureRule(IEpnContainer container) throws TreeParseException{
 		this.lexer.match(TreeTokenType.NA_FEATURE);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
 		INucleicAcidFeatureNode naNode = container.createNucleicAcidFeatureNode(shapeNode.getAttribute().getCreationSerial(),
-				getNameProperty(shapeNode.getAttribute()));
+				getNameProperty(shapeNode.getAttribute()), asciiName);
 		naNode.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, shapeNode.getAttribute()));
 		this.lexer.down();
 		naFeatureChildrenRule(naNode);
@@ -340,7 +351,8 @@ public class BoParser implements IBoParser {
 	private void simpleChemicalRule(IEpnContainer compartment) throws TreeParseException{
 		this.lexer.match(TreeTokenType.SIMPLE_CHEMICAL);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		ISimpleChemicalNode chemicalNode = compartment.createSimpleChemicalNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()));
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		ISimpleChemicalNode chemicalNode = compartment.createSimpleChemicalNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()), asciiName);
 		chemicalNode.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, shapeNode.getAttribute()));
 		this.lexer.down();
 		epnChildrenRule(chemicalNode);
@@ -351,7 +363,8 @@ public class BoParser implements IBoParser {
 	private void unspecifiedEntityRule(IEpnContainer compartment) throws TreeParseException{
 		this.lexer.match(TreeTokenType.UNSPECIFIED_ENTITY);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		IUnspecifiedEntityNode unspecNode = compartment.createUnspecifiedEntityNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()));
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		IUnspecifiedEntityNode unspecNode = compartment.createUnspecifiedEntityNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()), asciiName);
 		unspecNode.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, shapeNode.getAttribute()));
 		this.lexer.down();
 		epnChildrenRule(unspecNode);
@@ -369,7 +382,8 @@ public class BoParser implements IBoParser {
 	private void perturbingAgentRule(IEpnContainer compartment) throws TreeParseException{
 		this.lexer.match(TreeTokenType.PERTURBING_AGENT);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		IPerturbationNode node = compartment.createPerturbationNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()));
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		IPerturbationNode node = compartment.createPerturbationNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()), asciiName);
 		node.setEntityCount(getIntegerProperty(ENTITY_COUNT_PROP_NAME, shapeNode.getAttribute()));
 		this.lexer.down();
 		perturbingAgentChildren(node);
@@ -413,34 +427,39 @@ public class BoParser implements IBoParser {
 		if(this.lexer.isRightLookaheadMatch(TreeTokenType.PROCESS)){
 			this.lexer.match(TreeTokenType.PROCESS);
 			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
-			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), ProcessNodeType.STANDARD);
+			String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), asciiName, ProcessNodeType.STANDARD);
 			processNode.setFwdRateEquation(getTextProperty(FWD_EQN_PROP_NAME, shapeNode.getAttribute()));
 			processNode.setRevRateEquation(getTextProperty(REV_EQN_PROP_NAME, shapeNode.getAttribute()));
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.UNSPECIFIED_PROCESS)){
 			this.lexer.match(TreeTokenType.UNSPECIFIED_PROCESS);
 			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
-			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), ProcessNodeType.UNCERTAIN_PROCESS);
+			String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), asciiName, ProcessNodeType.UNCERTAIN_PROCESS);
 			processNode.setFwdRateEquation(getTextProperty(FWD_EQN_PROP_NAME, shapeNode.getAttribute()));
 			processNode.setRevRateEquation(getTextProperty(REV_EQN_PROP_NAME, shapeNode.getAttribute()));
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.OMITTED_PROCESS)){
 			this.lexer.match(TreeTokenType.OMITTED_PROCESS);
 			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
-			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), ProcessNodeType.OMITTED_PROCESS);
+			String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), asciiName, ProcessNodeType.OMITTED_PROCESS);
 			processNode.setFwdRateEquation(getTextProperty(FWD_EQN_PROP_NAME, shapeNode.getAttribute()));
 			processNode.setRevRateEquation(getTextProperty(REV_EQN_PROP_NAME, shapeNode.getAttribute()));
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.ASSOCIATION)){
 			this.lexer.match(TreeTokenType.ASSOCIATION);
 			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
-			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), ProcessNodeType.ASSOCIATION);
+			String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), asciiName, ProcessNodeType.ASSOCIATION);
 			processNode.setFwdRateEquation(getTextProperty(FWD_EQN_PROP_NAME, shapeNode.getAttribute()));
 		}
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.DISOCCIATION)){
 			this.lexer.match(TreeTokenType.DISOCCIATION);
 			IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement(); 
-			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), ProcessNodeType.DISSOCIATION);
+			String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+			IProcessNode processNode = map.createProcessNode(shapeNode.getAttribute().getCreationSerial(), asciiName, ProcessNodeType.DISSOCIATION);
 			processNode.setFwdRateEquation(getTextProperty(FWD_EQN_PROP_NAME, shapeNode.getAttribute()));
 		}
 		else{
@@ -451,7 +470,8 @@ public class BoParser implements IBoParser {
 	private void phenotypeRule(IMapDiagram map) throws TreeParseException{
 		this.lexer.match(TreeTokenType.PHENOTYPE);
 		IShapeNode shapeNode = this.lexer.getCurrent().getTypedElement();
-		IPhenotypeNode node = map.createPhenotypeNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()));
+		String asciiName = getAsciiNameProperty(shapeNode.getAttribute());
+		IPhenotypeNode node = map.createPhenotypeNode(shapeNode.getAttribute().getCreationSerial(), getNameProperty(shapeNode.getAttribute()), asciiName);
 		this.lexer.down();
 		phenotypeChildrenRule(node);
 		this.lexer.up();
@@ -495,7 +515,8 @@ public class BoParser implements IBoParser {
 		IConsumeableNode epnNode = mapDiagram.findElement(edge.getSourceShape().getAttribute().getCreationSerial());
 		IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
 		if(epnNode != null){
-			IConsumptionArc arc = processNode.createConsumptionArc(edge.getAttribute().getCreationSerial(), epnNode);
+			String asciiName = getAsciiNameProperty(edge.getAttribute());
+			IConsumptionArc arc = processNode.createConsumptionArc(edge.getAttribute().getCreationSerial(), asciiName, epnNode);
 			initialiseFluxArc(edge.getAttribute(), arc);
 		}
 		else{
@@ -519,7 +540,8 @@ public class BoParser implements IBoParser {
 			epnNode = mapDiagram.findElement(tgtNode.getCreationSerial());
 		}
 		if(epnNode != null){
-			IProductionArc productionArc = processNode.createProductionArc(edge.getAttribute().getCreationSerial(), epnNode, sidedNess);
+			String asciiName = getAsciiNameProperty(edge.getAttribute());
+			IProductionArc productionArc = processNode.createProductionArc(edge.getAttribute().getCreationSerial(), asciiName, epnNode, sidedNess);
 			initialiseFluxArc(edge.getAttribute(), productionArc);
 		}
 		else{
@@ -563,7 +585,8 @@ public class BoParser implements IBoParser {
 			ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
 			IModulatingNode modulatingNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
 			ILogicOperatorNode logicalOperatorNode = mapDiagram.findLogicalOperatorNode(edge.getTargetShape().getAttribute().getCreationSerial());
-			logicalOperatorNode.createLogicArc(edge, modulatingNode);
+			String asciiName = getAsciiNameProperty(edge.getAttribute());
+			logicalOperatorNode.createLogicArc(edge.getAttribute().getCreationSerial(), asciiName, modulatingNode);
 		}
 		else{
 			throw new TreeParseException(this.lexer.getCurrent(), "An arc token was expected here");
@@ -574,6 +597,7 @@ public class BoParser implements IBoParser {
 		ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
 		IModulatingNode epnNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
 		IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
-		processNode.createModulationArc(edge.getAttribute().getCreationSerial(), type, epnNode);
+		String asciiName = getAsciiNameProperty(edge.getAttribute());
+		processNode.createModulationArc(edge.getAttribute().getCreationSerial(), asciiName, type, epnNode);
 	}
 }

@@ -7,16 +7,16 @@ import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceExceptio
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
-import org.pathwayeditor.notations.sbgnpd.export.biopepa.BioPepaExportController;
+import org.pathwayeditor.notations.sbgnpd.export.sbgntext.SbgnTextExportController;
 
 public class SbgnPdBioPepaExportService implements INotationExportService {
 	private final INotationSubsystem subsystem;
-	private final BioPepaExportController controller;
+	private final SbgnTextExportController controller;
 	
 
 	public SbgnPdBioPepaExportService(INotationSubsystem subsystem){
 		this.subsystem = subsystem;
-		this.controller = new BioPepaExportController();
+		this.controller = new SbgnTextExportController();
 	}
 	
 	public void exportMap(ICanvas canvas, File exportFile) throws ExportServiceException {
@@ -32,15 +32,15 @@ public class SbgnPdBioPepaExportService implements INotationExportService {
 	}
 
 	public String getCode() {
-		return "biopepa";
+		return "sbgntext";
 	}
 
 	public String getDisplayName() {
-		return "BioPEPA";
+		return "SBGN textual mapping";
 	}
 
 	public String getRecommendedSuffix() {
-		return "sbgnTEXT";
+		return "sbt";
 	}
 
 	public INotation getNotation() {

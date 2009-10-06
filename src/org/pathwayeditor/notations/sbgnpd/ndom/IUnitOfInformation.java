@@ -4,7 +4,7 @@ public interface IUnitOfInformation extends IPdElement {
 
 	IAnnotateable getEntityPoolNode();
 	
-	String getPrefix();
-	
 	String getAnnotation();
+
+	void setAnnotation(String annotation);
 }

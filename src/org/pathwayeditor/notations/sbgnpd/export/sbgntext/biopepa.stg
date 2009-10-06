@@ -29,7 +29,7 @@ mapEnd() ::= <<
 
 
 compartment(id, name) ::= <<
-Compartment element<id> {
+Compartment <id> {
 	Label = "<name>";
 	CompartmentInformation = { };
 	QuantitativeProperties = { };
@@ -40,10 +40,10 @@ Compartment element<id> {
 
 
 epn(id, name, type, cardinality, compartment, count) ::= <<
-EntityPoolNode element<id> {
+EntityPoolNode <id>_Ent {
      EPNName = "<name>";
      EPNType =  <type>; 
-     Compartment       = element<compartment>;
+     Compartment       = <compartment>;
      ParentComplex     = free ;
      Cardinality       = <cardinality> ;
      MaterialType      = "";
@@ -60,7 +60,7 @@ EntityPoolNode element<id> {
 
 
 process(id, type, propFunc) ::= <<
-ProcessNode element<id> {
+ProcessNode <id>_Proc {
      ProcessType = <type> ;
      PropensityFunction = "<propFunc>" ;
 }
@@ -69,11 +69,11 @@ ProcessNode element<id> {
 >>
 
 fluxArc(id, type, stoich, epnId, processId) ::= <<
-Arc element<id> {
-	ManualEquationArcID = element<id>;
+Arc <id>_Arc {
+	ManualEquationArcID = <id>;
 	ArcType = <type>;
-	Entity = element<epnId>;
-	Process = element<processId>;
+	Entity = <epnId>;
+	Process = <processId>;
 	Stoichiometry = <stoich>;
 	QuantitativeProperties = { } ;
 }
@@ -83,11 +83,11 @@ Arc element<id> {
 
 
 modulationArc(id, type, epnId, processId) ::= <<
-Arc element<id> {
-	ManualEquationArcID = element<id>;
+Arc <id>_Arc {
+	ManualEquationArcID = <id>;
 	ArcType = <type>;
-	Entity = element<epnId>;
-	Process = element<processId>;
+	Entity = <epnId>;
+	Process = <processId>;
 	Stoichiometry = 1;
 	QuantitativeProperties = { };
 }

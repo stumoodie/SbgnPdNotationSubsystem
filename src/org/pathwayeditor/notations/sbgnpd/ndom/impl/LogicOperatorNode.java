@@ -3,7 +3,6 @@ package org.pathwayeditor.notations.sbgnpd.ndom.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.ILogicOperatorNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
@@ -14,8 +13,8 @@ public class LogicOperatorNode extends PdElement implements ILogicOperatorNode {
 	private final LogicOperatorType type;
 	private final Set<ILogicArc> logicArcs;
 	
-	public LogicOperatorNode(int identifier, LogicOperatorType type) {
-		super(identifier, getSboTerm(type));
+	public LogicOperatorNode(int identifier, String asciiName, LogicOperatorType type) {
+		super(identifier, getSboTerm(type), asciiName);
 		this.type = type;
 		this.logicArcs = new HashSet<ILogicArc>();
 	}
@@ -29,8 +28,8 @@ public class LogicOperatorNode extends PdElement implements ILogicOperatorNode {
 		return this.type;
 	}
 
-	public ILogicArc createLogicArc(ILinkEdge edge,	IModulatingNode modulatingNode) {
-		ILogicArc retVal = new LogicArc(edge, modulatingNode, this);
+	public ILogicArc createLogicArc(int identifier, String exportName,	IModulatingNode modulatingNode) {
+		ILogicArc retVal = new LogicArc(identifier, exportName, modulatingNode, this);
 		this.logicArcs.add(retVal);
 		return retVal;
 	}

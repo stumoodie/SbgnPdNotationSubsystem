@@ -5,10 +5,12 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IPdElement;
 public abstract class PdElement implements IPdElement {
 	private final String sboTerm;
 	private final int identifier;
+	private final String asciiName;
 	
-	protected PdElement(int uniqueId, String sboTerm){
+	protected PdElement(int uniqueId, String sboTerm, String asciiName){
 		this.identifier = uniqueId;
 		this.sboTerm = sboTerm;
+		this.asciiName = asciiName;
 	}
 	
 	public final String getSboId(){
@@ -17,6 +19,10 @@ public abstract class PdElement implements IPdElement {
 	
 	public final int getIdentifier() {
 		return this.identifier;
+	}
+
+	public String getAsciiName() {
+		return asciiName;
 	}
 
 	@Override

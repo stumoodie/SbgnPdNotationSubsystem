@@ -17,8 +17,8 @@ public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotat
 	private final Set<IModulationArc> modulations;
 	private final String name;
 	
-	public PhenotypeNode(int identifier, String name) {
-		super(identifier, SBO_TERM);
+	public PhenotypeNode(int identifier, String name, String asciiName) {
+		super(identifier, SBO_TERM, asciiName);
 		handler = new UnitOfInformationHandler(this);
 		this.modulations = new HashSet<IModulationArc>();
 		this.name = name;
@@ -44,8 +44,8 @@ public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotat
 		return "";
 	}
 
-	public IModulationArc createModulationArc(int identifier, ModulatingArcType type, IModulatingNode modulator) {
-		IModulationArc retVal = new ModulationArc(identifier, modulator, this, type);
+	public IModulationArc createModulationArc(int identifier, String asciiName, ModulatingArcType type, IModulatingNode modulator) {
+		IModulationArc retVal = new ModulationArc(identifier, asciiName, modulator, this, type);
 		this.modulations.add(retVal);
 		return retVal;
 	}

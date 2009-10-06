@@ -12,14 +12,13 @@ public abstract class StatefulEntityPoolNode extends QuantifiableEntityPoolNode 
 	private static final String NO_NAME = "";
 	private final Set<IStateDescription> stateDescriptions;
 	
-	protected StatefulEntityPoolNode(IEpnContainer compartmentNode, String name, int identifier,
-			String sboTerm){
-		super(identifier, compartmentNode, name, sboTerm);
+	protected StatefulEntityPoolNode(IEpnContainer compartmentNode, String name, int identifier, String sboTerm, String asciiName){
+		super(identifier, compartmentNode, name, sboTerm, asciiName);
 		this.stateDescriptions = new HashSet<IStateDescription>();
 	}
 	
-	protected StatefulEntityPoolNode(IEpnContainer compartmentNode, int identifier,	String sboTerm){
-		this(compartmentNode, NO_NAME, identifier, sboTerm);
+	protected StatefulEntityPoolNode(IEpnContainer compartmentNode, int identifier,	String sboTerm, String asciiName){
+		this(compartmentNode, NO_NAME, identifier, sboTerm, asciiName);
 	}
 	
 	public IStateDescription createStateDescription(int identifier, String name, String value) {

@@ -9,8 +9,8 @@ public class NucleicAcidFeatureNode extends StatefulEntityPoolNode implements IN
 	private static final String SBO_TERM = "SBO:0000999";
 	private IConceptualType conceptualType;
 	
-	public NucleicAcidFeatureNode(IEpnContainer compartment, int identifier, String name) {
-		super(compartment, name, identifier, SBO_TERM);
+	public NucleicAcidFeatureNode(IEpnContainer compartment, int identifier, String name, String asciiName) {
+		super(compartment, name, identifier, SBO_TERM, asciiName);
 	}
 
 	public IConceptualType getConceptualType() {

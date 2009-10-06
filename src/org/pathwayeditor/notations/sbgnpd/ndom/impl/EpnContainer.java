@@ -28,32 +28,32 @@ public class EpnContainer implements IEpnContainer {
 		this.epnMap = new HashMap<Integer, IEntityPoolNode>();
 	}
 	
-	public IComplexNode createComplexNode(int identifier) {
-		IComplexNode retVal = new ComplexNode(this.container, identifier);
+	public IComplexNode createComplexNode(int identifier, String asciiName) {
+		IComplexNode retVal = new ComplexNode(this.container, identifier, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
-		IMacromoleculeNode retVal = new MacromoleculeNode(this.container, name, identifier);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
+		IMacromoleculeNode retVal = new MacromoleculeNode(this.container, name, identifier, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
-		INucleicAcidFeatureNode retVal = new NucleicAcidFeatureNode(this.container, identifier, name);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
+		INucleicAcidFeatureNode retVal = new NucleicAcidFeatureNode(this.container, identifier, name, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
-		ISimpleChemicalNode retVal = new SimpleChemicalNode(this.container, identifier, name);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
+		ISimpleChemicalNode retVal = new SimpleChemicalNode(this.container, identifier, name, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
-		IUnspecifiedEntityNode retVal = new UnspecifiedEntityNode(this.container, identifier, name);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName) {
+		IUnspecifiedEntityNode retVal = new UnspecifiedEntityNode(this.container, identifier, name, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
@@ -66,20 +66,20 @@ public class EpnContainer implements IEpnContainer {
 		return this.epnMap.get(identifier);
 	}
 
-	public IPerturbationNode createPerturbationNode(int identifier, String name) {
-		IPerturbationNode retVal = new PerturbationNode(this, identifier, name);
+	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
+		IPerturbationNode retVal = new PerturbationNode(this, identifier, name, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISinkNode createSinkNode(int identifier) {
-		ISinkNode retVal = new SinkNode(this, identifier);
+	public ISinkNode createSinkNode(int identifier, String asciiName) {
+		ISinkNode retVal = new SinkNode(this, identifier, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ISourceNode createSourceNode(int identifier) {
-		ISourceNode retVal = new SourceNode(this, identifier);
+	public ISourceNode createSourceNode(int identifier, String asciiName) {
+		ISourceNode retVal = new SourceNode(this, identifier, asciiName);
 		this.epnMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}

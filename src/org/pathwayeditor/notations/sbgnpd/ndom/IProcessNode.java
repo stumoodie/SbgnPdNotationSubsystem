@@ -12,9 +12,9 @@ public interface IProcessNode extends IPdElement, IModulateableNode, IConceptual
 	
 	Set<IFluxArc> getRhs();
 	
-	IConsumptionArc createConsumptionArc(int identifier, IConsumeableNode consumeable);
+	IConsumptionArc createConsumptionArc(int identifier, String asciiName, IConsumeableNode consumeable);
 	
-	IProductionArc createProductionArc(int identifier, IProduceableNode produceable, SidednessType type);
+	IProductionArc createProductionArc(int identifier, String asciiName, IProduceableNode produceable, SidednessType type);
 	
 	String getFwdRateEquation();
 	

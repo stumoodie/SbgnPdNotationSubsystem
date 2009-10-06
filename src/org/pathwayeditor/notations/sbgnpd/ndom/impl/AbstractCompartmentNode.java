@@ -26,8 +26,8 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 	private final UnitOfInformationHandler uoiHandler;
 	private BigDecimal volume = BigDecimal.ZERO;
 	
-	protected AbstractCompartmentNode(int identifier, IMapDiagram map, String name) {
-		super(identifier, SBO_TERM);
+	protected AbstractCompartmentNode(int identifier, String asciiName, IMapDiagram map, String name) {
+		super(identifier, SBO_TERM, asciiName);
 		this.name = name;
 		this.map = map;
 		this.epnContainerDelegatee = new EpnContainer(this, this);
@@ -51,36 +51,36 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 		return epnContainerDelegatee.containsEntityPoolNode(identifier);
 	}
 
-	public IComplexNode createComplexNode(int identifier) {
-		return epnContainerDelegatee.createComplexNode(identifier);
+	public IComplexNode createComplexNode(int identifier, String asciiName) {
+		return epnContainerDelegatee.createComplexNode(identifier, asciiName);
 	}
 
-	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
-		return epnContainerDelegatee.createMacromoleculeNode(identifier, name);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
+		return epnContainerDelegatee.createMacromoleculeNode(identifier, name, asciiName);
 	}
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
-		return epnContainerDelegatee.createNucleicAcidFeatureNode(identifier, name);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
+		return epnContainerDelegatee.createNucleicAcidFeatureNode(identifier, name, asciiName);
 	}
 
-	public IPerturbationNode createPerturbationNode(int identifier, String name) {
-		return epnContainerDelegatee.createPerturbationNode(identifier, name);
+	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
+		return epnContainerDelegatee.createPerturbationNode(identifier, name, asciiName);
 	}
 
-	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
-		return epnContainerDelegatee.createSimpleChemicalNode(identifier, name);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
+		return epnContainerDelegatee.createSimpleChemicalNode(identifier, name, asciiName);
 	}
 
-	public ISinkNode createSinkNode(int identifier) {
-		return epnContainerDelegatee.createSinkNode(identifier);
+	public ISinkNode createSinkNode(int identifier, String asciiName) {
+		return epnContainerDelegatee.createSinkNode(identifier, asciiName);
 	}
 
-	public ISourceNode createSourceNode(int identifier) {
-		return epnContainerDelegatee.createSourceNode(identifier);
+	public ISourceNode createSourceNode(int identifier, String asciiName) {
+		return epnContainerDelegatee.createSourceNode(identifier, asciiName);
 	}
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
-		return epnContainerDelegatee.createUnspecifiedEntityNode(identifier, name);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName) {
+		return epnContainerDelegatee.createUnspecifiedEntityNode(identifier, name, asciiName);
 	}
 
 	public IEntityPoolNode getEntityPoolNode(int identifier) {

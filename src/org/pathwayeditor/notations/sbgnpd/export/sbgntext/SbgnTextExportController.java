@@ -1,4 +1,4 @@
-package org.pathwayeditor.notations.sbgnpd.export.biopepa;
+package org.pathwayeditor.notations.sbgnpd.export.sbgntext;
 
 import java.io.File;
 
@@ -15,11 +15,11 @@ import org.pathwayeditor.notations.sbgnpd.ndom.parser.ITreeLexer;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.NdomBuilder;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.TreeParseException;
 
-public class BioPepaExportController {
+public class SbgnTextExportController {
 	private File exportFile;
 	private ICanvas canvasToExport;
 	
-	public BioPepaExportController(){
+	public SbgnTextExportController(){
 		
 	}
 
@@ -46,7 +46,7 @@ public class BioPepaExportController {
 			parser.parse(lexer);
 			IMapDiagram ndom = parser.getNDomBuilder().getNdom();
 			IReportLog log = new ReportLog();
-			IExportWriter writer = new BioPepaExportWriter(ndom, this.getExportFile(), log);
+			IExportWriter writer = new SbgnTextExportWriter(ndom, this.getExportFile(), log);
 			writer.writeExport();
 			if(log.hasErrors()){
 				throw new ExportServiceException("One or more errors occurred during export to BioPEPA.");

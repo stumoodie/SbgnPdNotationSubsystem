@@ -48,13 +48,13 @@ public class MapDiagram implements IMapDiagram {
 	}
 	
 	
-	public ISinkNode createSinkNode(int identifier) {
-		return this.defaultCompartment.createSinkNode(identifier);
+	public ISinkNode createSinkNode(int identifier, String asciiName) {
+		return this.defaultCompartment.createSinkNode(identifier, asciiName);
 	}
 
 
-	public ISourceNode createSourceNode(int identifier) {
-		return this.defaultCompartment.createSourceNode(identifier);
+	public ISourceNode createSourceNode(int identifier, String asciiName) {
+		return this.defaultCompartment.createSourceNode(identifier, asciiName);
 	}
 
 
@@ -63,26 +63,26 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
-	public ICompartmentNode createCompartmentNode(int identifier, String name) {
-		CompartmentNode retVal = new CompartmentNode(this, identifier, name);
+	public ICompartmentNode createCompartmentNode(int identifier, String name, String asciiName) {
+		CompartmentNode retVal = new CompartmentNode(this, identifier, name, asciiName);
 		this.compartments.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public ILogicOperatorNode createLogicOperatorNode(int identifier, LogicOperatorType type) {
-		LogicOperatorNode retVal = new LogicOperatorNode(identifier, type);
+	public ILogicOperatorNode createLogicOperatorNode(int identifier, String asciiName, LogicOperatorType type) {
+		LogicOperatorNode retVal = new LogicOperatorNode(identifier, asciiName, type);
 		return retVal;
 	}
 
 
-	public IPhenotypeNode createPhenotypeNode(int identifier, String name) {
-		PhenotypeNode retVal = new PhenotypeNode(identifier, name);
+	public IPhenotypeNode createPhenotypeNode(int identifier, String name, String asciiName) {
+		PhenotypeNode retVal = new PhenotypeNode(identifier, name, asciiName);
 		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
-	public IProcessNode createProcessNode(int identifier, ProcessNodeType type) {
-		ProcessNode retVal = new ProcessNode(identifier, type);
+	public IProcessNode createProcessNode(int identifier, String asciiName, ProcessNodeType type) {
+		ProcessNode retVal = new ProcessNode(identifier, asciiName, type);
 		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
@@ -136,8 +136,8 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
-	public IComplexNode createComplexNode(int identifier) {
-		return this.defaultCompartment.createComplexNode(identifier);
+	public IComplexNode createComplexNode(int identifier, String asciiName) {
+		return this.defaultCompartment.createComplexNode(identifier, asciiName);
 	}
 
 
@@ -156,28 +156,28 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
-	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name) {
-		return this.defaultCompartment.createMacromoleculeNode(identifier, name);
+	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
+		return this.defaultCompartment.createMacromoleculeNode(identifier, name, asciiName);
 	}
 
 
-	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name) {
-		return this.defaultCompartment.createNucleicAcidFeatureNode(identifier, name);
+	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
+		return this.defaultCompartment.createNucleicAcidFeatureNode(identifier, name, asciiName);
 	}
 
 
-	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name) {
-		return this.defaultCompartment.createSimpleChemicalNode(identifier, name);
+	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
+		return this.defaultCompartment.createSimpleChemicalNode(identifier, name, asciiName);
 	}
 
 
-	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name) {
-		return this.defaultCompartment.createUnspecifiedEntityNode(identifier, name);
+	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName) {
+		return this.defaultCompartment.createUnspecifiedEntityNode(identifier, name, asciiName);
 	}
 
 
-	public IPerturbationNode createPerturbationNode(int identifier, String name) {
-		return this.defaultCompartment.createPerturbationNode(identifier, name);
+	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
+		return this.defaultCompartment.createPerturbationNode(identifier, name, asciiName);
 	}
 
 

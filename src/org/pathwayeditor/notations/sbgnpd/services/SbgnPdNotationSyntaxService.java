@@ -16,6 +16,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDec
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.INumberPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextPropertyDefinition;
+import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
@@ -27,6 +28,7 @@ import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAt
 import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
 import org.pathwayeditor.figure.geometry.Dimension;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.BooleanPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.IntegerPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
@@ -37,50 +39,6 @@ import org.pathwayeditor.notationsubsystem.toolkit.definition.ShapeObjectType;
 
 public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final int NUM_ROOT_OTS = 1;
-//	private static final String ancorsAround=" [\n"
-//		+ "0 xoffset 0.00 yoffset\n"
-//		+ "0 xoffset 0.10 yoffset\n"
-//		+ "0 xoffset 0.20 yoffset\n"
-//		+ "0 xoffset 0.30 yoffset\n"
-//		+ "0 xoffset 0.40 yoffset\n"
-//		+ "0 xoffset 0.50 yoffset\n"
-//		+ "0 xoffset 0.60 yoffset\n"
-//		+ "0 xoffset 0.70 yoffset\n"
-//		+ "0 xoffset 0.80 yoffset\n"
-//		+ "0 xoffset 0.90 yoffset\n"
-//		+ "0 xoffset 1.00 yoffset\n"
-//		+ "1 xoffset 0.00 yoffset\n"
-//		+ "1 xoffset 0.10 yoffset\n"
-//		+ "1 xoffset 0.20 yoffset\n"
-//		+ "1 xoffset 0.30 yoffset\n"
-//		+ "1 xoffset 0.40 yoffset\n"
-//		+ "1 xoffset 0.50 yoffset\n"
-//		+ "1 xoffset 0.60 yoffset\n"
-//		+ "1 xoffset 0.70 yoffset\n"
-//		+ "1 xoffset 0.80 yoffset\n"
-//		+ "1 xoffset 0.90 yoffset\n"
-//		+ "1 xoffset 1.00 yoffset\n"
-//		+ "0.10 xoffset 0 yoffset\n"
-//		+ "0.20 xoffset 0 yoffset\n"
-//		+ "0.30 xoffset 0 yoffset\n"
-//		+ "0.40 xoffset 0 yoffset\n"
-//		+ "0.50 xoffset 0 yoffset\n"
-//		+ "0.60 xoffset 0 yoffset\n"
-//		+ "0.70 xoffset 0 yoffset\n"
-//		+ "0.80 xoffset 0 yoffset\n"
-//		+ "0.90 xoffset 0 yoffset\n"
-//		+ "0.00 xoffset 1 yoffset\n"
-//		+ "0.10 xoffset 1 yoffset\n"
-//		+ "0.20 xoffset 1 yoffset\n"
-//		+ "0.30 xoffset 1 yoffset\n"
-//		+ "0.40 xoffset 1 yoffset\n"
-//		+ "0.50 xoffset 1 yoffset\n"
-//		+ "0.60 xoffset 1 yoffset\n"
-//		+ "0.70 xoffset 1 yoffset\n"
-//		+ "0.80 xoffset 1 yoffset\n"
-//		+ "0.90 xoffset 1 yoffset\n"
-//		+ "1.00 xoffset 1 yoffset\n"
-//		+"] (S) setanchor\n";
 	private static final String UNIT_OF_INFO_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "x y w h rect";
 	private static final String STATE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
@@ -187,32 +145,40 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 		+ "0 xoffset y w h rect\n"
-		+ "0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-		"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n";
-//	private static final String PROCESS_V_DEFN =
-//		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
-//		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-//		+ "0 xoffset y w h rect\n"
-//		+ "0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-//		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n" +
-//		"[0.50 xoffset -0.20 yoffset 0.50 xoffset 1.20 yoffset 0 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset] (S) setanchor\n";
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		+  "ifelse\n";
 	private static final String OMITTED_PROCESS_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 		+ "0 xoffset y w h rect\n"
 		+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (\\\\) text\n"
-		+ "0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-		"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n";
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		+  "ifelse\n";
 	private static final String UNCERTAIN_PROCESS_DEFN =
 			"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 			+ "0 xoffset y w h rect\n"
 			+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (?) text\n"
-			+ "0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-			+ "1.2 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-			"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n";
+			+ ":vertFlag\n"
+			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+			+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+			+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+			+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+			+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+			+  "ifelse\n";
 	private static final String ASSOC_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
 		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
@@ -252,23 +218,38 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String AND_SHAPE_DEFN =
 			"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (AND) text\n" +
-			"0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n" +
-			"1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-			"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset ] (S) setanchor\n";
+			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (AND) text\n"
+			+ ":vertFlag\n"
+			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+			+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+			+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+			+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+			+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
+			+  "ifelse\n";
 	private static final String NOT_SHAPE_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (NOT) text\n" +
-		"0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n" +
-		"1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-		"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset ] (S) setanchor\n";
+		+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (NOT) text\n"
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
+		+  "ifelse\n";
 	private static final String OR_SHAPE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n" +
-			"0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n" +
-			"1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-			"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset ] (S) setanchor\n";
+			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n"
+			+ ":vertFlag\n"
+			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+			+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+			+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+			+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+			+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
+			+  "ifelse\n";
 //	private static final String OR_SHAPE_V_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 //		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 //		+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n" 
@@ -292,7 +273,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private ShapeObjectType Sink;
 	private ShapeObjectType Source;
 	private ShapeObjectType PerturbingAgent;
-	private ShapeObjectType Observable;
+	private ShapeObjectType Phenotype;
 	private ShapeObjectType Process;
 //	private ShapeObjectType ProcessV;
 	private ShapeObjectType OmittedProcess;
@@ -346,16 +327,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		createSource();
 		this.PerturbingAgent = new ShapeObjectType(this, 113, "Perturbing Agent");
 		createPerturbingAgent();
-		this.Observable = new ShapeObjectType(this, 114, "Observable");
+		this.Phenotype = new ShapeObjectType(this, 114, "Phenotype");
 		createPhenotype();
 		this.Process = new ShapeObjectType(this, 118, "Process");
 		createProcess();
-//		this.ProcessV = new ShapeObjectType(this, 1018, "ProcessV");
-//		createProcessV();
 		this.OmittedProcess = new ShapeObjectType(this, 119, "Omitted Process");
 		createOmittedProcess();
-		this.UncertainProcess = new ShapeObjectType(this, 120,
-				"Uncertain Process");
+		this.UncertainProcess = new ShapeObjectType(this, 120, "Uncertain Process");
 		createUncertainProcess();
 		this.Association = new ShapeObjectType(this, 121, "Association");
 		createAssociation();
@@ -365,8 +343,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		createAndGate();
 		this.OrGate = new ShapeObjectType(this, 124, "OR");
 		createOrGate();
-//		this.OrGateV = new ShapeObjectType(this, 1024, "ORv");
-//		createOrGateV();
 		this.NotGate = new ShapeObjectType(this, 125, "NOT");
 		createNotGate();
 
@@ -423,7 +399,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.shapes.put(this.Sink.getUniqueId(), this.Sink);
 		this.shapes.put(this.Source.getUniqueId(), this.Source);
 		this.shapes.put(this.PerturbingAgent.getUniqueId(), this.PerturbingAgent);
-		this.shapes.put(this.Observable.getUniqueId(), this.Observable);
+		this.shapes.put(this.Phenotype.getUniqueId(), this.Phenotype);
 //		this.shapes.put(this.ProcessV.getUniqueId(), this.ProcessV);
 		this.shapes.put(this.Process.getUniqueId(), this.Process);
 		this.shapes.put(this.OmittedProcess.getUniqueId(), this.OmittedProcess);
@@ -559,7 +535,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 				this.UnitOfInf, this.Compartment, this.Complex,
 				this.nucleicAcidFeature, this.Macromolecule, this.SimpleChem,
 				this.UnspecEntity, this.Sink, this.Source, this.PerturbingAgent,
-				this.Observable,
+				this.Phenotype,
 				this.Process,  this.OmittedProcess, this.UncertainProcess,
 				this.Association, this.Dissociation, this.AndGate, this.OrGate,
 				this.NotGate }));
@@ -572,11 +548,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createState() {
-		this.State.setDescription("State variable value");// ment to be
-															// TypeDescription
-															// rather
-		PlainTextPropertyDefinition stateDescnProp = new PlainTextPropertyDefinition(
-				"stateValue", "?");
+		this.State.setDescription("State decription.");
+		this.State.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
+		PlainTextPropertyDefinition stateDescnProp = new PlainTextPropertyDefinition("stateValue", "?");
 		stateDescnProp.setAlwaysDisplayed(true);
 		stateDescnProp.setEditable(true);
 		stateDescnProp.setDisplayName("Value");
@@ -617,9 +591,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createUnitOfInf() {
-		this.UnitOfInf.setDescription("Auxiliary information box");// ment to be
-																	// TypeDescription
-																	// rather
+		this.UnitOfInf.setDescription("Unit of information");
 		PlainTextPropertyDefinition infoDescnProp = new PlainTextPropertyDefinition("unitOfInfo", "Info");
 		infoDescnProp.setAlwaysDisplayed(true);
 		infoDescnProp.setEditable(true);
@@ -657,11 +629,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createCompartment() {
-		this.Compartment.setDescription("Functional compartment");// ment to be
-																	// TypeDescription
-																	// rather
+		this.Compartment.setDescription("Compartment");
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createCompartmentVolumeProperty());
+		this.Compartment.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Compartment.getDefaultAttributes().setShapeDefinition(COMPARTMENT_DEFN);
 		this.Compartment.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Compartment.getDefaultAttributes().setSize(new Dimension(200, 200));
@@ -692,7 +663,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 				this.UnitOfInf, this.Compartment, this.Complex,
 				this.nucleicAcidFeature, this.Macromolecule, this.SimpleChem,
 				this.UnspecEntity, this.Sink, this.Source, this.PerturbingAgent,
-				this.Observable,
+				this.Phenotype,
 				this.Process,  this.OmittedProcess, this.UncertainProcess,
 				this.Association, this.Dissociation, this.AndGate, this.OrGate,
 				this.NotGate }));
@@ -772,6 +743,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		return retVal;
 	}
 	
+	private IPlainTextPropertyDefinition createExportNameProperty(){
+		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("exportName", "");
+		retVal.setAlwaysDisplayed(false);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDisplayName("Export Name");
+		return retVal;
+	}
+	
 	private IPlainTextPropertyDefinition createReverseRateEquationProperty(){
 		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("revRate", "");
 		retVal.setAlwaysDisplayed(false);
@@ -790,10 +770,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	
 	private void createComplex() {
+		this.Complex.setDescription("Complex");
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.Complex.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Complex.getDefaultAttributes().setShapeDefinition(COMPLEX_DEFN);
 		this.Complex.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Complex.getDefaultAttributes().setSize(new Dimension(120, 80));
@@ -836,6 +818,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.nucleicAcidFeature.setDescription("Nucleic Acid Feature");
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
 		this.nucleicAcidFeature.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.nucleicAcidFeature.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -875,11 +858,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createMacromolecule() {
-		this.Macromolecule.setDescription("Macromolecule");// ment to be
-															// TypeDescription
-															// rather
+		this.Macromolecule.setDescription("Macromolecule");
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Macromolecule.getDefaultAttributes().setShapeDefinition(MACROMOLECULE_DEFN);
 		this.Macromolecule.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Macromolecule.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -926,6 +908,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.SimpleChem.getDefaultAttributes().setShapeDefinition(SIMPLE_CHEM_DEFN);
 		this.SimpleChem.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(40, 40));
@@ -964,11 +947,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createUnspecEntity() {
-		this.UnspecEntity.setDescription("Unspecified entity");// ment to be
-																// TypeDescription
-																// rather
+		this.UnspecEntity.setDescription("Unspecified entity");
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createNameProperty());
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
+		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.UnspecEntity.getDefaultAttributes().setShapeDefinition(UNSPECIFIED_ENTITY_DEFN);
 		this.UnspecEntity.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -1007,7 +989,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createSink() {
-		this.Sink.setDescription("Sink");// ment to be TypeDescription rather
+		this.Sink.setDescription("Sink");
+		this.Sink.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Sink.getDefaultAttributes().setShapeDefinition(EMPTY_SET_DEFN);
 		this.Sink.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Sink.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1041,8 +1024,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createSource() {
-		this.Source.setDescription("Source");// ment to be TypeDescription
-												// rather
+		this.Source.setDescription("Source");
+		this.Source.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Source.getDefaultAttributes().setShapeDefinition(EMPTY_SET_DEFN);
 		this.Source.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.Source.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1081,6 +1064,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private void createPerturbingAgent() {
 		this.PerturbingAgent.setDescription("Perturbing Agent");
 		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.PerturbingAgent.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
 		this.PerturbingAgent.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.PerturbingAgent.getDefaultAttributes().setSize(new Dimension(80, 60));
@@ -1114,14 +1098,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createPhenotype() {
-		this.Observable.setDescription("Phenotype");
-		this.Observable.getDefaultAttributes().setShapeDefinition(PHENOTYPE_DEFN);
-		this.Observable.getDefaultAttributes().addPropertyDefinition(createNameProperty());
-		this.Observable.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.Observable.getDefaultAttributes().setLineColour(RGB.BLACK);
-		this.Observable.getDefaultAttributes().setSize(new Dimension(80, 60));
-		this.Observable.getDefaultAttributes().setLineWidth(1);
-		this.Observable.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
+		this.Phenotype.setDescription("Phenotype");
+		this.Phenotype.getDefaultAttributes().setShapeDefinition(PHENOTYPE_DEFN);
+		this.Phenotype.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.Phenotype.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Phenotype.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.Phenotype.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Phenotype.getDefaultAttributes().setSize(new Dimension(80, 60));
+		this.Phenotype.getDefaultAttributes().setLineWidth(1);
+		this.Phenotype.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1137,15 +1122,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		if (true) {
 			editableAttributes.add(EditableShapeAttributes.LINE_COLOUR);
 		}
-		this.Observable.setEditableAttributes(editableAttributes);
+		this.Phenotype.setEditableAttributes(editableAttributes);
 	}
 
 	private void defineParentingObservable() {
-		this.Observable.getParentingRules().clear();
+		this.Phenotype.getParentingRules().clear();
 	}
 
 	public ShapeObjectType getObservable() {
-		return this.Observable;
+		return this.Phenotype;
 	}
 
 
@@ -1153,6 +1138,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Process.setDescription("Process node");
 		this.Process.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Process.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
+		this.Process.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
+		this.Process.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Process.getDefaultAttributes().setShapeDefinition(PROCESS_DEFN);
 		this.Process.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Process.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1177,6 +1164,16 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Process.setEditableAttributes(editableAttributes);
 	}
 
+	private IPropertyDefinition createVerticalAlignmentProperty() {
+		BooleanPropertyDefinition retVal = new BooleanPropertyDefinition("vertFlag", true);
+		retVal.setAlwaysDisplayed(false);
+		retVal.setVisualisable(false);
+		retVal.setEditable(true);
+		retVal.setDefaultValue(Boolean.FALSE);
+		retVal.setDisplayName("Align Vertically");
+		return retVal;
+	}
+
 	private void defineParentingProcess() {
 		this.Process.getParentingRules().clear();
 	}
@@ -1189,6 +1186,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.OmittedProcess.setDescription("Omitted process");
 		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
+		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.OmittedProcess.getDefaultAttributes().setShapeDefinition(OMITTED_PROCESS_DEFN);
 		this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1225,12 +1224,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.UncertainProcess.setDescription("Uncertain process");
 		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createReverseRateEquationProperty());
+		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.UncertainProcess.getDefaultAttributes().setShapeDefinition(UNCERTAIN_PROCESS_DEFN);
 		this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.UncertainProcess.getDefaultAttributes().setLineWidth(1);
-		this.UncertainProcess.getDefaultAttributes().setLineStyle(
-				LineStyle.SOLID);
+		this.UncertainProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.UncertainProcess.getDefaultAttributes().setLineColour(RGB.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
@@ -1261,6 +1261,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private void createAssociation() {
 		this.Association.setDescription("Association");
 		this.Association.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.Association.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Association.getDefaultAttributes().setShapeDefinition(ASSOC_DEFN);
 		this.Association.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Association.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1300,7 +1301,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createDissociation() {
-		this.Dissociation.setDescription("Dissociation");
+		this.Dissociation.setDescription("Dissociation arc.");
+		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Dissociation.getDefaultAttributes().setShapeDefinition(DISSOC_DEFN);
 		this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
@@ -1335,8 +1337,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createAndGate() {
-		this.AndGate.setDescription("AndGate");// ment to be TypeDescription
-												// rather
+		this.AndGate.setDescription("AND Logical Operator");
+		this.AndGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
+		this.AndGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.AndGate.getDefaultAttributes().setShapeDefinition(AND_SHAPE_DEFN);
 		this.AndGate.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.AndGate.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1370,8 +1373,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createOrGate() {
-		this.OrGate.setDescription("OR Logical Operator");// ment to be
-													// TypeDescription rather
+		this.OrGate.setDescription("OR Logical Operator");
+		this.OrGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
+		this.OrGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.OrGate.getDefaultAttributes().setShapeDefinition(OR_SHAPE_DEFN);
 		this.OrGate.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.OrGate.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1406,9 +1410,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 
 	private void createNotGate() {
-		this.NotGate.setDescription("NOT Logical Operator");// ment to be
-														// TypeDescription
-														// rather
+		this.NotGate.setDescription("NOT Logical Operator");
+		this.NotGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.NotGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.NotGate.getDefaultAttributes().setShapeDefinition(NOT_SHAPE_DEFN);
 		this.NotGate.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.NotGate.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1443,15 +1447,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createConsumption() {
 		Set<IShapeObjectType> set = null;
-		this.Consumption
-				.setDescription("Consumption is the arc used to represent the fact that an entity only affects a process, but is not affected by it");
-		int[] lc = new int[] { 0, 0, 0 };
+		this.Consumption.setDescription("Consumption arc.");
+		this.Consumption.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.Consumption.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
 		this.Consumption.getDefaultAttributes().setLineWidth(1);
 		this.Consumption.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Consumption.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
-		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
-				.noneOf(LinkEditableAttributes.class);
+		this.Consumption.getDefaultAttributes().setLineColour(RGB.BLACK);
+		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 		if (true) {
 			editableAttributes.add(LinkEditableAttributes.COLOUR);
 		}
@@ -1465,24 +1467,13 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		// this.Consumption.getDefaultAttributes().setLineWidthEditable(true);
 		this.Consumption.setEditableAttributes(editableAttributes);
-
-//		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
-//		Stoich.setEditable(true);
-//		Stoich.setVisualisable(true);
-//		Stoich.setDisplayName("Stoichiometry");
-		this.Consumption.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
-
-		// LinkEndDefinition sport=this.Consumption.getLinkSource();
-		// LinkEndDefinition tport=this.Consumption.getLinkTarget();
 		LinkTerminusDefinition sport = this.Consumption
 				.getSourceTerminusDefinition();
 		LinkTerminusDefinition tport = this.Consumption
 				.getTargetTerminusDefinition();
 		sport.getDefaultAttributes().setGap(5);
-		sport.getDefaultAttributes().setEndDecoratorType(
-				LinkEndDecoratorShape.NONE);// , 8,8);
+		sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);// , 8,8);
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
-		// sport.getDefaultAttributes().setLineProperties(0, LineStyle.SOLID);
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET,
@@ -1499,8 +1490,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 0);
-		tport.getDefaultAttributes().setEndDecoratorType(
-				LinkEndDecoratorShape.NONE);// , 8,8);
+		tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);
 		tport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
@@ -1575,13 +1565,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createProduction() {
 		Set<IShapeObjectType> set = null;
-		this.Production
-				.setDescription("Production is the arc used to represent the fact that an entity is produced by a process.");
-		int[] lc = new int[] { 0, 0, 0 };
+		this.Production.setDescription("Production arc.");
+		this.Production.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
+		this.Production.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Production.getDefaultAttributes().setLineWidth(1);
 		this.Production.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Production.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+		this.Production.getDefaultAttributes().setLineColour(RGB.BLACK);
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -1597,11 +1586,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		}
 		// this.Production.getDefaultAttributes().setLineWidthEditable(true);
 		this.Production.setEditableAttributes(editableAttributes);
-//		NumberPropertyDefinition Stoich = new NumberPropertyDefinition("STOICH", new BigDecimal(1));
-//		Stoich.setEditable(true);
-//		Stoich.setVisualisable(true);
-//		Stoich.setDisplayName("Stoichiometry");
-		this.Production.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
 
 		// LinkEndDefinition sport=this.Production.getLinkSource();
 		// LinkEndDefinition tport=this.Production.getLinkTarget();
@@ -1697,8 +1681,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createModulation() {
 		Set<IShapeObjectType> set = null;
-		this.Modulation
-				.setDescription("A modulation affects the flux of a process represented by the target transition.");
+		this.Modulation.setDescription("Modulation arc.");
+		this.Modulation.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		int[] lc = new int[] { 0, 0, 0 };
 		this.Modulation.getDefaultAttributes().setLineWidth(1);
 		this.Modulation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
@@ -1768,7 +1752,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Modulation.getLinkConnectionRules().addConnection(
 					this.Complex, tgt);
@@ -1814,9 +1798,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createStimulation() {
 		Set<IShapeObjectType> set = null;
-		this.Stimulation
-				.setDescription("A stimulation affects positively the flux of a process represented by the target transition.");
+		this.Stimulation.setDescription("Stimulation arc.");
 		int[] lc = new int[] { 0, 0, 0 };
+		this.Stimulation.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Stimulation.getDefaultAttributes().setLineWidth(1);
 		this.Stimulation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Stimulation.getDefaultAttributes().setLineColour(
@@ -1885,7 +1869,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.Complex, tgt);
@@ -1893,7 +1877,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.Macromolecule, tgt);
@@ -1901,7 +1885,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.SimpleChem, tgt);
@@ -1913,7 +1897,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.UnspecEntity, tgt);
@@ -1921,7 +1905,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.AndGate, tgt);
@@ -1933,7 +1917,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.OrGate, tgt);
@@ -1941,7 +1925,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Stimulation.getLinkConnectionRules().addConnection(
 					this.NotGate, tgt);
@@ -1955,8 +1939,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createCatalysis() {
 		Set<IShapeObjectType> set = null;
-		this.Catalysis
-				.setDescription("A catalysis is a particular case of stimulation.");
+		this.Catalysis.setDescription("Catalysis.");
+		this.Catalysis.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		int[] lc = new int[] { 0, 0, 0 };
 		this.Catalysis.getDefaultAttributes().setLineWidth(1);
 		this.Catalysis.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
@@ -2089,8 +2073,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createInhibition() {
 		Set<IShapeObjectType> set = null;
-		this.Inhibition
-				.setDescription("An inhibition affects negatively the flux of a process represented by the target transition.");
+		this.Inhibition.setDescription("Inhibition arc.");
+		this.Inhibition.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		int[] lc = new int[] { 0, 0, 0 };
 		this.Inhibition.getDefaultAttributes().setLineWidth(1);
 		this.Inhibition.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
@@ -2158,7 +2142,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Inhibition.getLinkConnectionRules().addConnection(
 					this.Complex, tgt);
@@ -2204,9 +2188,9 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createTrigger() {
 		Set<IShapeObjectType> set = null;
-		this.Trigger
-				.setDescription("A trigger effect, or absolute stimulation, is a stimulation that is necessary for a process to take place.");
+		this.Trigger.setDescription("Necessary stimulation.");
 		int[] lc = new int[] { 0, 0, 0 };
+		this.Trigger.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Trigger.getDefaultAttributes().setLineWidth(1);
 		this.Trigger.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Trigger.getDefaultAttributes().setLineColour(
@@ -2275,7 +2259,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		set = new HashSet<IShapeObjectType>();
 		set.addAll(Arrays.asList(new IShapeObjectType[] { this.Process, 
 				this.OmittedProcess, this.UncertainProcess, this.Association,
-				this.Dissociation, this.Observable }));
+				this.Dissociation, this.Phenotype }));
 		for (IShapeObjectType tgt : set) {
 			this.Trigger.getLinkConnectionRules().addConnection(this.Complex,
 					tgt);
@@ -2321,8 +2305,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createLogicArc() {
 		Set<IShapeObjectType> set = null;
-		this.LogicArc
-				.setDescription("Logic arc is the arc used to represent the fact that an entity influences outcome of logic operator.");
+		this.LogicArc.setDescription("Logic arc.");
+		this.LogicArc.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		int[] lc = new int[] { 0, 0, 0 };
 		this.LogicArc.getDefaultAttributes().setLineWidth(1);
 		this.LogicArc.getDefaultAttributes().setLineStyle(LineStyle.SOLID);

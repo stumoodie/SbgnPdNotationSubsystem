@@ -23,8 +23,8 @@ public class ProcessNode extends PdElement implements IProcessNode {
 	private String fwdRateEquation = "";
 	private String revRateEquation = "";
 	
-	protected ProcessNode(int identifier, ProcessNodeType type){
-		super(identifier, getSboTerm(type));
+	protected ProcessNode(int identifier, String asciiName, ProcessNodeType type){
+		super(identifier, getSboTerm(type), asciiName);
 		this.type = type;
 		this.inputs = new HashSet<IFluxArc>();
 		this.outputs = new HashSet<IFluxArc>();
@@ -37,20 +37,20 @@ public class ProcessNode extends PdElement implements IProcessNode {
 		return "SBO:999";
 	}
 	
-	public IConsumptionArc createConsumptionArc(int identifier, IConsumeableNode consumeable) {
-		IConsumptionArc retVal = new ConsumptionArc(identifier, consumeable, this);
+	public IConsumptionArc createConsumptionArc(int identifier, String asciiName, IConsumeableNode consumeable) {
+		IConsumptionArc retVal = new ConsumptionArc(identifier, asciiName, consumeable, this);
 		this.inputs.add(retVal);
 		return retVal;
 	}
 
-	public IModulationArc createModulationArc(int identifier, ModulatingArcType type, IModulatingNode modulator) {
-		IModulationArc retVal = new ModulationArc(identifier, modulator, this, type);
+	public IModulationArc createModulationArc(int identifier, String asciiName, ModulatingArcType type, IModulatingNode modulator) {
+		IModulationArc retVal = new ModulationArc(identifier, asciiName, modulator, this, type);
 		this.modulations.add(retVal);
 		return retVal;
 	}
 
-	public IProductionArc createProductionArc(int identifier, IProduceableNode produceable, SidednessType type) {
-		IProductionArc retVal = new ProductionArc(identifier, produceable, this);
+	public IProductionArc createProductionArc(int identifier, String asciiName, IProduceableNode produceable, SidednessType type) {
+		IProductionArc retVal = new ProductionArc(identifier, asciiName, produceable, this);
 		if(type.equals(SidednessType.RHS)){
 			this.outputs.add(retVal);
 		}

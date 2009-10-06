@@ -11,8 +11,8 @@ public class ProductionArc extends PdElement implements IProductionArc {
 	private final IProcessNode process;
 	private int stoichiometry;
 	
-	public ProductionArc(int identifier, IProduceableNode produceable, IProcessNode processNode) {
-		super(identifier, SBO_TERM);
+	public ProductionArc(int identifier, String asciiName, IProduceableNode produceable, IProcessNode processNode) {
+		super(identifier, SBO_TERM, asciiName);
 		if(produceable == null || processNode == null) throw new IllegalArgumentException("Process node or produceable cannot be null.");
 		
 		this.produceable = produceable;

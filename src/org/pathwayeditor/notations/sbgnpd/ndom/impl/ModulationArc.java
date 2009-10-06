@@ -11,8 +11,8 @@ public class ModulationArc extends PdElement implements IModulationArc {
 	private final IModulateableNode processNode;
 	private final ModulatingArcType type;
 	
-	public ModulationArc(int identifier, IModulatingNode modulator,	IModulateableNode processNode, ModulatingArcType type) {
-		super(identifier, getSboTerm(type));
+	public ModulationArc(int identifier, String asciiName, IModulatingNode modulator,	IModulateableNode processNode, ModulatingArcType type) {
+		super(identifier, getSboTerm(type), asciiName);
 		if(modulator == null || processNode == null) throw new IllegalArgumentException("Process node or modulator cannot be null.");
 
 		this.processNode = processNode;

@@ -110,6 +110,7 @@ public class NotationInspector {
 			}
 			else if(propDefn instanceof IBooleanPropertyDefinition){
 				controller.setBindBoolean(propDefn.getName(), ((IBooleanPropertyDefinition)propDefn).getDefaultValue());
+//				controller.setBindBoolean(propDefn.getName(), Boolean.TRUE);
 			}
 			else if(propDefn instanceof INumberPropertyDefinition){
 				controller.setBindDouble(propDefn.getName(), ((INumberPropertyDefinition)propDefn).getDefaultValue().doubleValue());

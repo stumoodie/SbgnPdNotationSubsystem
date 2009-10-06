@@ -12,8 +12,8 @@ public class ConsumptionArc extends PdElement implements IConsumptionArc {
 	private int stoichiometry;
 	
 	
-	public ConsumptionArc(int identifier, IConsumeableNode consumeable,	IProcessNode processNode) {
-		super(identifier, SBO_TERM);
+	public ConsumptionArc(int identifier, String asciiName, IConsumeableNode consumeable,	IProcessNode processNode) {
+		super(identifier, SBO_TERM, asciiName);
 		if(consumeable == null || processNode == null) throw new IllegalArgumentException("Process node or consumeable cannot be null.");
 
 		this.consumable = consumeable;

@@ -4,21 +4,21 @@ import java.util.Iterator;
 
 public interface IEpnContainer {
 	
-	IMacromoleculeNode createMacromoleculeNode(int identifier, String name);
+	IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName);
 	
-	INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name);
+	INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName);
 	
-	IComplexNode createComplexNode(int identifier);
+	IComplexNode createComplexNode(int identifier, String asciiName);
 	
-	ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name);
+	ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName);
 	
-	IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name);
+	IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName);
 	
-	IPerturbationNode createPerturbationNode(int identifier, String name);
+	IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName);
 	
-	ISinkNode createSinkNode(int identifier);
+	ISinkNode createSinkNode(int identifier, String asciiName);
 	
-	ISourceNode createSourceNode(int identifier);
+	ISourceNode createSourceNode(int identifier, String asciiName);
 	
 	boolean containsEntityPoolNode(int integer);
 	

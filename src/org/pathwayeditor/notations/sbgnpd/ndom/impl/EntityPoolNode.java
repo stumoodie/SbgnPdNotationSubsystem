@@ -10,8 +10,8 @@ public abstract class EntityPoolNode extends PdElement implements IEntityPoolNod
 	private final IEpnContainer compartment;
 	private int cardinality = DEFAULT_CARDINALITY;
 
-	protected EntityPoolNode(int identifier, IEpnContainer compartment, String sboTerm){
-		super(identifier, sboTerm);
+	protected EntityPoolNode(int identifier, String asciiName, IEpnContainer compartment, String sboTerm){
+		super(identifier, sboTerm, asciiName);
 		this.compartment = compartment;
 	}
 	

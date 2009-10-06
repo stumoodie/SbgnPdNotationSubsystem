@@ -7,5 +7,7 @@ public interface IPdElement {
 	
 	String getSboId();
 	
+	String getAsciiName();
+	
 	void visit(IPdElementVisitor visitor);
 }

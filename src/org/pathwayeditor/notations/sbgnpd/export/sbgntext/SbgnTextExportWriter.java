@@ -1,4 +1,4 @@
-package org.pathwayeditor.notations.sbgnpd.export.biopepa;
+package org.pathwayeditor.notations.sbgnpd.export.sbgntext;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,6 +24,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IModulateableNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulatingNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IModulationArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IPdElement;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
@@ -39,15 +40,16 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
 
-public class BioPepaExportWriter implements IExportWriter {
+public class SbgnTextExportWriter implements IExportWriter {
 	private static final String BIOPEPA_TEMPLATE_FILE_NAME = "biopepa.stg";
+	private static final String ELEMENT_NAME = "element";
 	private final IMapDiagram ndom;
 	private final File exportFile;
 	private final IReportLog reportLog;
 	private Writer stream = null;
 	private StringTemplateGroup stg;
 	
-	public BioPepaExportWriter(IMapDiagram ndom, File exportFile, IReportLog reportLog){
+	public SbgnTextExportWriter(IMapDiagram ndom, File exportFile, IReportLog reportLog){
 		this.ndom = ndom;
 		this.exportFile = exportFile;
 		this.reportLog = reportLog;
@@ -112,7 +114,7 @@ public class BioPepaExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeEpn(int id, String name, String type, int cmptId, int cardinality, int count){
+	private void writeEpn(String id, String name, String type, int cmptId, int cardinality, int count){
 		try {
 			StringTemplate t = stg.getInstanceOf("epn");
 			t.setAttribute("id", id);
@@ -128,7 +130,7 @@ public class BioPepaExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeProcess(int id, String type, String propensityFunction){
+	private void writeProcess(String id, String type, String propensityFunction){
 		try {
 			StringTemplate t = stg.getInstanceOf("process");
 			t.setAttribute("id", id);
@@ -141,7 +143,7 @@ public class BioPepaExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeConsumptionArc(int id, int stoichiometry, IConsumeableNode epn, IProcessNode process){
+	private void writeConsumptionArc(String id, int stoichiometry, IConsumeableNode epn, IProcessNode process){
 		try {
 			StringTemplate t = stg.getInstanceOf("fluxArc");
 			t.setAttribute("id", id);
@@ -156,7 +158,7 @@ public class BioPepaExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeProductionArc(int id, int stoichiometry, IProduceableNode epn, IProcessNode process){
+	private void writeProductionArc(String id, int stoichiometry, IProduceableNode epn, IProcessNode process){
 		try {
 			StringTemplate t = stg.getInstanceOf("fluxArc");
 			t.setAttribute("id", id);
@@ -171,11 +173,11 @@ public class BioPepaExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeModulationArc(int id, ModulatingArcType type, IModulatingNode epn, IModulateableNode process){
+	private void writeModulationArc(String id, ModulatingArcType type, IModulatingNode epn, IModulateableNode process){
 		try {
 			StringTemplate t = stg.getInstanceOf("modulationArc");
 			t.setAttribute("id", id);
-			t.setAttribute("type", Ndom2BiopepaTypeMapper.getInstance().getBiopepaModulationType(type));
+			t.setAttribute("type", Ndom2SbgnTextTypeMapper.getInstance().getBiopepaModulationType(type));
 			t.setAttribute("epnId", epn.getIdentifier());
 			t.setAttribute("processId", process.getIdentifier());
 			stream.write(t.toString());
@@ -184,6 +186,17 @@ public class BioPepaExportWriter implements IExportWriter {
 		}
 	}
 	
+	private String getIdentifierName(IPdElement element){
+		String retVal = element.getAsciiName();
+		if(retVal == null || retVal.length() == 0){
+			StringBuilder buf = new StringBuilder(ELEMENT_NAME);
+			buf.append(element.getIdentifier());
+			retVal = buf.toString();
+		}
+		return retVal;
+	}
+	
+
 	
 	private class NdomVisitor implements IPdElementVisitor{
 
@@ -195,7 +208,7 @@ public class BioPepaExportWriter implements IExportWriter {
 		public void visitCompartment(ICompartmentNode node) {
 			try{
 				StringTemplate t = stg.getInstanceOf("compartment");
-				t.setAttribute("id", node.getIdentifier());
+				t.setAttribute("id", getIdentifierName(node));
 				t.setAttribute("name", node.getName());
 				stream.write(t.toString());
 			}
@@ -205,12 +218,12 @@ public class BioPepaExportWriter implements IExportWriter {
 		}
 
 		public void visitComplex(IComplexNode node) {
-			writeEpn(node.getIdentifier(), node.getName(), "Complex", node.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(node), node.getName(), "Complex", node.getCompartment().getIdentifier(),
 					node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitConsumptionArc(IConsumptionArc pdElement) {
-			writeConsumptionArc(pdElement.getIdentifier(), pdElement.getStoichiometry(), pdElement.getConsumableNode(), pdElement.getProcess());
+			writeConsumptionArc(getIdentifierName(pdElement), pdElement.getStoichiometry(), pdElement.getConsumableNode(), pdElement.getProcess());
 		}
 
 		public void visitLogicArc(ILogicArc pdElement) {
@@ -222,50 +235,50 @@ public class BioPepaExportWriter implements IExportWriter {
 		}
 
 		public void visitMacromolecule(IMacromoleculeNode node) {
-			writeEpn(node.getIdentifier(), node.getName(), "Macromolecule", node.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(node), node.getName(), "Macromolecule", node.getCompartment().getIdentifier(),
 					node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitModulationArc(IModulationArc pdElement) {
-			writeModulationArc(pdElement.getIdentifier(), pdElement.getType(), pdElement.getModulator(), pdElement.getModulatedNode());
+			writeModulationArc(getIdentifierName(pdElement), pdElement.getType(), pdElement.getModulator(), pdElement.getModulatedNode());
 		}
 
 		public void visitNucleicAcidFeature(INucleicAcidFeatureNode node) {
-			writeEpn(node.getIdentifier(), node.getName(), "NucleicAcidFeature", node.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(node), node.getName(), "NucleicAcidFeature", node.getCompartment().getIdentifier(),
 					node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitPerturbingAgent(IPerturbationNode node) {
-			writeEpn(node.getIdentifier(), node.getName(), "PerturbingAgent", node.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(node), node.getName(), "PerturbingAgent", node.getCompartment().getIdentifier(),
 					DEFAULT_CARDINALITY, node.getEntityCount());
 		}
 
 		public void visitPhenotypeNode(IPhenotypeNode pdElement) {
-			writeProcess(pdElement.getIdentifier(), "Phenotype", pdElement.getRateFunction());
+			writeProcess(getIdentifierName(pdElement), "Phenotype", pdElement.getRateFunction());
 		}
 
 		public void visitProcess(IProcessNode pdElement) {
 			ProcessNodeType processType = pdElement.getProcessType();
-			Ndom2BiopepaTypeMapper.getInstance().getBiopepaProcessType(processType);
-			writeProcess(pdElement.getIdentifier(), "Process", pdElement.getFwdRateEquation());
+			Ndom2SbgnTextTypeMapper.getInstance().getBiopepaProcessType(processType);
+			writeProcess(getIdentifierName(pdElement), "Process", pdElement.getFwdRateEquation());
 		}
 
 		public void visitProductionArc(IProductionArc pdElement) {
-			writeProductionArc(pdElement.getIdentifier(), pdElement.getStoichiometry(), pdElement.getProductionNode(), pdElement.getProcess());
+			writeProductionArc(getIdentifierName(pdElement), pdElement.getStoichiometry(), pdElement.getProductionNode(), pdElement.getProcess());
 		}
 
 		public void visitSimpleChemical(ISimpleChemicalNode pdElement) {
-			writeEpn(pdElement.getIdentifier(), pdElement.getName(), "SimpleChemical", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "SimpleChemical", pdElement.getCompartment().getIdentifier(),
 					pdElement.getCardinality(), pdElement.getEntityCount());
 		}
 
 		public void visitSinkNode(ISinkNode pdElement) {
-			writeEpn(pdElement.getIdentifier(), DEFAULT_NAME, "Sink", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Sink", pdElement.getCompartment().getIdentifier(),
 					DEFAULT_CARDINALITY, SINK_MOL_COUNT);
 		}
 
 		public void visitSource(ISourceNode pdElement) {
-			writeEpn(pdElement.getIdentifier(), DEFAULT_NAME, "Source", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Source", pdElement.getCompartment().getIdentifier(),
 					DEFAULT_CARDINALITY, SOURCE_MOL_COUNT);
 		}
 
@@ -276,7 +289,7 @@ public class BioPepaExportWriter implements IExportWriter {
 		}
 
 		public void visitUnspecifiedEntity(IUnspecifiedEntityNode pdElement) {
-			writeEpn(pdElement.getIdentifier(), pdElement.getName(), "UnspecifiedEntity", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "UnspecifiedEntity", pdElement.getCompartment().getIdentifier(),
 					DEFAULT_CARDINALITY, pdElement.getEntityCount());
 		}
 		

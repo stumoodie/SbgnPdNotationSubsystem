@@ -4,17 +4,11 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IPdElementVisitor;
 import org.pathwayeditor.notations.sbgnpd.ndom.IStateDescription;
 
 public class StateDescription extends PdElement implements IStateDescription {
-	private final String name;
 	private String value;
 
-	public StateDescription(int identifier, String name, String value) {
-		super(identifier, null);
-		this.name = name;
+	public StateDescription(int identifier, String value, String asciiName) {
+		super(identifier, null, asciiName);
 		this.value = value;
-	}
-
-	public String getName() {
-		return this.name;
 	}
 
 	public String getValue() {
