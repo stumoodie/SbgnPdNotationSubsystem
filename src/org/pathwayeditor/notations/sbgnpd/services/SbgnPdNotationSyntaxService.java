@@ -183,10 +183,15 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
 		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
 		"curlinecol setfillcol\n" +
-		"0 xoffset 0.0 yoffset 1.0 w mul 1.00 h mul oval\n" +
-		"0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n" +
-		"1.0 xoffset 0.50 yoffset 1.20 xoffset 0.50 yoffset line\n" +
-		"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n";
+		"0 xoffset 0.0 yoffset 1.0 w mul 1.00 h mul oval\n"
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
+		+  "ifelse\n";
 	private static final String DISSOC_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
@@ -194,9 +199,14 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		+ "/indim 0.6 def\n"
 		+ "/inoffset 0.2 def\n"
 		+ "inoffset xoffset inoffset yoffset indim w mul indim h mul oval\n"
-		+ "0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n" +
-		"[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n";
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
+		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
+		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
+		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
+		+  "ifelse\n";
 	private static final String MACROMOLECULE_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
@@ -1170,7 +1180,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDefaultValue(Boolean.FALSE);
-		retVal.setDisplayName("Align Vertically");
+		retVal.setDisplayName("Vertical Lugs?");
 		return retVal;
 	}
 
@@ -1262,6 +1272,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Association.setDescription("Association");
 		this.Association.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Association.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
+		this.Association.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Association.getDefaultAttributes().setShapeDefinition(ASSOC_DEFN);
 		this.Association.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Association.getDefaultAttributes().setSize(new Dimension(30, 30));
@@ -1304,6 +1315,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Dissociation.setDescription("Dissociation arc.");
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
+		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Dissociation.getDefaultAttributes().setShapeDefinition(DISSOC_DEFN);
 		this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Dissociation.getDefaultAttributes().setSize(new Dimension(30, 30));
