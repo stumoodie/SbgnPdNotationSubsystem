@@ -72,8 +72,8 @@ fluxArc(id, type, stoich, epnId, processId) ::= <<
 Arc <id>_Arc {
 	ManualEquationArcID = <id>;
 	ArcType = <type>;
-	Entity = <epnId>;
-	Process = <processId>;
+	Entity = <epnId>_Ent;
+	Process = <processId>_Proc;
 	Stoichiometry = <stoich>;
 	QuantitativeProperties = { } ;
 }
@@ -86,8 +86,8 @@ modulationArc(id, type, epnId, processId) ::= <<
 Arc <id>_Arc {
 	ManualEquationArcID = <id>;
 	ArcType = <type>;
-	Entity = <epnId>;
-	Process = <processId>;
+	Entity = <epnId>_Ent;
+	Process = <processId>_Proc;
 	Stoichiometry = 1;
 	QuantitativeProperties = { };
 }

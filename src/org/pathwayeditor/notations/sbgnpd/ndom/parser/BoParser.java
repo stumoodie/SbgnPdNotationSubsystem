@@ -194,9 +194,11 @@ public class BoParser implements IBoParser {
 	}
 	
 	private void compartmentChildrenRule(ICompartmentNode compartmentNode) throws TreeParseException{
-		compartmentChildRule(compartmentNode);
-		if(lexer.hasRightTokens()){
-			compartmentChildrenRule(compartmentNode);
+		if(this.lexer.hasRightTokens()){
+			compartmentChildRule(compartmentNode);
+			if(lexer.hasRightTokens()){
+				compartmentChildrenRule(compartmentNode);
+			}
 		}
 	}
 	

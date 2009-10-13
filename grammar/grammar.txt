@@ -22,6 +22,7 @@ compartment				:=	COMPARTMENT ^compartmentChildren
 
 compartmentChildren		:=	compartmentChild compartmentChildren
 						|	compartmentChild
+						|
 						;
 
 compartmentChild			:=	statefulEpns

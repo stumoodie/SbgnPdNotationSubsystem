@@ -114,13 +114,13 @@ public class SbgnTextExportWriter implements IExportWriter {
 	}
 	
 	
-	private void writeEpn(String id, String name, String type, int cmptId, int cardinality, int count){
+	private void writeEpn(String id, String name, String type, ICompartmentNode cmpt, int cardinality, int count){
 		try {
 			StringTemplate t = stg.getInstanceOf("epn");
 			t.setAttribute("id", id);
 			t.setAttribute("name", name);
 			t.setAttribute("type", type);
-			t.setAttribute("compartment", cmptId);
+			t.setAttribute("compartment", getIdentifierName(cmpt));
 			t.setAttribute("cardinality", cardinality);
 			t.setAttribute("count", count);
 			stream.write(t.toString());
@@ -149,8 +149,8 @@ public class SbgnTextExportWriter implements IExportWriter {
 			t.setAttribute("id", id);
 			t.setAttribute("type", "Consumption");
 			t.setAttribute("stoich", stoichiometry);
-			t.setAttribute("epnId", epn.getIdentifier());
-			t.setAttribute("processId", process.getIdentifier());
+			t.setAttribute("epnId", getIdentifierName(epn));
+			t.setAttribute("processId", getIdentifierName(process));
 			stream.write(t.toString());
 		} catch (IOException e) {
 			reportLog.reportError("IOException thown", e);
@@ -164,8 +164,8 @@ public class SbgnTextExportWriter implements IExportWriter {
 			t.setAttribute("id", id);
 			t.setAttribute("type", "Production");
 			t.setAttribute("stoich", stoichiometry);
-			t.setAttribute("epnId", epn.getIdentifier());
-			t.setAttribute("processId", process.getIdentifier());
+			t.setAttribute("epnId", getIdentifierName(epn));
+			t.setAttribute("processId", getIdentifierName(process));
 			stream.write(t.toString());
 		} catch (IOException e) {
 			reportLog.reportError("IOException thown", e);
@@ -178,8 +178,8 @@ public class SbgnTextExportWriter implements IExportWriter {
 			StringTemplate t = stg.getInstanceOf("modulationArc");
 			t.setAttribute("id", id);
 			t.setAttribute("type", Ndom2SbgnTextTypeMapper.getInstance().getBiopepaModulationType(type));
-			t.setAttribute("epnId", epn.getIdentifier());
-			t.setAttribute("processId", process.getIdentifier());
+			t.setAttribute("epnId", getIdentifierName(epn));
+			t.setAttribute("processId", getIdentifierName(process));
 			stream.write(t.toString());
 		} catch (IOException e) {
 			reportLog.reportError("IOException thown", e);
@@ -218,8 +218,7 @@ public class SbgnTextExportWriter implements IExportWriter {
 		}
 
 		public void visitComplex(IComplexNode node) {
-			writeEpn(getIdentifierName(node), node.getName(), "Complex", node.getCompartment().getIdentifier(),
-					node.getCardinality(), node.getEntityCount());
+			writeEpn(getIdentifierName(node), node.getName(), "Complex", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitConsumptionArc(IConsumptionArc pdElement) {
@@ -235,8 +234,7 @@ public class SbgnTextExportWriter implements IExportWriter {
 		}
 
 		public void visitMacromolecule(IMacromoleculeNode node) {
-			writeEpn(getIdentifierName(node), node.getName(), "Macromolecule", node.getCompartment().getIdentifier(),
-					node.getCardinality(), node.getEntityCount());
+			writeEpn(getIdentifierName(node), node.getName(), "Macromolecule", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitModulationArc(IModulationArc pdElement) {
@@ -244,13 +242,11 @@ public class SbgnTextExportWriter implements IExportWriter {
 		}
 
 		public void visitNucleicAcidFeature(INucleicAcidFeatureNode node) {
-			writeEpn(getIdentifierName(node), node.getName(), "NucleicAcidFeature", node.getCompartment().getIdentifier(),
-					node.getCardinality(), node.getEntityCount());
+			writeEpn(getIdentifierName(node), node.getName(), "NucleicAcidFeature", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
 		public void visitPerturbingAgent(IPerturbationNode node) {
-			writeEpn(getIdentifierName(node), node.getName(), "PerturbingAgent", node.getCompartment().getIdentifier(),
-					DEFAULT_CARDINALITY, node.getEntityCount());
+			writeEpn(getIdentifierName(node), node.getName(), "PerturbingAgent", node.getCompartment(),	DEFAULT_CARDINALITY, node.getEntityCount());
 		}
 
 		public void visitPhenotypeNode(IPhenotypeNode pdElement) {
@@ -268,17 +264,17 @@ public class SbgnTextExportWriter implements IExportWriter {
 		}
 
 		public void visitSimpleChemical(ISimpleChemicalNode pdElement) {
-			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "SimpleChemical", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "SimpleChemical", pdElement.getCompartment(),
 					pdElement.getCardinality(), pdElement.getEntityCount());
 		}
 
 		public void visitSinkNode(ISinkNode pdElement) {
-			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Sink", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Sink", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, SINK_MOL_COUNT);
 		}
 
 		public void visitSource(ISourceNode pdElement) {
-			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Source", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Source", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, SOURCE_MOL_COUNT);
 		}
 
@@ -289,7 +285,7 @@ public class SbgnTextExportWriter implements IExportWriter {
 		}
 
 		public void visitUnspecifiedEntity(IUnspecifiedEntityNode pdElement) {
-			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "UnspecifiedEntity", pdElement.getCompartment().getIdentifier(),
+			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "UnspecifiedEntity", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, pdElement.getEntityCount());
 		}
 		

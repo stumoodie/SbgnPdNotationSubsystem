@@ -22,7 +22,8 @@ import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 public class BoParserTest {
 	private static final String CANVAS_NAME = "testCanvas";
 	private static final int EXPECTED_NUMS_PROCESSES = 1;
-	private static final int EXPECTED_NUM_EPNS = 3;
+	private static final int EXPECTED_NUM_EPNS = 5;
+	private static final int EXPECTED_NUM_CPTS = 3;
 	private ICanvas canvas;
 	private SbgnPdNotationSyntaxService sbgnSyntax;
 	private IBoParser testInstance;
@@ -37,12 +38,18 @@ public class BoParserTest {
 		canvasFact.setCanvasName(CANVAS_NAME);
 		this.canvas = canvasFact.createNewCanvas();
 		IRootNode root = this.canvas.getModel().getRootNode();
-		IShapeNode cmpt = createShapeNode(root, this.sbgnSyntax.getCompartment());
-		IShapeNode mm1 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
+		IShapeNode cmpt1 = createShapeNode(root, this.sbgnSyntax.getCompartment());
+		// empty compartment
+		createShapeNode(root, this.sbgnSyntax.getCompartment());
+		// empty mm on the root compartment
+		createShapeNode(root, this.sbgnSyntax.getMacromolecule());
+		IShapeNode mm1 = createShapeNode(cmpt1, this.sbgnSyntax.getMacromolecule());
 		createShapeNode(mm1, this.sbgnSyntax.getState());
 		createShapeNode(mm1, this.sbgnSyntax.getUnitOfInf());
-		IShapeNode mm2 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
-		IShapeNode na = createShapeNode(cmpt, this.sbgnSyntax.getGeneticUnit());
+		// empty complex
+		createShapeNode(cmpt1, this.sbgnSyntax.getComplex());
+		IShapeNode mm2 = createShapeNode(cmpt1, this.sbgnSyntax.getMacromolecule());
+		IShapeNode na = createShapeNode(cmpt1, this.sbgnSyntax.getGeneticUnit());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		createShapeNode(na, this.sbgnSyntax.getState());
 		IShapeNode process = createShapeNode(root, this.sbgnSyntax.getProcess());
@@ -88,5 +95,6 @@ public class BoParserTest {
 		IMapDiagram mapDiagram = this.testInstance.getNDomBuilder().getNdom();
 		assertEquals("expected num epns", EXPECTED_NUM_EPNS, mapDiagram.totalNumEpns());
 		assertEquals("expected num epns", EXPECTED_NUMS_PROCESSES, mapDiagram.totalNumProcesses());
+		assertEquals("expected num compartents", EXPECTED_NUM_CPTS, mapDiagram.numCompartments());
 	}
 }
