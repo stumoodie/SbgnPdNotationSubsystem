@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IBooleanPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IIntegerPropertyDefinition;
@@ -31,6 +33,8 @@ import org.pathwayeditor.figurevm.FigureDefinitionCompiler;
 import org.pathwayeditor.figurevm.IFigureDefinition;
 
 public class NotationInspector {
+	private final Logger logger = Logger.getLogger(this.getClass());
+	
 	private static final double X_START = 10.0;
 	private static final double Y_START = 10.0;
 	private static final double SEP_WIDTH = 10.0;
@@ -61,6 +65,7 @@ public class NotationInspector {
 		double maxY = 0.0;
 		while(iter.hasNext()){
 			IShapeObjectType objectType = iter.next();
+			logger.debug("Drawing object type: " + objectType.getName());
 			String shapeDefn = objectType.getDefaultAttributes().getShapeDefinition();
 			FigureDefinitionCompiler compiler = new FigureDefinitionCompiler(shapeDefn);
 			compiler.compile();
@@ -72,9 +77,15 @@ public class NotationInspector {
 			controller.setRequestedEnvelope(new Envelope(new Point(x, y), shapeSize));
 			controller.setFillColour(RGB.GREEN);
 			controller.generateFigureDefinition();
-			shapeSize = controller.getEnvelope().getDimension();
+			shapeSize = controller.getRequestedEnvelope().getDimension();
 			GraphicsInstructionList graphicsInst = controller.getFigureDefinition();
 			drawGlyph(graphicsInst);
+			Envelope env = controller.getRequestedEnvelope();
+			this.graphicsEngine.setLineWidth(1.0);
+			this.graphicsEngine.setLineStyle(LineStyle.DOT);
+			this.graphicsEngine.setLineColor(RGB.RED);
+			this.graphicsEngine.drawRectangle(env.getOrigin().getX(), env.getOrigin().getY(),
+					env.getDimension().getWidth(), env.getDimension().getHeight());
 			writeTypeName(controller.getEnvelope(), objectType);
 			x += Math.max(MIN_WIDTH, shapeSize.getWidth()) + SEP_WIDTH;
 			maxY = Math.max(maxY, shapeSize.getHeight());

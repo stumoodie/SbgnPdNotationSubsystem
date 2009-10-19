@@ -142,6 +142,22 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 			+ "[0 xoffset 0 yoffset 1.00 xoffset 0 yoffset 0.70 xoffset 0.50 yoffset 1.00 xoffset 1.00 yoffset 0 xoffset 1.00 yoffset 0.30 xoffset 0.50 yoffset] pgon";
 	private static final String PROCESS_DEFN =
+//		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
+//		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
+//		+ ":vertFlag\n"
+//		+ "{"
+//		+ "0.50 xoffset 0 yoffset 0.50 xoffset 0.20 yoffset line\n"
+//		+ "0.50 xoffset 0.8 yoffset 0.50 xoffset 1.00 yoffset line\n"
+//		+ "0.2 xoffset 0.2 yoffset 0.6 w mul 0.6 h mul rect\n"
+//		+ "[0.2 xoffset 0.5 yoffset 0.8 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n"
+//		+ "}"
+//		+ "{"
+//		+ "0 xoffset 0.50 yoffset 0.20 xoffset 0.50 yoffset line\n"
+//		+ "1.0 xoffset 0.50 yoffset 0.80 xoffset 0.50 yoffset line\n"
+//		+ "0.2 xoffset 0.2 yoffset 0.6 w mul 0.6 h mul rect\n"
+//		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.2 yoffset 0.5 xoffset 0.8 yoffset] (S) setanchor\n"
+//		+ "}"
+//		+  "ifelse\n";
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 		+ "0 xoffset y w h rect\n"
@@ -152,7 +168,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
 		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
 		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
-		+  "ifelse\n";
+		+ "ifelse\n";
 	private static final String OMITTED_PROCESS_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
