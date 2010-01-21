@@ -59,11 +59,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"grestore\n" +
 		"} def\n" +
 		":cardinality 1 gt {\n" +
-		"0.10 xoffset 0.10 yoffset 0.90 w mul 0.90 w mul oval\n" +
-		"0 xoffset 0 yoffset 0.90 w mul 0.90 w mul oval\n" +
+		"0.10 xoffset 0.10 yoffset 0.90 w mul 0.90 h mul oval\n" +
+		"0 xoffset 0 yoffset 0.90 w mul 0.90 h mul oval\n" +
 		"0.25 0.05 :cardFontSize :cardinality cardinalityBox\n" +
 		"}\n" +
-		"{ x y w w oval } ifelse";
+		"{ x y w h oval } ifelse";
 	private static final String UNSPECIFIED_ENTITY_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
