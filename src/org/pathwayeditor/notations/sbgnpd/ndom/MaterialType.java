@@ -11,14 +11,17 @@ public final class MaterialType implements IControlledVocabulary {
 		this.sboTerm = sboTerm;
 	}
 	
+	@Override
 	public String getSboTerm(){
 		return this.sboTerm;
 	}
 	
+	@Override
 	public String getLabel(){
 		return this.label;
 	}
 	
+	@Override
 	public String getName(){
 		return this.namel;
 	}

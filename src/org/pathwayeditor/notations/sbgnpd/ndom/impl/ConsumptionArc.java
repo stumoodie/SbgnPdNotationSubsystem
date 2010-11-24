@@ -20,22 +20,27 @@ public class ConsumptionArc extends PdElement implements IConsumptionArc {
 		this.processNode = processNode;
 	}
 
+	@Override
 	public IConsumeableNode getConsumableNode() {
 		return this.consumable;
 	}
 
+	@Override
 	public IProcessNode getProcess() {
 		return this.processNode;
 	}
 
+	@Override
 	public int getStoichiometry() {
 		return stoichiometry;
 	}
 
+	@Override
 	public void setStoichiometry(int stoichiometry) {
 		this.stoichiometry = stoichiometry;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitConsumptionArc(this);
 	}

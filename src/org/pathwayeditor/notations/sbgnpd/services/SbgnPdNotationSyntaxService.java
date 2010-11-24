@@ -20,16 +20,18 @@ import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyD
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
+import org.pathwayeditor.businessobjects.typedefn.ILabelObjectType;
 import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType;
+import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
+import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IObjectType;
 import org.pathwayeditor.businessobjects.typedefn.IRootObjectType;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
-import org.pathwayeditor.businessobjects.typedefn.ILinkObjectType.LinkEditableAttributes;
-import org.pathwayeditor.businessobjects.typedefn.ILinkTerminusDefinition.LinkTermEditableAttributes;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType.EditableShapeAttributes;
 import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.BooleanPropertyDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.IntegerPropertyDefinition;
+import org.pathwayeditor.notationsubsystem.toolkit.definition.LabelObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkTerminusDefinition;
 import org.pathwayeditor.notationsubsystem.toolkit.definition.NumberPropertyDefinition;
@@ -276,6 +278,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 			+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
 			+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
 			+  "ifelse\n";
+	private static final int NAME_LABEL_UID = 1001;
+	private static final int STOICH_LABEL_UID = 1002;
+	private static final int STATE_LABEL_UID = 1003;
+	private static final int UNIT_INFO_LABEL_UID = 1004;
+	
 //	private static final String OR_SHAPE_V_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 //		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 //		+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n" 
@@ -288,47 +295,62 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private RootObjectType rmo;
 	// shapes
-	private ShapeObjectType State;
-	private ShapeObjectType UnitOfInf;
-	private ShapeObjectType Compartment;
-	private ShapeObjectType Complex;
-	private ShapeObjectType nucleicAcidFeature;
-	private ShapeObjectType Macromolecule;
-	private ShapeObjectType SimpleChem;
-	private ShapeObjectType UnspecEntity;
-	private ShapeObjectType Sink;
-	private ShapeObjectType Source;
-	private ShapeObjectType PerturbingAgent;
-	private ShapeObjectType Phenotype;
-	private ShapeObjectType Process;
+	private final ShapeObjectType State;
+	private final ShapeObjectType UnitOfInf;
+	private final ShapeObjectType Compartment;
+	private final ShapeObjectType Complex;
+	private final ShapeObjectType nucleicAcidFeature;
+	private final ShapeObjectType Macromolecule;
+	private final ShapeObjectType SimpleChem;
+	private final ShapeObjectType UnspecEntity;
+	private final ShapeObjectType Sink;
+	private final ShapeObjectType Source;
+	private final ShapeObjectType PerturbingAgent;
+	private final ShapeObjectType Phenotype;
+	private final ShapeObjectType Process;
 //	private ShapeObjectType ProcessV;
-	private ShapeObjectType OmittedProcess;
-	private ShapeObjectType UncertainProcess;
-	private ShapeObjectType Association;
-	private ShapeObjectType Dissociation;
-	private ShapeObjectType AndGate;
-	private ShapeObjectType OrGate;
+	private final ShapeObjectType OmittedProcess;
+	private final ShapeObjectType UncertainProcess;
+	private final ShapeObjectType Association;
+	private final ShapeObjectType Dissociation;
+	private final ShapeObjectType AndGate;
+	private final ShapeObjectType OrGate;
 //	private ShapeObjectType OrGateV;
-	private ShapeObjectType NotGate;
+	private final ShapeObjectType NotGate;
 
 	// links
-	private LinkObjectType Consumption;
-	private LinkObjectType Production;
-	private LinkObjectType Modulation;
-	private LinkObjectType Stimulation;
-	private LinkObjectType Catalysis;
-	private LinkObjectType Inhibition;
-	private LinkObjectType Trigger;
-	private LinkObjectType LogicArc;
+	private final LinkObjectType Consumption;
+	private final LinkObjectType Production;
+	private final LinkObjectType Modulation;
+	private final LinkObjectType Stimulation;
+	private final LinkObjectType Catalysis;
+	private final LinkObjectType Inhibition;
+	private final LinkObjectType Trigger;
+	private final LinkObjectType LogicArc;
 
-	private INotationSubsystem serviceProvider;
+	private final INotationSubsystem serviceProvider;
+	private final Map<IPropertyDefinition, ILabelObjectType> labelPropMap;
+	private final LabelObjectType unitOfInfoLabelObjectType = new LabelObjectType(this, UNIT_INFO_LABEL_UID, "UnitOfInformationLabel");
+	private final PlainTextPropertyDefinition nameLabelPropertyDefinition = new PlainTextPropertyDefinition("name", "Name");
+	private final LabelObjectType nameLabelObjectType = new LabelObjectType(this, NAME_LABEL_UID, "NameLabel");
+	private final IntegerPropertyDefinition stoichiometryPropertyDefinition = new IntegerPropertyDefinition("stoich", 1);
+	private final LabelObjectType stoichiometryLabelObjectType = new LabelObjectType(this, STOICH_LABEL_UID, "StoichiometryLabelUid");
+	private final PlainTextPropertyDefinition stateValuePropertyDescription = new PlainTextPropertyDefinition("stateValue", "?");
+	private final LabelObjectType stateValueLabelObjectType = new LabelObjectType(this, STATE_LABEL_UID, "stateLabel");
+	private final PlainTextPropertyDefinition unitOfInfoPropertyDescription = new PlainTextPropertyDefinition("unitOfInfo", "Info");
 
 	public SbgnPdNotationSyntaxService(INotationSubsystem serviceProvider) {
 		this.serviceProvider = serviceProvider;
 		this.context = serviceProvider.getNotation();
+		this.labelPropMap = new HashMap<IPropertyDefinition, ILabelObjectType>();
 		// "SBGN-PD"
 		// "SBGN process diagram language context"
 		// 1_0_0
+		createNameProperty();
+		createStoichiometryProperty();
+		createStateValueProperty();
+		createUnitOfInformationValueProperty();
+		
 		createRMO();
 		// shapes
 		this.State = new ShapeObjectType(this, 10, "State");
@@ -573,17 +595,19 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	}
 
+	private void createStateValueProperty(){
+		stateValuePropertyDescription.setEditable(true);
+		stateValuePropertyDescription.setDisplayName("Value");
+		stateValueLabelObjectType.getDefaultAttributes().setNoBorder(true);
+		stateValueLabelObjectType.getDefaultAttributes().setNoFill(true);
+		stateValueLabelObjectType.getDefaultAttributes().setMinimumSize(new Dimension(30, 30));
+		this.labelPropMap.put(stateValuePropertyDescription, stateValueLabelObjectType);
+	}
+	
 	private void createState() {
 		this.State.setDescription("State decription.");
-		this.State.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
-		PlainTextPropertyDefinition stateDescnProp = new PlainTextPropertyDefinition("stateValue", "?");
-		stateDescnProp.setAlwaysDisplayed(true);
-		stateDescnProp.setEditable(true);
-		stateDescnProp.setDisplayName("Value");
-		stateDescnProp.getLabelDefaults().setNoBorder(true);
-		stateDescnProp.getLabelDefaults().setNoFill(true);
-		stateDescnProp.getLabelDefaults().setMinimumSize(new Dimension(30, 30));
-		this.State.getDefaultAttributes().addPropertyDefinition(stateDescnProp);
+//		this.State.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
+		this.State.getDefaultAttributes().addPropertyDefinition(this.stateValuePropertyDescription);
 		this.State.getDefaultAttributes().setShapeDefinition(STATE_DEFN);
 		this.State.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.State.getDefaultAttributes().setLineWidth(1);
@@ -615,14 +639,21 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	public ShapeObjectType getState() {
 		return this.State;
 	}
+	
+	private void createUnitOfInformationValueProperty(){
+		//		infoDescnProp.setAlwaysDisplayed(true);
+		unitOfInfoPropertyDescription.setEditable(true);
+		unitOfInfoPropertyDescription.setDisplayName("Information");
+		this.unitOfInfoLabelObjectType.setAlwaysDisplayed(true);
+		this.unitOfInfoLabelObjectType.getDefaultAttributes().setNoFill(true);
+		this.unitOfInfoLabelObjectType.getDefaultAttributes().setNoBorder(true);
+		this.labelPropMap.put(unitOfInfoPropertyDescription, unitOfInfoLabelObjectType);
+	}
 
 	private void createUnitOfInf() {
 		this.UnitOfInf.setDescription("Unit of information");
-		PlainTextPropertyDefinition infoDescnProp = new PlainTextPropertyDefinition("unitOfInfo", "Info");
-		infoDescnProp.setAlwaysDisplayed(true);
-		infoDescnProp.setEditable(true);
-		infoDescnProp.setDisplayName("Information");
-		this.UnitOfInf.getDefaultAttributes().addPropertyDefinition(infoDescnProp);
+		
+		this.UnitOfInf.getDefaultAttributes().addPropertyDefinition(this.unitOfInfoPropertyDescription);
 		this.UnitOfInf.getDefaultAttributes().setShapeDefinition(UNIT_OF_INFO_DEFN);
 		this.UnitOfInf.getDefaultAttributes().setFillColour(RGB.WHITE);
 		this.UnitOfInf.getDefaultAttributes().setSize(new Dimension(45, 25));
@@ -656,7 +687,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createCompartment() {
 		this.Compartment.setDescription("Compartment");
-		this.Compartment.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Compartment.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createCompartmentVolumeProperty());
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Compartment.getDefaultAttributes().setShapeDefinition(COMPARTMENT_DEFN);
@@ -706,7 +737,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private NumberPropertyDefinition createCardFontSizeProperty(){
 		NumberPropertyDefinition cardFontSizeProp = new NumberPropertyDefinition("cardFontSize", new BigDecimal(12.0));
-		cardFontSizeProp.setVisualisable(false);
+//		cardFontSizeProp.setVisualisable(false);
 		cardFontSizeProp.setEditable(true);
 		cardFontSizeProp.setDisplayName("Cardinality Font Size");
 		return cardFontSizeProp;
@@ -714,7 +745,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private IntegerPropertyDefinition createCardinalityProperty(){
 		IntegerPropertyDefinition cardinalityProp = new IntegerPropertyDefinition("cardinality", 1);
-		cardinalityProp.setVisualisable(false);
+//		cardinalityProp.setVisualisable(false);
 		cardinalityProp.setEditable(true);
 		cardinalityProp.setDisplayName("Cardinality");
 //		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
@@ -727,34 +758,33 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	}
 	
 	
-	private IntegerPropertyDefinition createStoichiometryProperty(){
-		IntegerPropertyDefinition cardinalityProp = new IntegerPropertyDefinition("stoich", 1);
-		cardinalityProp.setVisualisable(true);
-		cardinalityProp.setEditable(true);
-		cardinalityProp.setDisplayName("Stoichiometry");
-		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
-		cardinalityProp.getLabelDefaults().setFillColour(RGB.WHITE);
-		cardinalityProp.getLabelDefaults().setLineColour(RGB.BLACK);
-		cardinalityProp.getLabelDefaults().setNoFill(false);
-		cardinalityProp.getLabelDefaults().setNoBorder(false);
-		cardinalityProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
-		return cardinalityProp;
+	private void createStoichiometryProperty(){
+		//		cardinalityProp.setVisualisable(true);
+		stoichiometryPropertyDefinition.setEditable(true);
+		stoichiometryPropertyDefinition.setDisplayName("Stoichiometry");
+		stoichiometryLabelObjectType.getDefaultAttributes().setLineWidth(1.0);
+		stoichiometryLabelObjectType.getDefaultAttributes().setFillColour(RGB.WHITE);
+		stoichiometryLabelObjectType.getDefaultAttributes().setLineColour(RGB.BLACK);
+		stoichiometryLabelObjectType.getDefaultAttributes().setNoFill(false);
+		stoichiometryLabelObjectType.getDefaultAttributes().setNoBorder(false);
+		stoichiometryLabelObjectType.getDefaultAttributes().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
+		this.labelPropMap.put(stoichiometryPropertyDefinition, stoichiometryLabelObjectType);
 	}
 	
 	
-	private IPlainTextPropertyDefinition createNameProperty(){
-		PlainTextPropertyDefinition nameProp = new PlainTextPropertyDefinition("name", "Name");
-		nameProp.setAlwaysDisplayed(true);
-		nameProp.setEditable(true);
-		nameProp.setDisplayName("Name");
-		nameProp.getLabelDefaults().setNoFill(true);
-		nameProp.getLabelDefaults().setNoBorder(true);
-		return nameProp;
+	private void createNameProperty(){
+		nameLabelObjectType.setAlwaysDisplayed(true);
+//		nameProp.setAlwaysDisplayed(true);
+		nameLabelPropertyDefinition.setEditable(true);
+		nameLabelPropertyDefinition.setDisplayName("Name");
+		nameLabelObjectType.getDefaultAttributes().setNoFill(true);
+		nameLabelObjectType.getDefaultAttributes().setNoBorder(true);
+		this.labelPropMap.put(nameLabelPropertyDefinition, nameLabelObjectType);
 	}
 	
 	private IntegerPropertyDefinition createEntityCountProperty(){
 		IntegerPropertyDefinition retVal = new IntegerPropertyDefinition("entityCount", 0);
-		retVal.setVisualisable(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDisplayName("Entity Count");
 		return retVal;
@@ -762,8 +792,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private IPlainTextPropertyDefinition createForwardRateEquationProperty(){
 		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("fwdRate", "");
-		retVal.setAlwaysDisplayed(false);
-		retVal.setVisualisable(false);
+//		retVal.setAlwaysDisplayed(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDisplayName("Forward Rate");
 		return retVal;
@@ -771,8 +801,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private IPlainTextPropertyDefinition createExportNameProperty(){
 		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("exportName", "");
-		retVal.setAlwaysDisplayed(false);
-		retVal.setVisualisable(false);
+//		retVal.setAlwaysDisplayed(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDisplayName("Export Name");
 		return retVal;
@@ -780,8 +810,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private IPlainTextPropertyDefinition createReverseRateEquationProperty(){
 		PlainTextPropertyDefinition retVal = new PlainTextPropertyDefinition("revRate", "");
-		retVal.setAlwaysDisplayed(false);
-		retVal.setVisualisable(false);
+//		retVal.setAlwaysDisplayed(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDisplayName("Reverse Rate");
 		return retVal;
@@ -789,7 +819,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private INumberPropertyDefinition createCompartmentVolumeProperty(){
 		NumberPropertyDefinition retVal = new NumberPropertyDefinition("compVol", BigDecimal.ZERO);
-		retVal.setVisualisable(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDisplayName("Volume (nL)");
 		return retVal;
@@ -797,7 +827,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	
 	private void createComplex() {
 		this.Complex.setDescription("Complex");
-		this.Complex.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Complex.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
@@ -842,7 +872,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createNucleicAcidFeature() {
 		this.nucleicAcidFeature.setDescription("Nucleic Acid Feature");
-		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
@@ -885,7 +915,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createMacromolecule() {
 		this.Macromolecule.setDescription("Macromolecule");
-		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Macromolecule.getDefaultAttributes().setShapeDefinition(MACROMOLECULE_DEFN);
@@ -930,7 +960,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createSimpleChem() {
 		this.SimpleChem.setDescription("Simple chemical");
-		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardinalityProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createCardFontSizeProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
@@ -974,7 +1004,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createUnspecEntity() {
 		this.UnspecEntity.setDescription("Unspecified entity");
-		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.UnspecEntity.getDefaultAttributes().setShapeDefinition(UNSPECIFIED_ENTITY_DEFN);
@@ -1089,7 +1119,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private void createPerturbingAgent() {
 		this.PerturbingAgent.setDescription("Perturbing Agent");
-		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.PerturbingAgent.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
 		this.PerturbingAgent.getDefaultAttributes().setFillColour(RGB.WHITE);
@@ -1127,7 +1157,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Phenotype.setDescription("Phenotype");
 		this.Phenotype.getDefaultAttributes().setShapeDefinition(PHENOTYPE_DEFN);
 		this.Phenotype.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
-		this.Phenotype.getDefaultAttributes().addPropertyDefinition(createNameProperty());
+		this.Phenotype.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.Phenotype.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
 		this.Phenotype.getDefaultAttributes().setLineColour(RGB.BLACK);
 		this.Phenotype.getDefaultAttributes().setSize(new Dimension(80, 60));
@@ -1192,8 +1222,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	private IPropertyDefinition createVerticalAlignmentProperty() {
 		BooleanPropertyDefinition retVal = new BooleanPropertyDefinition("vertFlag", true);
-		retVal.setAlwaysDisplayed(false);
-		retVal.setVisualisable(false);
+//		retVal.setAlwaysDisplayed(false);
+//		retVal.setVisualisable(false);
 		retVal.setEditable(true);
 		retVal.setDefaultValue(Boolean.FALSE);
 		retVal.setDisplayName("Vertical Lugs?");
@@ -1477,7 +1507,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		Set<IShapeObjectType> set = null;
 		this.Consumption.setDescription("Consumption arc.");
 		this.Consumption.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
-		this.Consumption.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
+		this.Consumption.getDefaultAttributes().addPropertyDefinition(this.stoichiometryPropertyDefinition);
 		this.Consumption.getDefaultAttributes().setLineWidth(1);
 		this.Consumption.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Consumption.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1504,17 +1534,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 0);
@@ -1522,17 +1547,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -1594,7 +1614,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private void createProduction() {
 		Set<IShapeObjectType> set = null;
 		this.Production.setDescription("Production arc.");
-		this.Production.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
+		this.Production.getDefaultAttributes().addPropertyDefinition(this.stoichiometryPropertyDefinition);
 		this.Production.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Production.getDefaultAttributes().setLineWidth(1);
 		this.Production.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
@@ -1627,17 +1647,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 5);
@@ -1646,17 +1661,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -1744,17 +1754,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 5);
@@ -1763,17 +1768,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -1861,17 +1861,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 5);
@@ -1880,17 +1875,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -1999,17 +1989,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 10);
@@ -2018,17 +2003,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -2134,17 +2114,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 10);
@@ -2153,17 +2128,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -2251,17 +2221,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 5);
@@ -2270,17 +2235,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -2368,17 +2328,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editablesportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// sport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editablesportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// sport.getDefaultAttributes().setColourEditable(true);
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 0);
@@ -2387,17 +2342,12 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
-						LinkTermEditableAttributes.OFFSET,
-						LinkTermEditableAttributes.TERM_DECORATOR_TYPE,
-						LinkTermEditableAttributes.TERM_SIZE);
+						LinkTermEditableAttributes.OFFSET);
 		if (true) {
 			editabletportAttributes
 					.add(LinkTermEditableAttributes.END_DECORATOR_TYPE);
 		}
 		// tport.getDefaultAttributes().setShapeTypeEditable(true);
-		if (true) {
-			editabletportAttributes.add(LinkTermEditableAttributes.TERM_COLOUR);
-		}
 		// tport.getDefaultAttributes().setColourEditable(true);
 		tport.setEditableAttributes(editabletportAttributes);
 
@@ -2463,6 +2413,25 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 
 	public LinkObjectType getLogicArc() {
 		return this.LogicArc;
+	}
+
+	public ILabelObjectType getLabelObjectType(int uniqueId) {
+		ILabelObjectType retVal = null;
+		for(ILabelObjectType labelObjectType : this.labelPropMap.values()){
+			if(labelObjectType.getUniqueId() == uniqueId){
+				retVal = labelObjectType;
+				break;
+			}
+		}
+		return retVal;
+	}
+
+	public ILabelObjectType getLabelObjectTypeByProperty(IPropertyDefinition propDefn) {
+		return this.labelPropMap.get(propDefn);
+	}
+
+	public boolean isVisualisableProperty(IPropertyDefinition propDefn) {
+		return this.labelPropMap.containsKey(propDefn);
 	}
 
 }

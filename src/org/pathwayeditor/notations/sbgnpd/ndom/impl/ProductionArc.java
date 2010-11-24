@@ -19,22 +19,27 @@ public class ProductionArc extends PdElement implements IProductionArc {
 		this.process = processNode;
 	}
 
+	@Override
 	public IProduceableNode getProductionNode() {
 		return this.produceable;
 	}
 
+	@Override
 	public IProcessNode getProcess() {
 		return this.process;
 	}
 
+	@Override
 	public int getStoichiometry() {
 		return stoichiometry;
 	}
 
+	@Override
 	public void setStoichiometry(int stoichiometry) {
 		this.stoichiometry = stoichiometry;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitProductionArc(this);
 	}

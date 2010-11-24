@@ -11,6 +11,7 @@ public class UnspecifiedEntityNode extends QuantifiableEntityPoolNode implements
 		super(identifier, container, name, SBO_TERM, asciiName);
 	}
 
+	@Override
 	protected void visitQuantifiedEpnChild(IPdElementVisitor visitor) {
 		visitor.visitUnspecifiedEntity(this);
 	}

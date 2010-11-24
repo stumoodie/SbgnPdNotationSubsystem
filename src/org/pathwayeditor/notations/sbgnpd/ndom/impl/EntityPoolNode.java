@@ -15,6 +15,7 @@ public abstract class EntityPoolNode extends PdElement implements IEntityPoolNod
 		this.compartment = compartment;
 	}
 	
+	@Override
 	public final ICompartmentNode getCompartment() {
 		return this.compartment.getCompartment();
 	}
@@ -27,6 +28,7 @@ public abstract class EntityPoolNode extends PdElement implements IEntityPoolNod
 		this.cardinality = cardVal;
 	}
 	
+	@Override
 	public final void visit(IPdElementVisitor visitor){
 		visitEpnChild(visitor);
 	}

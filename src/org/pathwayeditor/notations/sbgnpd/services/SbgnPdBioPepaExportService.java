@@ -2,7 +2,7 @@ package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.io.File;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationExportService;
@@ -19,7 +19,8 @@ public class SbgnPdBioPepaExportService implements INotationExportService {
 		this.controller = new SbgnTextExportController();
 	}
 	
-	public void exportMap(ICanvas canvas, File exportFile) throws ExportServiceException {
+	@Override
+	public void exportMap(IModel canvas, File exportFile) throws ExportServiceException {
 		if(exportFile.getParentFile().canWrite()
 				&& ((exportFile.exists() && exportFile.canWrite()) || !exportFile.exists())){
 			this.controller.setExportFile(exportFile);
@@ -31,22 +32,27 @@ public class SbgnPdBioPepaExportService implements INotationExportService {
 		}
 	}
 
+	@Override
 	public String getCode() {
 		return "sbgntext";
 	}
 
+	@Override
 	public String getDisplayName() {
 		return "SBGN textual mapping";
 	}
 
+	@Override
 	public String getRecommendedSuffix() {
 		return "sbt";
 	}
 
+	@Override
 	public INotation getNotation() {
 		return this.subsystem.getNotation();
 	}
 
+	@Override
 	public INotationSubsystem getNotationSubsystem() {
 		return this.subsystem;
 	}

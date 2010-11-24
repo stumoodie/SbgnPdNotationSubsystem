@@ -14,14 +14,17 @@ public class MacromoleculeNode extends StatefulEntityPoolNode implements IMacrom
 		super(compartment, name, identifier, SBO_TERM, asciiName);
 	}
 
+	@Override
 	public MaterialType getMaterialType() {
 		return this.materialType;
 	}
 
+	@Override
 	public void setMaterialType(MaterialType type) {
 		this.materialType = type;
 	}
 
+	@Override
 	protected void visitStatefuleEpnChild(IPdElementVisitor visitor) {
 		visitor.visitMacromolecule(this);
 	}

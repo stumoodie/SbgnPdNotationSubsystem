@@ -6,17 +6,21 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdgeFactory;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.drawingprimitives.IRootNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IAnnotatedObject;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IIntegerAnnotationProperty;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextAnnotationProperty;
-import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
+import org.pathwayeditor.businessobjects.impl.facades.LinkEdgeFactoryFacade;
+import org.pathwayeditor.businessobjects.impl.facades.RootNodeFacade;
+import org.pathwayeditor.businessobjects.impl.facades.ShapeNodeFactoryFacade;
+import org.pathwayeditor.businessobjects.management.IModelFactory;
+import org.pathwayeditor.businessobjects.management.ModelFactory;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.notations.sbgnpd.export.sbgntext.SbgnTextExportController;
@@ -33,14 +37,14 @@ public class BioPepaExportControllerTest {
 	private SbgnTextExportController testInstance;
 	private File testFile;
 
-	private ICanvas createTestCanvas(){
+	private IModel createTestCanvas(){
 		SbgnPdNotationSubsystem sbgnSubsystem = new SbgnPdNotationSubsystem();
 		SbgnPdNotationSyntaxService sbgnSyntax = sbgnSubsystem.getSyntaxService();
-		NonPersistentCanvasFactory canvasFact = NonPersistentCanvasFactory.getInstance();
+		IModelFactory canvasFact = new ModelFactory();
 		canvasFact.setNotationSubsystem(sbgnSubsystem);
-		canvasFact.setCanvasName(CANVAS_NAME);
-		ICanvas canvas = canvasFact.createNewCanvas();
-		IRootNode root = canvas.getModel().getRootNode();
+		canvasFact.setName(CANVAS_NAME);
+		IModel canvas = canvasFact.createModel();
+		IRootNode root = new RootNodeFacade(canvas.getGraph().getRoot());
 		IShapeNode cmpt = createShapeNode(root, sbgnSyntax.getCompartment());
 		IShapeNode mm1 = createShapeNode(cmpt, sbgnSyntax.getMacromolecule());
 		setIntegerProperty(mm1.getAttribute(), EPN_COUNT_PROP_NAME, 100);
@@ -75,7 +79,7 @@ public class BioPepaExportControllerTest {
 	
 	
 	private static ILinkEdge createLinkEdge(IShapeNode source, IShapeNode target, LinkObjectType type) {
-		ILinkEdgeFactory linkFact = source.getModel().linkEdgeFactory();
+		ILinkEdgeFactory linkFact = new LinkEdgeFactoryFacade(source.getGraphElement().getGraph().edgeFactory());
 		linkFact.setShapeNodePair(source, target);
 		linkFact.setObjectType(type);
 		return linkFact.createLinkEdge();
@@ -83,7 +87,7 @@ public class BioPepaExportControllerTest {
 
 
 	private static IShapeNode createShapeNode(IDrawingNode parent, IShapeObjectType objectType){
-		IShapeNodeFactory shapeFact = parent.getSubModel().shapeNodeFactory();
+		IShapeNodeFactory shapeFact = new ShapeNodeFactoryFacade(parent.getGraphElement().getChildCompoundGraph().nodeFactory());
 		shapeFact.setObjectType(objectType);
 		IShapeNode cmpt = shapeFact.createShapeNode();
 		return cmpt;
@@ -94,7 +98,7 @@ public class BioPepaExportControllerTest {
 		this.testInstance = new SbgnTextExportController();
 		this.testFile = File.createTempFile("foo", "txt");
 		this.testInstance.setExportFile(testFile);
-		ICanvas canvasToExport = createTestCanvas();
+		IModel canvasToExport = createTestCanvas();
 		this.testInstance.setCanvasToExport(canvasToExport);
 	}
 

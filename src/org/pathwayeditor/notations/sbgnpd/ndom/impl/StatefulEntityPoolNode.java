@@ -21,16 +21,19 @@ public abstract class StatefulEntityPoolNode extends QuantifiableEntityPoolNode 
 		this(compartmentNode, NO_NAME, identifier, sboTerm, asciiName);
 	}
 	
+	@Override
 	public IStateDescription createStateDescription(int identifier, String name, String value) {
 		IStateDescription retVal = new StateDescription(identifier, name, value);
 		this.stateDescriptions.add(retVal);
 		return retVal;
 	}
 
+	@Override
 	public final Set<IStateDescription> getStateDescriptions() {
 		return new HashSet<IStateDescription>(this.stateDescriptions);
 	}
 
+	@Override
 	protected final void visitQuantifiedEpnChild(IPdElementVisitor visitor){
 		for(IStateDescription state : this.stateDescriptions){
 			state.visit(visitor);

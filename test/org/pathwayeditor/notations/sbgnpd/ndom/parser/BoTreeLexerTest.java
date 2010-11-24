@@ -11,13 +11,17 @@ import java.util.NoSuchElementException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdgeFactory;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
-import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
+import org.pathwayeditor.businessobjects.impl.facades.LinkEdgeFactoryFacade;
+import org.pathwayeditor.businessobjects.impl.facades.RootNodeFacade;
+import org.pathwayeditor.businessobjects.impl.facades.ShapeNodeFactoryFacade;
+import org.pathwayeditor.businessobjects.management.IModelFactory;
+import org.pathwayeditor.businessobjects.management.ModelFactory;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.IToken.TreeTokenType;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
@@ -26,7 +30,7 @@ import org.pathwayeditor.notationsubsystem.toolkit.definition.LinkObjectType;
 
 public class BoTreeLexerTest {
 	private static final String CANVAS_NAME = "testCanvas";
-	private ICanvas canvas;
+	private IModel canvas;
 	private SbgnPdNotationSyntaxService sbgnSyntax;
 	private ITreeLexer testInstance;
 	
@@ -34,11 +38,11 @@ public class BoTreeLexerTest {
 	public void setUp() throws Exception {
 		SbgnPdNotationSubsystem sbgnSubsystem = new SbgnPdNotationSubsystem();
 		this.sbgnSyntax = sbgnSubsystem.getSyntaxService();
-		NonPersistentCanvasFactory canvasFact = NonPersistentCanvasFactory.getInstance();
+		IModelFactory canvasFact = new ModelFactory();
 		canvasFact.setNotationSubsystem(sbgnSubsystem);
-		canvasFact.setCanvasName(CANVAS_NAME);
-		this.canvas = canvasFact.createNewCanvas();
-		IShapeNode cmpt = createShapeNode(this.canvas.getModel().getRootNode(), this.sbgnSyntax.getCompartment());
+		canvasFact.setName(CANVAS_NAME);
+		this.canvas = canvasFact.createModel();
+		IShapeNode cmpt = createShapeNode(new RootNodeFacade(this.canvas.getGraph().getRoot()), this.sbgnSyntax.getCompartment());
 		IShapeNode mm1 = createShapeNode(cmpt, this.sbgnSyntax.getMacromolecule());
 		createShapeNode(mm1, this.sbgnSyntax.getState());
 		createShapeNode(mm1, this.sbgnSyntax.getUnitOfInf());
@@ -55,7 +59,7 @@ public class BoTreeLexerTest {
 	
 	
 	private static ILinkEdge createLinkEdge(IShapeNode source, IShapeNode target, LinkObjectType type) {
-		ILinkEdgeFactory linkFact = source.getModel().linkEdgeFactory();
+		ILinkEdgeFactory linkFact = new LinkEdgeFactoryFacade(source.getGraphElement().getGraph().edgeFactory());
 		linkFact.setShapeNodePair(source, target);
 		linkFact.setObjectType(type);
 		return linkFact.createLinkEdge();
@@ -63,7 +67,7 @@ public class BoTreeLexerTest {
 
 
 	private static IShapeNode createShapeNode(IDrawingNode parent, IShapeObjectType objectType){
-		IShapeNodeFactory shapeFact = parent.getSubModel().shapeNodeFactory();
+		IShapeNodeFactory shapeFact = new ShapeNodeFactoryFacade(parent.getGraphElement().getChildCompoundGraph().nodeFactory());
 		shapeFact.setObjectType(objectType);
 		IShapeNode cmpt = shapeFact.createShapeNode();
 		return cmpt;

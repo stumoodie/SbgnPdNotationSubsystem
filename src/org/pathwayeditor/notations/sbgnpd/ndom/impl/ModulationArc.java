@@ -24,18 +24,22 @@ public class ModulationArc extends PdElement implements IModulationArc {
 		return "SBO:9999";
 	}
 	
+	@Override
 	public IModulateableNode getModulatedNode() {
 		return this.processNode;
 	}
 
+	@Override
 	public IModulatingNode getModulator() {
 		return this.modulatingNode;
 	}
 
+	@Override
 	public ModulatingArcType getType(){
 		return this.type;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitModulationArc(this);
 	}

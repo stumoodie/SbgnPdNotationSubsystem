@@ -48,55 +48,65 @@ public class MapDiagram implements IMapDiagram {
 	}
 	
 	
+	@Override
 	public ISinkNode createSinkNode(int identifier, String asciiName) {
 		return this.defaultCompartment.createSinkNode(identifier, asciiName);
 	}
 
 
+	@Override
 	public ISourceNode createSourceNode(int identifier, String asciiName) {
 		return this.defaultCompartment.createSourceNode(identifier, asciiName);
 	}
 
 
+	@Override
 	public Iterator<IEntityPoolNode> nodeIterator() {
 		return this.defaultCompartment.nodeIterator();
 	}
 
 
+	@Override
 	public ICompartmentNode createCompartmentNode(int identifier, String name, String asciiName) {
 		CompartmentNode retVal = new CompartmentNode(this, identifier, name, asciiName);
 		this.compartments.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
+	@Override
 	public ILogicOperatorNode createLogicOperatorNode(int identifier, String asciiName, LogicOperatorType type) {
 		LogicOperatorNode retVal = new LogicOperatorNode(identifier, asciiName, type);
 		return retVal;
 	}
 
 
+	@Override
 	public IPhenotypeNode createPhenotypeNode(int identifier, String name, String asciiName) {
 		PhenotypeNode retVal = new PhenotypeNode(identifier, name, asciiName);
 		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
+	@Override
 	public IProcessNode createProcessNode(int identifier, String asciiName, ProcessNodeType type) {
 		ProcessNode retVal = new ProcessNode(identifier, asciiName, type);
 		this.processMap.put(retVal.getIdentifier(), retVal);
 		return retVal;
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
 
 
+	@Override
 	public Iterator<ICompartmentNode> compartmentIterator() {
 		return this.compartments.values().iterator();
 	}
 
 
+	@Override
 	public int numCompartments() {
 		return this.compartments.size();
 	}
@@ -136,11 +146,13 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	public IComplexNode createComplexNode(int identifier, String asciiName) {
 		return this.defaultCompartment.createComplexNode(identifier, asciiName);
 	}
 
 
+	@Override
 	public IEntityPoolNode getEntityPoolNode(int nodeId) {
 		return this.defaultCompartment.getEntityPoolNode(nodeId);
 	}
@@ -151,36 +163,43 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	public boolean containsEntityPoolNode(int identifier) {
 		return this.defaultCompartment.containsEntityPoolNode(identifier);
 	}
 
 
+	@Override
 	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
 		return this.defaultCompartment.createMacromoleculeNode(identifier, name, asciiName);
 	}
 
 
+	@Override
 	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
 		return this.defaultCompartment.createNucleicAcidFeatureNode(identifier, name, asciiName);
 	}
 
 
+	@Override
 	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
 		return this.defaultCompartment.createSimpleChemicalNode(identifier, name, asciiName);
 	}
 
 
+	@Override
 	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName) {
 		return this.defaultCompartment.createUnspecifiedEntityNode(identifier, name, asciiName);
 	}
 
 
+	@Override
 	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
 		return this.defaultCompartment.createPerturbationNode(identifier, name, asciiName);
 	}
 
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends IEntityPoolNode> T findEntityPoolNode(int identifier) {
 		IEntityPoolNode retVal = null;
@@ -193,22 +212,26 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends IConceptualProcessNode> T findProcessNode(int identifier) {
 		IConceptualProcessNode retVal = this.processMap.get(identifier);
 		return (T)retVal;
 	}
 	
+	@Override
 	public ILogicOperatorNode findLogicalOperatorNode(int identifier){
 		return this.logicOperatorMap.get(identifier);
 	}
 
 
+	@Override
 	public ICompartmentNode getCompartment() {
 		return this.defaultCompartment.getCompartment();
 	}
 
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends IModulatingNode> T findModulatingNode(int identifier) {
 		IEntityPoolNode epn = this.findEntityPoolNode(identifier);
@@ -223,6 +246,7 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends IPdElement> T findElement(int identifier) {
 		IPdElement retVal = this.findEntityPoolNode(identifier);
@@ -239,6 +263,7 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 	
+	@Override
 	public int totalNumEpns() {
 		EpnCounter counter = new EpnCounter();
 		this.visit(counter);
@@ -246,6 +271,7 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	public int totalNumProcesses() {
 		ProcessCounter counter = new ProcessCounter();
 		this.visit(counter);
@@ -253,6 +279,7 @@ public class MapDiagram implements IMapDiagram {
 	}
 
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		for(IConceptualProcessNode processNode: this.processMap.values()){
 			processNode.visit(visitor);
@@ -275,90 +302,108 @@ public class MapDiagram implements IMapDiagram {
 			return this.count;
 		}
 		
+		@Override
 		public void visitCompartment(ICompartmentNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitComplex(IComplexNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitConsumptionArc(IConsumptionArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitLogicArc(ILogicArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitLogicalOperator(ILogicOperatorNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitMacromolecule(IMacromoleculeNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitModulationArc(IModulationArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitNucleicAcidFeature(INucleicAcidFeatureNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitPerturbingAgent(IPerturbationNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitPhenotypeNode(IPhenotypeNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitProcess(IProcessNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitProductionArc(IProductionArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitSimpleChemical(ISimpleChemicalNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitSinkNode(ISinkNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitSource(ISourceNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitStateDescription(IStateDescription pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitUnitOfInformation(IUnitOfInformation pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitUnspecifiedEntity(IUnspecifiedEntityNode pdElement) {
 
 			
@@ -374,82 +419,100 @@ public class MapDiagram implements IMapDiagram {
 			return this.count;
 		}
 		
+		@Override
 		public void visitCompartment(ICompartmentNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitComplex(IComplexNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitConsumptionArc(IConsumptionArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitLogicArc(ILogicArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitLogicalOperator(ILogicOperatorNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitMacromolecule(IMacromoleculeNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitModulationArc(IModulationArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitNucleicAcidFeature(INucleicAcidFeatureNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitPerturbingAgent(IPerturbationNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitPhenotypeNode(IPhenotypeNode pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitProcess(IProcessNode pdElement) {
 		}
 
+		@Override
 		public void visitProductionArc(IProductionArc pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitSimpleChemical(ISimpleChemicalNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitSinkNode(ISinkNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitSource(ISourceNode pdElement) {
 			this.count++;
 		}
 
+		@Override
 		public void visitStateDescription(IStateDescription pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitUnitOfInformation(IUnitOfInformation pdElement) {
 
 			
 		}
 
+		@Override
 		public void visitUnspecifiedEntity(IUnspecifiedEntityNode pdElement) {
 			this.count++;
 		}

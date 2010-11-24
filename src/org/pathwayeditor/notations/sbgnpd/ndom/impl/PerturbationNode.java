@@ -13,14 +13,17 @@ public class PerturbationNode extends QuantifiableEntityPoolNode implements IPer
 		super(identifier, container, name, SBO_TERM, asciiName);
 	}
 	
+	@Override
 	public PhysicalEntityType getPhysicalEntityType() {
 		return this.physicalEntityType;
 	}
 
+	@Override
 	public void setPhysicalEntityType(PhysicalEntityType type) {
 		this.physicalEntityType = type;
 	}
 
+	@Override
 	public void visitQuantifiedEpnChild(IPdElementVisitor visitor) {
 		visitor.visitPerturbingAgent(this);
 	}

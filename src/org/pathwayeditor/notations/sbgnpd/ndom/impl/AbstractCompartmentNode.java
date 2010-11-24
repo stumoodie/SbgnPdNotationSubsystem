@@ -34,76 +34,94 @@ public abstract class AbstractCompartmentNode extends PdElement implements IComp
 		this.uoiHandler = new UnitOfInformationHandler(this);
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	@Override
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
 		return this.uoiHandler.getUnitsOfInformation();
 	}
 
+	@Override
 	public IUnitOfInformation createUnitOfInformation(int identifier,
 			String value) {
 		return uoiHandler.createUnitOfInformation(identifier, value);
 	}
 
+	@Override
 	public boolean containsEntityPoolNode(int identifier) {
 		return epnContainerDelegatee.containsEntityPoolNode(identifier);
 	}
 
+	@Override
 	public IComplexNode createComplexNode(int identifier, String asciiName) {
 		return epnContainerDelegatee.createComplexNode(identifier, asciiName);
 	}
 
+	@Override
 	public IMacromoleculeNode createMacromoleculeNode(int identifier, String name, String asciiName) {
 		return epnContainerDelegatee.createMacromoleculeNode(identifier, name, asciiName);
 	}
 
+	@Override
 	public INucleicAcidFeatureNode createNucleicAcidFeatureNode(int identifier, String name, String asciiName) {
 		return epnContainerDelegatee.createNucleicAcidFeatureNode(identifier, name, asciiName);
 	}
 
+	@Override
 	public IPerturbationNode createPerturbationNode(int identifier, String name, String asciiName) {
 		return epnContainerDelegatee.createPerturbationNode(identifier, name, asciiName);
 	}
 
+	@Override
 	public ISimpleChemicalNode createSimpleChemicalNode(int identifier, String name, String asciiName) {
 		return epnContainerDelegatee.createSimpleChemicalNode(identifier, name, asciiName);
 	}
 
+	@Override
 	public ISinkNode createSinkNode(int identifier, String asciiName) {
 		return epnContainerDelegatee.createSinkNode(identifier, asciiName);
 	}
 
+	@Override
 	public ISourceNode createSourceNode(int identifier, String asciiName) {
 		return epnContainerDelegatee.createSourceNode(identifier, asciiName);
 	}
 
+	@Override
 	public IUnspecifiedEntityNode createUnspecifiedEntityNode(int identifier, String name, String asciiName) {
 		return epnContainerDelegatee.createUnspecifiedEntityNode(identifier, name, asciiName);
 	}
 
+	@Override
 	public IEntityPoolNode getEntityPoolNode(int identifier) {
 		return epnContainerDelegatee.getEntityPoolNode(identifier);
 	}
 
+	@Override
 	public Iterator<IEntityPoolNode> nodeIterator() {
 		return epnContainerDelegatee.nodeIterator();
 	}
 
+	@Override
 	public IMapDiagram getMapDiagram() {
 		return this.map;
 	}
 
+	@Override
 	public final void visit(IPdElementVisitor visitor) {
 		visitor.visitCompartment(this);
 		this.epnContainerDelegatee.visit(visitor);
 	}
 
+	@Override
 	public BigDecimal getVolume() {
 		return volume;
 	}
 
+	@Override
 	public void setVolume(BigDecimal volume) {
 		this.volume = volume;
 	}

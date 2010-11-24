@@ -1,18 +1,24 @@
 package org.pathwayeditor.notations.sbgnpd.ndom.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
 import org.pathwayeditor.businessobjects.drawingprimitives.IDrawingNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdge;
 import org.pathwayeditor.businessobjects.drawingprimitives.ILinkEdgeFactory;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.drawingprimitives.IRootNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNode;
 import org.pathwayeditor.businessobjects.drawingprimitives.IShapeNodeFactory;
-import org.pathwayeditor.businessobjects.management.NonPersistentCanvasFactory;
+import org.pathwayeditor.businessobjects.impl.facades.LinkEdgeFactoryFacade;
+import org.pathwayeditor.businessobjects.impl.facades.RootNodeFacade;
+import org.pathwayeditor.businessobjects.impl.facades.ShapeNodeFactoryFacade;
+import org.pathwayeditor.businessobjects.management.IModelFactory;
+import org.pathwayeditor.businessobjects.management.ModelFactory;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
 import org.pathwayeditor.notations.sbgnpd.ndom.IMapDiagram;
 import org.pathwayeditor.notations.sbgnpd.services.SbgnPdNotationSubsystem;
@@ -24,7 +30,7 @@ public class BoParserTest {
 	private static final int EXPECTED_NUMS_PROCESSES = 1;
 	private static final int EXPECTED_NUM_EPNS = 5;
 	private static final int EXPECTED_NUM_CPTS = 3;
-	private ICanvas canvas;
+	private IModel canvas;
 	private SbgnPdNotationSyntaxService sbgnSyntax;
 	private IBoParser testInstance;
 	private ITreeLexer lexer;
@@ -33,11 +39,11 @@ public class BoParserTest {
 	public void setUp() throws Exception {
 		SbgnPdNotationSubsystem sbgnSubsystem = new SbgnPdNotationSubsystem();
 		this.sbgnSyntax = sbgnSubsystem.getSyntaxService();
-		NonPersistentCanvasFactory canvasFact = NonPersistentCanvasFactory.getInstance();
+		IModelFactory canvasFact = new ModelFactory();
 		canvasFact.setNotationSubsystem(sbgnSubsystem);
-		canvasFact.setCanvasName(CANVAS_NAME);
-		this.canvas = canvasFact.createNewCanvas();
-		IRootNode root = this.canvas.getModel().getRootNode();
+		canvasFact.setName(CANVAS_NAME);
+		this.canvas = canvasFact.createModel();
+		IRootNode root = new RootNodeFacade(this.canvas.getGraph().getRoot());
 		IShapeNode cmpt1 = createShapeNode(root, this.sbgnSyntax.getCompartment());
 		// empty compartment
 		createShapeNode(root, this.sbgnSyntax.getCompartment());
@@ -62,7 +68,7 @@ public class BoParserTest {
 	
 	
 	private static ILinkEdge createLinkEdge(IShapeNode source, IShapeNode target, LinkObjectType type) {
-		ILinkEdgeFactory linkFact = source.getModel().linkEdgeFactory();
+		ILinkEdgeFactory linkFact = new LinkEdgeFactoryFacade(source.getGraphElement().getGraph().edgeFactory());
 		linkFact.setShapeNodePair(source, target);
 		linkFact.setObjectType(type);
 		return linkFact.createLinkEdge();
@@ -70,7 +76,7 @@ public class BoParserTest {
 
 
 	private static IShapeNode createShapeNode(IDrawingNode parent, IShapeObjectType objectType){
-		IShapeNodeFactory shapeFact = parent.getSubModel().shapeNodeFactory();
+		IShapeNodeFactory shapeFact = new ShapeNodeFactoryFacade(parent.getGraphElement().getChildCompoundGraph().nodeFactory());
 		shapeFact.setObjectType(objectType);
 		IShapeNode cmpt = shapeFact.createShapeNode();
 		return cmpt;

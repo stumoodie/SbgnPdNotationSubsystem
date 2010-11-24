@@ -11,6 +11,7 @@ public class SimpleChemicalNode extends QuantifiableEntityPoolNode implements IS
 		super(identifier, container, name, SBO_TERM, asciiName);
 	}
 
+	@Override
 	public void visitQuantifiedEpnChild(IPdElementVisitor visitor) {
 		visitor.visitSimpleChemical(this);
 	}

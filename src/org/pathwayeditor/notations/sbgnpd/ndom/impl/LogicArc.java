@@ -16,14 +16,17 @@ public class LogicArc extends PdElement implements ILogicArc {
 		this.logicalOperator = logicOperatorNode;
 	}
 
+	@Override
 	public ILogicOperatorNode getLogicOperator() {
 		return this.logicalOperator;
 	}
 
+	@Override
 	public IModulatingNode getModulatingNode() {
 		return this.modulatingNode;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitLogicArc(this);
 	}

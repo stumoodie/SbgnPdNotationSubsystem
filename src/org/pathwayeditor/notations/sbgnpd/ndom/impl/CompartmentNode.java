@@ -9,6 +9,7 @@ public class CompartmentNode extends AbstractCompartmentNode implements ICompart
 		super(identifier, asciiName, map,name);
 	}
 
+	@Override
 	public ICompartmentNode getCompartment() {
 		return this;
 	}

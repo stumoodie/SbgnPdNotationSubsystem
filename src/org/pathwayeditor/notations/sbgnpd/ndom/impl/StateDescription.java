@@ -11,14 +11,17 @@ public class StateDescription extends PdElement implements IStateDescription {
 		this.value = value;
 	}
 
+	@Override
 	public String getValue() {
 		return this.value;
 	}
 
+	@Override
 	public void setValue(String value) {
 		this.value = value;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitStateDescription(this);
 	}

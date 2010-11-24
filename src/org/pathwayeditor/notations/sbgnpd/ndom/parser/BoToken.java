@@ -11,14 +11,17 @@ public class BoToken implements IToken {
 		this.drawingElement = element;
 	}
 	
+	@Override
 	public IDrawingElement getElement() {
 		return this.drawingElement;
 	}
 
+	@Override
 	public TreeTokenType getType() {
 		return this.type;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <E extends IDrawingElement> E getTypedElement() {
 		return (E)this.drawingElement;

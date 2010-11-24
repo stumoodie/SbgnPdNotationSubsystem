@@ -13,14 +13,17 @@ public abstract class PdElement implements IPdElement {
 		this.asciiName = asciiName;
 	}
 	
+	@Override
 	public final String getSboId(){
 		return this.sboTerm;
 	}
 	
+	@Override
 	public final int getIdentifier() {
 		return this.identifier;
 	}
 
+	@Override
 	public String getAsciiName() {
 		return asciiName;
 	}

@@ -20,6 +20,7 @@ public class DefaultCompartmentNode extends AbstractCompartmentNode {
 		return ++idCounter;
 	}
 	
+	@Override
 	public ICompartmentNode getCompartment() {
 		return this;
 	}

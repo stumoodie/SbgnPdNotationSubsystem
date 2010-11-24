@@ -24,26 +24,32 @@ public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotat
 		this.name = name;
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	@Override
 	public IUnitOfInformation createUnitOfInformation(int identifier, String name) {
 		return handler.createUnitOfInformation(identifier, name);
 	}
 
+	@Override
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
 		return handler.getUnitsOfInformation();
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitPhenotypeNode(this);
 	}
 
+	@Override
 	public String getRateFunction() {
 		return "";
 	}
 
+	@Override
 	public IModulationArc createModulationArc(int identifier, String asciiName, ModulatingArcType type, IModulatingNode modulator) {
 		IModulationArc retVal = new ModulationArc(identifier, asciiName, modulator, this, type);
 		this.modulations.add(retVal);
@@ -51,6 +57,7 @@ public class PhenotypeNode extends PdElement implements IPhenotypeNode, IAnnotat
 	}
 
 
+	@Override
 	public Set<IModulationArc> getModulationArcs() {
 		return new HashSet<IModulationArc>(this.modulations);
 	}

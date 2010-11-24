@@ -37,18 +37,21 @@ public class ProcessNode extends PdElement implements IProcessNode {
 		return "SBO:999";
 	}
 	
+	@Override
 	public IConsumptionArc createConsumptionArc(int identifier, String asciiName, IConsumeableNode consumeable) {
 		IConsumptionArc retVal = new ConsumptionArc(identifier, asciiName, consumeable, this);
 		this.inputs.add(retVal);
 		return retVal;
 	}
 
+	@Override
 	public IModulationArc createModulationArc(int identifier, String asciiName, ModulatingArcType type, IModulatingNode modulator) {
 		IModulationArc retVal = new ModulationArc(identifier, asciiName, modulator, this, type);
 		this.modulations.add(retVal);
 		return retVal;
 	}
 
+	@Override
 	public IProductionArc createProductionArc(int identifier, String asciiName, IProduceableNode produceable, SidednessType type) {
 		IProductionArc retVal = new ProductionArc(identifier, asciiName, produceable, this);
 		if(type.equals(SidednessType.RHS)){
@@ -60,24 +63,29 @@ public class ProcessNode extends PdElement implements IProcessNode {
 		return retVal;
 	}
 
+	@Override
 	public Set<IFluxArc> getLhs() {
 		return new HashSet<IFluxArc>(this.inputs);
 	}
 
+	@Override
 	public Set<IFluxArc> getRhs() {
 		return new HashSet<IFluxArc>(this.outputs);
 	}
 
+	@Override
 	public ProcessNodeType getProcessType() {
 		return this.type;
 	}
 
 
+	@Override
 	public Set<IModulationArc> getModulationArcs() {
 		return new HashSet<IModulationArc>(this.modulations);
 	}
 
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitProcess(this);
 		for(IFluxArc fluxArc : this.inputs){
@@ -92,21 +100,25 @@ public class ProcessNode extends PdElement implements IProcessNode {
 	}
 
 
+	@Override
 	public String getFwdRateEquation() {
 		return this.fwdRateEquation ;
 	}
 
 	
+	@Override
 	public void setFwdRateEquation(String rateEquation){
 		this.fwdRateEquation = rateEquation;
 	}
 
 
+	@Override
 	public String getRevRateEquation() {
 		return this.revRateEquation  ;
 	}
 
 	
+	@Override
 	public void setRevRateEquation(String rateEquation){
 		this.revRateEquation = rateEquation;
 	}

@@ -18,10 +18,12 @@ public class UnitOfInformationHandler implements IAnnotateable {
 		this.unitsOfInformation = new HashSet<IUnitOfInformation>();
 	}
 
+	@Override
 	public Set<IUnitOfInformation> getUnitsOfInformation() {
 		return new HashSet<IUnitOfInformation>(this.unitsOfInformation);
 	}
 
+	@Override
 	public IUnitOfInformation createUnitOfInformation(int identifier, String value){
 		IUnitOfInformation retVal = new UnitOfInformation(identifier, this.annotateable, "", value);
 		this.unitsOfInformation.add(retVal);

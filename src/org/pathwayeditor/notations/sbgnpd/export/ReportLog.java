@@ -36,30 +36,37 @@ public class ReportLog implements IReportLog {
 		return retVal;
 	}
 	
+	@Override
 	public boolean hasErrors() {
 		return hasInfoType(InfoType.ERROR);
 	}
 
+	@Override
 	public boolean hasWarnings() {
 		return hasInfoType(InfoType.WARNING);
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return this.reports.isEmpty();
 	}
 
+	@Override
 	public Iterator<IReportItem> messageIterator() {
 		return this.reports.iterator();
 	}
 
+	@Override
 	public int numErrors() {
 		return countInfoType(InfoType.ERROR);
 	}
 
+	@Override
 	public int numInfoMessages() {
 		return countInfoType(InfoType.INFO);
 	}
 
+	@Override
 	public int numWarnings() {
 		return countInfoType(InfoType.WARNING);
 	}
@@ -67,10 +74,12 @@ public class ReportLog implements IReportLog {
 	private void createNewItem(final InfoType type, final String msg){
 		this.reports.add(new IReportItem(){
 
+			@Override
 			public String getMessage() {
 				return msg;
 			}
 
+			@Override
 			public InfoType getType() {
 				return type;
 			}
@@ -78,10 +87,12 @@ public class ReportLog implements IReportLog {
 		});
 	}
 	
+	@Override
 	public void reportError(String msg) {
 		createNewItem(InfoType.ERROR, msg);
 	}
 
+	@Override
 	public void reportError(String msg, Throwable ex) {
 		StringBuilder buf = new StringBuilder(msg);
 		buf.append(" Exception thrown was: ");
@@ -89,14 +100,17 @@ public class ReportLog implements IReportLog {
 		createNewItem(InfoType.ERROR, buf.toString());
 	}
 
+	@Override
 	public void reportInfo(String msg) {
 		createNewItem(InfoType.INFO, msg);
 	}
 
+	@Override
 	public void reportWarning(String msg) {
 		createNewItem(InfoType.WARNING, msg);
 	}
 
+	@Override
 	public int totalNumMessages() {
 		return this.reports.size();
 	}

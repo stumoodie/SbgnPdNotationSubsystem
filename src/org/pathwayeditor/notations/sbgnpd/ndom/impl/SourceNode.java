@@ -10,6 +10,7 @@ public class SourceNode extends EntityPoolNode implements ISourceNode {
 		super(identifier, asciiName, epnContainer, SBO_TERM);
 	}
 
+	@Override
 	protected void visitEpnChild(IPdElementVisitor visitor) {
 		visitor.visitSource(this);
 	}

@@ -13,14 +13,17 @@ public class NucleicAcidFeatureNode extends StatefulEntityPoolNode implements IN
 		super(compartment, name, identifier, SBO_TERM, asciiName);
 	}
 
+	@Override
 	public IConceptualType getConceptualType() {
 		return this.conceptualType;
 	}
 
+	@Override
 	public void setConceptualType(IConceptualType type) {
 		this.conceptualType = type;
 	}
 
+	@Override
 	protected void visitStatefuleEpnChild(IPdElementVisitor visitor) {
 		visitor.visitNucleicAcidFeature(this);
 	}

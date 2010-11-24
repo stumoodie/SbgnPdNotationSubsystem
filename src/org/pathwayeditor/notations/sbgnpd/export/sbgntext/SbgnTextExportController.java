@@ -2,7 +2,7 @@ package org.pathwayeditor.notations.sbgnpd.export.sbgntext;
 
 import java.io.File;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.notationsubsystem.ExportServiceException;
 import org.pathwayeditor.notations.sbgnpd.export.IExportWriter;
 import org.pathwayeditor.notations.sbgnpd.export.IReportLog;
@@ -17,7 +17,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.parser.TreeParseException;
 
 public class SbgnTextExportController {
 	private File exportFile;
-	private ICanvas canvasToExport;
+	private IModel canvasToExport;
 	
 	public SbgnTextExportController(){
 		
@@ -31,11 +31,11 @@ public class SbgnTextExportController {
 		this.exportFile = exportFile;
 	}
 
-	public ICanvas getCanvasToExport() {
+	public IModel getCanvasToExport() {
 		return canvasToExport;
 	}
 
-	public void setCanvasToExport(ICanvas canvasToExport) {
+	public void setCanvasToExport(IModel canvasToExport) {
 		this.canvasToExport = canvasToExport;
 	}
 	

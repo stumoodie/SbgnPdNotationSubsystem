@@ -10,6 +10,7 @@ public class SinkNode extends EntityPoolNode implements ISinkNode {
 		super(identifier, asciiName, epnContainer, SBO_TERM);
 	}
 
+	@Override
 	protected void visitEpnChild(IPdElementVisitor visitor) {
 		visitor.visitSinkNode(this);
 	}

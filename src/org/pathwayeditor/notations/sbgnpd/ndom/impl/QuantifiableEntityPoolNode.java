@@ -19,18 +19,22 @@ public abstract class QuantifiableEntityPoolNode extends EntityPoolNode implemen
 		this.handler = new UnitOfInformationHandler(this);
 	}
 
+	@Override
 	public final String getName() {
 		return this.name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public final Set<IUnitOfInformation> getUnitsOfInformation() {
 		return this.handler.getUnitsOfInformation();
 	}
 
+	@Override
 	public IUnitOfInformation createUnitOfInformation(int identifier, String name){
 		return this.handler.createUnitOfInformation(identifier, name);
 	}
@@ -44,10 +48,12 @@ public abstract class QuantifiableEntityPoolNode extends EntityPoolNode implemen
 	
 	protected abstract void visitQuantifiedEpnChild(IPdElementVisitor visitor);
 
+	@Override
 	public int getEntityCount() {
 		return this.moleculeCount;
 	}
 
+	@Override
 	public void setEntityCount(int count) {
 		this.moleculeCount = count;
 	}

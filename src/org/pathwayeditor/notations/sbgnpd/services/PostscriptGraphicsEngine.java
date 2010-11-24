@@ -66,6 +66,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 	
+	@Override
 	public void drawArc(double pos, double pos2, double widthSize,
 			double heightSize, double roundedOffset, double roundedLength) {
 		try {
@@ -83,6 +84,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 
+	@Override
 	public void drawLine(double beginPos, double beginPos2, double endPos, double endPos2) {
 		try {
 			writeLineColour();
@@ -97,6 +99,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 
+	@Override
 	public void drawOval(double pos, double pos2, double widthSize,	double heightSize) {
 		try {
 			writeLineColour();
@@ -111,6 +114,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 
+	@Override
 	public void drawPoint(double pos, double pos2) {
 		try {
 			writeLineColour();

@@ -55,18 +55,22 @@ public class SbgnTextExportWriter implements IExportWriter {
 		this.reportLog = reportLog;
 	}
 	
+	@Override
 	public File getFile() {
 		return this.exportFile;
 	}
 
+	@Override
 	public IMapDiagram getNdom() {
 		return this.ndom;
 	}
 
+	@Override
 	public IReportLog getReportLog(){
 		return this.reportLog;
 	}
 	
+	@Override
 	public void writeExport() {
 		try {
 			this.stream = new BufferedWriter(new FileWriter(this.exportFile));
@@ -205,6 +209,7 @@ public class SbgnTextExportWriter implements IExportWriter {
 		private static final int SINK_MOL_COUNT = -1;
 		private static final int SOURCE_MOL_COUNT = -1;
 
+		@Override
 		public void visitCompartment(ICompartmentNode node) {
 			try{
 				StringTemplate t = stg.getInstanceOf("compartment");
@@ -217,73 +222,90 @@ public class SbgnTextExportWriter implements IExportWriter {
 			}
 		}
 
+		@Override
 		public void visitComplex(IComplexNode node) {
 			writeEpn(getIdentifierName(node), node.getName(), "Complex", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
+		@Override
 		public void visitConsumptionArc(IConsumptionArc pdElement) {
 			writeConsumptionArc(getIdentifierName(pdElement), pdElement.getStoichiometry(), pdElement.getConsumableNode(), pdElement.getProcess());
 		}
 
+		@Override
 		public void visitLogicArc(ILogicArc pdElement) {
 			reportLog.reportWarning("logical arcs are not supported and will not be exported into this format");
 		}
 
+		@Override
 		public void visitLogicalOperator(ILogicOperatorNode pdElement) {
 			reportLog.reportWarning("logical operators are not supported and will not be exported into this format");
 		}
 
+		@Override
 		public void visitMacromolecule(IMacromoleculeNode node) {
 			writeEpn(getIdentifierName(node), node.getName(), "Macromolecule", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
+		@Override
 		public void visitModulationArc(IModulationArc pdElement) {
 			writeModulationArc(getIdentifierName(pdElement), pdElement.getType(), pdElement.getModulator(), pdElement.getModulatedNode());
 		}
 
+		@Override
 		public void visitNucleicAcidFeature(INucleicAcidFeatureNode node) {
 			writeEpn(getIdentifierName(node), node.getName(), "NucleicAcidFeature", node.getCompartment(), node.getCardinality(), node.getEntityCount());
 		}
 
+		@Override
 		public void visitPerturbingAgent(IPerturbationNode node) {
 			writeEpn(getIdentifierName(node), node.getName(), "PerturbingAgent", node.getCompartment(),	DEFAULT_CARDINALITY, node.getEntityCount());
 		}
 
+		@Override
 		public void visitPhenotypeNode(IPhenotypeNode pdElement) {
 			writeProcess(getIdentifierName(pdElement), "Phenotype", pdElement.getRateFunction());
 		}
 
+		@Override
 		public void visitProcess(IProcessNode pdElement) {
 			ProcessNodeType processType = pdElement.getProcessType();
 			Ndom2SbgnTextTypeMapper.getInstance().getBiopepaProcessType(processType);
 			writeProcess(getIdentifierName(pdElement), "Process", pdElement.getFwdRateEquation());
 		}
 
+		@Override
 		public void visitProductionArc(IProductionArc pdElement) {
 			writeProductionArc(getIdentifierName(pdElement), pdElement.getStoichiometry(), pdElement.getProductionNode(), pdElement.getProcess());
 		}
 
+		@Override
 		public void visitSimpleChemical(ISimpleChemicalNode pdElement) {
 			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "SimpleChemical", pdElement.getCompartment(),
 					pdElement.getCardinality(), pdElement.getEntityCount());
 		}
 
+		@Override
 		public void visitSinkNode(ISinkNode pdElement) {
 			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Sink", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, SINK_MOL_COUNT);
 		}
 
+		@Override
 		public void visitSource(ISourceNode pdElement) {
 			writeEpn(getIdentifierName(pdElement), DEFAULT_NAME, "Source", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, SOURCE_MOL_COUNT);
 		}
 
+		@Override
 		public void visitStateDescription(IStateDescription pdElement) {
 		}
 
+		@Override
 		public void visitUnitOfInformation(IUnitOfInformation pdElement) {
 		}
 
+		@Override
 		public void visitUnspecifiedEntity(IUnspecifiedEntityNode pdElement) {
 			writeEpn(getIdentifierName(pdElement), pdElement.getName(), "UnspecifiedEntity", pdElement.getCompartment(),
 					DEFAULT_CARDINALITY, pdElement.getEntityCount());

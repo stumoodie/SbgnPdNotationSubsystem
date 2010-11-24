@@ -4,6 +4,7 @@ import java.util.Set;
 
 public interface IStatefulEntityPoolNode extends IQuantifiableEntity, IAnnotateable, IMultimerEntityPoolNode {
 
+	@Override
 	String getName();
 	
 	Set<IStateDescription> getStateDescriptions();

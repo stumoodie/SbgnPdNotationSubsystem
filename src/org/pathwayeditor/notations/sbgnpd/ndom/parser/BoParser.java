@@ -13,6 +13,7 @@ import org.pathwayeditor.businessobjects.drawingprimitives.properties.IAnnotatio
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IIntegerAnnotationProperty;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.INumberAnnotationProperty;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextAnnotationProperty;
+import org.pathwayeditor.businessobjects.impl.facades.ShapeNodeFacade;
 import org.pathwayeditor.notations.sbgnpd.ndom.IAnnotateable;
 import org.pathwayeditor.notations.sbgnpd.ndom.ICompartmentNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IComplexNode;
@@ -28,6 +29,7 @@ import org.pathwayeditor.notations.sbgnpd.ndom.INucleicAcidFeatureNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPerturbationNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IPhenotypeNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode;
+import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode.SidednessType;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProduceableNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IProductionArc;
 import org.pathwayeditor.notations.sbgnpd.ndom.IQuantifiableEntity;
@@ -36,8 +38,9 @@ import org.pathwayeditor.notations.sbgnpd.ndom.IStatefulEntityPoolNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.IUnspecifiedEntityNode;
 import org.pathwayeditor.notations.sbgnpd.ndom.ModulatingArcType;
 import org.pathwayeditor.notations.sbgnpd.ndom.ProcessNodeType;
-import org.pathwayeditor.notations.sbgnpd.ndom.IProcessNode.SidednessType;
 import org.pathwayeditor.notations.sbgnpd.ndom.parser.IToken.TreeTokenType;
+
+import uk.ac.ed.inf.graph.compound.ICompoundNode;
 
 public class BoParser implements IBoParser {
 	private static final EnumSet<TreeTokenType> STATEFUL_EPN_CHILD_NODES
@@ -69,11 +72,13 @@ public class BoParser implements IBoParser {
 		this.builder = builder;
 	}
 
+	@Override
 	public void parse(ITreeLexer lexer) throws TreeParseException{
 		this.lexer =lexer;
 		rootsRule();
 	}
 	
+	@Override
 	public INdomBuilder getNDomBuilder(){
 		return this.builder;
 	}
@@ -98,7 +103,7 @@ public class BoParser implements IBoParser {
 	private IMapDiagram mapDiagramRule() throws TreeParseException{
 		lexer.match(TreeTokenType.MAP_DIAGRAM);
 		IRootNode rootNode = this.lexer.getCurrent().getTypedElement();
-		this.builder.createMap(rootNode.getModel().getCanvas().getName());
+		this.builder.createMap(rootNode.getAttribute().getModel().getName());
 		IMapDiagram mapDiagram = this.builder.getNdom();
 		lexer.down();
 		mapChildrenRule(mapDiagram);
@@ -514,8 +519,8 @@ public class BoParser implements IBoParser {
 	}
 	
 	private void createConsumptionArc(IMapDiagram mapDiagram, ILinkEdge edge){
-		IConsumeableNode epnNode = mapDiagram.findElement(edge.getSourceShape().getAttribute().getCreationSerial());
-		IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
+		IConsumeableNode epnNode = mapDiagram.findElement(new ShapeNodeFacade(edge.getSourceShape()).getAttribute().getCreationSerial());
+		IProcessNode processNode = mapDiagram.findProcessNode(new ShapeNodeFacade(edge.getTargetShape()).getAttribute().getCreationSerial());
 		if(epnNode != null){
 			String asciiName = getAsciiNameProperty(edge.getAttribute());
 			IConsumptionArc arc = processNode.createConsumptionArc(edge.getAttribute().getCreationSerial(), asciiName, epnNode);
@@ -526,9 +531,13 @@ public class BoParser implements IBoParser {
 		}
 	}
 	
+	private IShapeNode getShapeNode(ICompoundNode node){
+		return new ShapeNodeFacade(node);
+	}
+	
 	private void createProductionArc(IMapDiagram mapDiagram, ILinkEdge edge){
-		IShapeAttribute srcNode = edge.getSourceShape().getAttribute();
-		IShapeAttribute tgtNode = edge.getTargetShape().getAttribute();
+		IShapeAttribute srcNode = getShapeNode(edge.getSourceShape()).getAttribute();
+		IShapeAttribute tgtNode = getShapeNode(edge.getTargetShape()).getAttribute();
 		SidednessType sidedNess = SidednessType.RHS; 
 		IProcessNode processNode = mapDiagram.findProcessNode(srcNode.getCreationSerial());
 		IProduceableNode epnNode = null;
@@ -585,8 +594,8 @@ public class BoParser implements IBoParser {
 		else if(this.lexer.isRightLookaheadMatch(TreeTokenType.LOGIC_ARC)){
 			this.lexer.match(TreeTokenType.LOGIC_ARC);
 			ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
-			IModulatingNode modulatingNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
-			ILogicOperatorNode logicalOperatorNode = mapDiagram.findLogicalOperatorNode(edge.getTargetShape().getAttribute().getCreationSerial());
+			IModulatingNode modulatingNode = mapDiagram.findModulatingNode(getShapeNode(edge.getSourceShape()).getAttribute().getCreationSerial());
+			ILogicOperatorNode logicalOperatorNode = mapDiagram.findLogicalOperatorNode(getShapeNode(edge.getTargetShape()).getAttribute().getCreationSerial());
 			String asciiName = getAsciiNameProperty(edge.getAttribute());
 			logicalOperatorNode.createLogicArc(edge.getAttribute().getCreationSerial(), asciiName, modulatingNode);
 		}
@@ -597,8 +606,8 @@ public class BoParser implements IBoParser {
 	
 	private void createModulationArc(IMapDiagram mapDiagram, ModulatingArcType type){
 		ILinkEdge edge = this.lexer.getCurrent().getTypedElement();
-		IModulatingNode epnNode = mapDiagram.findModulatingNode(edge.getSourceShape().getAttribute().getCreationSerial());
-		IProcessNode processNode = mapDiagram.findProcessNode(edge.getTargetShape().getAttribute().getCreationSerial());
+		IModulatingNode epnNode = mapDiagram.findModulatingNode(getShapeNode(edge.getSourceShape()).getAttribute().getCreationSerial());
+		IProcessNode processNode = mapDiagram.findProcessNode(getShapeNode(edge.getTargetShape()).getAttribute().getCreationSerial());
 		String asciiName = getAsciiNameProperty(edge.getAttribute());
 		processNode.createModulationArc(edge.getAttribute().getCreationSerial(), asciiName, type, epnNode);
 	}

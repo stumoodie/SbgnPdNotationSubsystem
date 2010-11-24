@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.pathwayeditor.businessobjects.drawingprimitives.ICanvas;
+import org.pathwayeditor.businessobjects.drawingprimitives.IModel;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Version;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotation;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationAutolayoutService;
@@ -27,10 +27,10 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private static final String PATCH_VERSION_NUM = NotationResources.getString("SbgnPdNotationSubsystem.notation_patch_revision"); //$NON-NLS-1$
 	private static final Version VERSION = new Version(Integer.valueOf(MAJOR_REVISION_NUM),
 				Integer.valueOf(MINOR_REVISION_NUM), Integer.valueOf(PATCH_VERSION_NUM));
-	private SbgnPdNotationSyntaxService syntaxService;
-	private SbgnPdValidationService validationService;
+	private final SbgnPdNotationSyntaxService syntaxService;
+	private final SbgnPdValidationService validationService;
 	private final List<INotationExportService> exportServices;
-	private INotation context;
+	private final INotation context;
 
 	public SbgnPdNotationSubsystem() {
 		this.context = new GeneralNotation(GLOBAL_ID, NAME, DESCRIPTION, VERSION);
@@ -41,34 +41,42 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	}
 	
 
+	@Override
 	public INotation getNotation() {
 		return this.context;
 	}
 
+	@Override
 	public Set<INotationExportService> getExportServices() {
 		return new HashSet<INotationExportService>(this.exportServices);
 	}
 
+	@Override
 	public Set<INotationImportService> getImportServices() {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public Set<INotationPluginService> getPluginServices() {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public SbgnPdNotationSyntaxService getSyntaxService() {
 		return this.syntaxService;
 	}
 
+	@Override
 	public INotationValidationService getValidationService() {
 		return validationService;
 	}
 
+	@Override
 	public Set<INotationConversionService> getConversionServices() {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public INotationAutolayoutService getAutolayoutService() {
 		return new DefaultAutolayoutService();
 	}
@@ -77,35 +85,42 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 	private class DefaultAutolayoutService implements INotationAutolayoutService {
 
 
+		@Override
 		public boolean isImplemented() {
 			return false;
 		}
 
-        public void layout(ICanvas canvas) {
+        @Override
+		public void layout(IModel canvas) {
             throw new UnsupportedOperationException("Notation subsystem does not support this operation"); //$NON-NLS-1$
         }
 
-        public INotation getNotation() {
+        @Override
+		public INotation getNotation() {
             return SbgnPdNotationSubsystem.this.getNotation();
         }
 
-        public INotationSubsystem getNotationSubsystem() {
+        @Override
+		public INotationSubsystem getNotationSubsystem() {
             return SbgnPdNotationSubsystem.this;
         }
 		
 	}
 
-    public boolean isFallback() {
+    @Override
+	public boolean isFallback() {
         return false;
     }
 
 
-	public void registerCanvas(ICanvas canvasToRegister) {
+	@Override
+	public void registerCanvas(IModel canvasToRegister) {
 		// Do nothing at the moment
 	}
 
 
-	public void unregisterCanvas(ICanvas canvasToRegister) {
+	@Override
+	public void unregisterCanvas(IModel canvasToRegister) {
 		// Do nothing at the moment
 	}
 }

@@ -18,22 +18,27 @@ public class BoLexerTreeNode implements ILexerTreeNode {
 	}
 	
 	
+	@Override
 	public IToken getParentToken() {
 		return this.token;
 	}
 
+	@Override
 	public void nextChild() {
 		this.currentChild = this.children.poll();
 	}
 	
+	@Override
 	public int numChildren(){
 		return this.children.size();
 	}
 
+	@Override
 	public IToken getCurrentChild() {
 		return this.currentChild;
 	}
 
+	@Override
 	public IToken peekNextChild() {
 		return this.children.peek();
 	}

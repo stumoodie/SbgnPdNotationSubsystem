@@ -16,19 +16,23 @@ public final class UnitOfInformation extends PdElement implements IUnitOfInforma
 		this.value = value;
 	}
 
+	@Override
 	public String getAnnotation() {
 		return this.value;
 	}
 
+	@Override
 	public void setAnnotation(String annotation) {
 		this.value = annotation;
 	}
 
+	@Override
 	public IAnnotateable getEntityPoolNode(){
 		return this.entityPoolNode;
 	}
 
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitUnitOfInformation(this);
 	}

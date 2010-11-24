@@ -19,14 +19,17 @@ public class TokenFactory {
 		return new IToken() {
 			private final IDrawingNode element = null;
 			
+			@Override
 			public IDrawingElement getElement() {
 				return element;
 			}
 
+			@Override
 			public TreeTokenType getType() {
 				return TreeTokenType.NODE_ROOT;
 			}
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public IDrawingNode getTypedElement() {
 				return element;

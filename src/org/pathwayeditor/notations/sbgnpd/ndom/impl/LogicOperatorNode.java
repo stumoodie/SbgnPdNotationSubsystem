@@ -24,16 +24,19 @@ public class LogicOperatorNode extends PdElement implements ILogicOperatorNode {
 		return "SBO:999";
 	}
 	
+	@Override
 	public LogicOperatorType getOperatorType() {
 		return this.type;
 	}
 
+	@Override
 	public ILogicArc createLogicArc(int identifier, String exportName,	IModulatingNode modulatingNode) {
 		ILogicArc retVal = new LogicArc(identifier, exportName, modulatingNode, this);
 		this.logicArcs.add(retVal);
 		return retVal;
 	}
 
+	@Override
 	public void visit(IPdElementVisitor visitor) {
 		visitor.visitLogicalOperator(this);
 		for(ILogicArc logicArc : this.logicArcs){
