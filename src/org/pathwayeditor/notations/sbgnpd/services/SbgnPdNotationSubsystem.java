@@ -114,13 +114,13 @@ public class SbgnPdNotationSubsystem implements INotationSubsystem {
 
 
 	@Override
-	public void registerCanvas(IModel canvasToRegister) {
+	public void registerModel(IModel canvasToRegister) {
 		// Do nothing at the moment
 	}
 
 
 	@Override
-	public void unregisterCanvas(IModel canvasToRegister) {
+	public void unregisterModel(IModel canvasToRegister) {
 		// Do nothing at the moment
 	}
 }

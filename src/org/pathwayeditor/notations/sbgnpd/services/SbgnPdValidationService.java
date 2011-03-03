@@ -22,7 +22,7 @@ public class SbgnPdValidationService implements INotationValidationService {
     }
 
     @Override
-	public IModel getCanvasBeingValidated() {
+	public IModel getModelBeingValidated() {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
@@ -61,7 +61,7 @@ public class SbgnPdValidationService implements INotationValidationService {
     }
 
     @Override
-    public void setCanvasToValidate(IModel mapToValidate) {
+    public void setModelToValidate(IModel mapToValidate) {
         throw new UnsupportedOperationException(
                 "Validation service has not been implemented for this notation subsystem");
     }
