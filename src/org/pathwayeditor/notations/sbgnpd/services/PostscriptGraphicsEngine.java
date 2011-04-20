@@ -1,3 +1,21 @@
+/*
+  Licensed to the Court of the University of Edinburgh (UofE) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The UofE licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+*/
 package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.io.BufferedWriter;
@@ -15,10 +33,10 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
-import org.pathwayeditor.figure.figuredefn.IFont;
-import org.pathwayeditor.figure.figuredefn.IGraphicsEngine;
-import org.pathwayeditor.figure.figuredefn.GraphicsInstruction.GraphicalTextAlignment;
-import org.pathwayeditor.figure.figuredefn.IFont.Style;
+import org.pathwayeditor.figure.rendering.GraphicalTextAlignment;
+import org.pathwayeditor.figure.rendering.IFont;
+import org.pathwayeditor.figure.rendering.IFont.Style;
+import org.pathwayeditor.figure.rendering.IGraphicsEngine;
 
 public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	private static final String PS_TEMPLATE_FILE_NAME = "postscript.stg";
@@ -306,7 +324,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		try {
 			StringTemplate t = stg.getInstanceOf("setFont");
 			StringBuilder styles = new StringBuilder();
-			for(Style style : modifiedFont.getStyle()){
+			for(IFont.Style style : modifiedFont.getStyle()){
 				styles.append(this.fontStyleMapping.get(style));
 			}
 			t.setAttribute("styles", styles.toString());

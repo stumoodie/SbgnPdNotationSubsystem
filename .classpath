@@ -3,27 +3,19 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/Toolkit/toolkit.jar" sourcepath="lib/Toolkit/toolkit-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/uk.ac.ed.inf.csb.SBGN1.1.0/lib/Toolkit/toolkit-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/junit4.7/junit-4.7.jar" sourcepath="lib/junit4.7/junit-4.7-src.jar"/>
 	<classpathentry kind="lib" path="lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/stringtemplate-3.2/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/stringtemplate-3.2/lib/stringtemplate.jar" sourcepath="lib/stringtemplate-3.2/src"/>
 	<classpathentry kind="lib" path="lib/antlr-3.1.2/lib/antlr-3.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-3.1.2/lib/antlr-runtime-3.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/BusinessObjects/BusinessObjects.jar" sourcepath="lib/BusinessObjects/BusinessObjects-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SbgnPdNotationSubsystem/lib/BusinessObjects/BusinessObjects-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/CompoundGraph/CompoundGraph.jar" sourcepath="lib/CompoundGraph/CompoundGraph-src.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/SbgnPdNotationSubsystem/lib/CompoundGraph/CompoundGraph-docs.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BusinessObjects"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Toolkit"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

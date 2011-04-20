@@ -1,3 +1,21 @@
+/*
+  Licensed to the Court of the University of Edinburgh (UofE) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The UofE licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+*/
 package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.io.BufferedWriter;
@@ -19,18 +37,18 @@ import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyD
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSubsystem;
 import org.pathwayeditor.businessobjects.notationsubsystem.INotationSyntaxService;
 import org.pathwayeditor.businessobjects.typedefn.IShapeObjectType;
-import org.pathwayeditor.figure.figuredefn.FigureController;
-import org.pathwayeditor.figure.figuredefn.FigureDrawer;
-import org.pathwayeditor.figure.figuredefn.GenericFont;
-import org.pathwayeditor.figure.figuredefn.GraphicsInstructionList;
-import org.pathwayeditor.figure.figuredefn.IFigureController;
-import org.pathwayeditor.figure.figuredefn.GraphicsInstruction.GraphicalTextAlignment;
-import org.pathwayeditor.figure.figuredefn.IFont.Style;
+import org.pathwayeditor.figure.definition.FigureDefinitionCompiler;
+import org.pathwayeditor.figure.definition.ICompiledFigureDefinition;
 import org.pathwayeditor.figure.geometry.Dimension;
 import org.pathwayeditor.figure.geometry.Envelope;
 import org.pathwayeditor.figure.geometry.Point;
-import org.pathwayeditor.figurevm.FigureDefinitionCompiler;
-import org.pathwayeditor.figurevm.IFigureDefinition;
+import org.pathwayeditor.figure.rendering.FigureRenderer;
+import org.pathwayeditor.figure.rendering.FigureRenderingController;
+import org.pathwayeditor.figure.rendering.GenericFont;
+import org.pathwayeditor.figure.rendering.IFont.Style;
+import org.pathwayeditor.figure.rendering.GraphicalTextAlignment;
+import org.pathwayeditor.figure.rendering.GraphicsInstructionList;
+import org.pathwayeditor.figure.rendering.IFigureRenderingController;
 
 public class NotationInspector {
 	private final Logger logger = Logger.getLogger(this.getClass());
@@ -69,8 +87,8 @@ public class NotationInspector {
 			String shapeDefn = objectType.getDefaultAttributes().getShapeDefinition();
 			FigureDefinitionCompiler compiler = new FigureDefinitionCompiler(shapeDefn);
 			compiler.compile();
-			IFigureDefinition defn = compiler.getCompiledFigureDefinition();
-			IFigureController controller = new FigureController(defn);
+			ICompiledFigureDefinition defn = compiler.getCompiledFigureDefinition();
+			IFigureRenderingController controller = new FigureRenderingController(defn);
 			Set<IPropertyDefinition> boundProps = getBoundProperties(defn, objectType);
 			assignedBoundValues(controller, boundProps);
 			Dimension shapeSize = objectType.getDefaultAttributes().getSize();
@@ -107,11 +125,11 @@ public class NotationInspector {
 	}
 
 	private void drawGlyph(GraphicsInstructionList graphicsList){
-		FigureDrawer drawer = new FigureDrawer(graphicsList);
+		FigureRenderer drawer = new FigureRenderer(graphicsList);
 		drawer.drawFigure(this.graphicsEngine);
 	}
 	
-	private void assignedBoundValues(IFigureController controller, Set<IPropertyDefinition> boundProps) {
+	private void assignedBoundValues(IFigureRenderingController controller, Set<IPropertyDefinition> boundProps) {
 		for(IPropertyDefinition propDefn : boundProps){
 			if(propDefn instanceof IIntegerPropertyDefinition){
 				controller.setBindInteger(propDefn.getName(), ((IIntegerPropertyDefinition)propDefn).getDefaultValue());
@@ -132,7 +150,7 @@ public class NotationInspector {
 		}
 	}
 
-	private Set<IPropertyDefinition> getBoundProperties(IFigureDefinition defn, IShapeObjectType objectType){
+	private Set<IPropertyDefinition> getBoundProperties(ICompiledFigureDefinition defn, IShapeObjectType objectType){
 		Set<IPropertyDefinition> boundProperties = new HashSet<IPropertyDefinition>();
 		Set<String> bindVarNames = defn.getBindVariableNames();
 		for(String varName : bindVarNames){

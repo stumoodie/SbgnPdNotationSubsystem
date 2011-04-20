@@ -1,3 +1,21 @@
+/*
+  Licensed to the Court of the University of Edinburgh (UofE) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The UofE licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+*/
 package org.pathwayeditor.notations.sbgnpd.services;
 
 import java.math.BigDecimal;
@@ -598,6 +616,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private void createStateValueProperty(){
 		stateValuePropertyDescription.setEditable(true);
 		stateValuePropertyDescription.setDisplayName("Value");
+		stateValueLabelObjectType.setAlwaysDisplayed(true);
 		stateValueLabelObjectType.getDefaultAttributes().setNoBorder(true);
 		stateValueLabelObjectType.getDefaultAttributes().setNoFill(true);
 		stateValueLabelObjectType.getDefaultAttributes().setMinimumSize(new Dimension(30, 30));
@@ -1531,7 +1550,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 				.getTargetTerminusDefinition();
 		sport.getDefaultAttributes().setGap(5);
 		sport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1544,7 +1563,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.setEditableAttributes(editablesportAttributes);
 		tport.getDefaultAttributes().setGap((short) 0);
 		tport.getDefaultAttributes().setEndDecoratorType(LinkEndDecoratorShape.NONE);
-		tport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		tport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1644,7 +1663,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 0);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1658,7 +1677,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setGap((short) 5);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.TRIANGLE);// , 5,5);
-		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
+		tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1858,7 +1877,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 0);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1872,7 +1891,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setGap((short) 5);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.EMPTY_TRIANGLE);// , 5,5);
-		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
+		tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -1986,7 +2005,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 0);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2000,7 +2019,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setGap((short) 10);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.EMPTY_CIRCLE);// , 5,5);
-		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
+		tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2111,7 +2130,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 0);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2125,7 +2144,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setGap((short) 10);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.BAR);// , 5,5);
-		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
+		tport.getDefaultAttributes().setEndSize(new Dimension(10, 10));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2218,7 +2237,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 0);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2325,7 +2344,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		sport.getDefaultAttributes().setGap((short) 2);
 		sport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 8,8);
-		sport.getDefaultAttributes().setEndSize(new Dimension(8, 8));
+		sport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editablesportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
@@ -2339,7 +2358,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		tport.getDefaultAttributes().setGap((short) 0);
 		tport.getDefaultAttributes().setEndDecoratorType(
 				LinkEndDecoratorShape.NONE);// , 5,5);
-		tport.getDefaultAttributes().setEndSize(new Dimension(5, 5));
+		tport.getDefaultAttributes().setEndSize(new Dimension(0, 0));
 		EnumSet<LinkTermEditableAttributes> editabletportAttributes = EnumSet
 				.of(LinkTermEditableAttributes.END_SIZE,
 						LinkTermEditableAttributes.OFFSET);
