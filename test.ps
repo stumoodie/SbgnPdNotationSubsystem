@@ -1,0 +1,596 @@
+%!
+/rrect { /harc exch def /warc exch def /h exch def /w exch def /y exch def /x exch def
+     warc w 2 div gt { /warc w 2 div def }if
+     harc h 2 div gt { /harc h 2 div def }if
+     x y harc add moveto x y x y x warc add y curveto w warc sub warc sub 0 rlineto
+     warc 0 warc 0 warc harc rcurveto 0 h harc sub harc sub rlineto
+     0 harc 0 harc warc neg harc rcurveto w warc sub warc sub neg 0 rlineto
+     warc neg 0 warc neg 0 warc neg harc neg rcurveto 0 h harc sub harc sub neg rlineto
+     } bind def
+
+/oval {
+/lengthangle exch def
+/startangle exch def
+/startangle startangle def
+/endangle startangle lengthangle add def
+
+/yrad exch 2 div def
+/xrad exch 2 div def
+/rawy exch def
+/rawx exch def
+%rawx rawy xrad 2 mul yrad 2 mul rectstroke
+%rawx rawy 2 0 360 arc fill
+/y rawy yrad add def
+/x rawx xrad add def
+/savematrix matrix currentmatrix def
+x y translate
+xrad yrad neg scale
+0 0 1 startangle endangle arc
+savematrix setmatrix
+%rawx rawy moveto
+%0 -20 rmoveto
+%gsave
+%1 -1 scale
+%startangle 15 string cvs show
+%(, ) show
+%endangle 15 string cvs show
+%grestore
+} bind def
+
+/polyline { /arr exch def arr 0 2 getinterval aload pop moveto %10 10 rlineto
+       2 2 arr length 1 sub {arr exch 2 getinterval aload pop lineto } for
+       } bind def
+
+
+% drawrect x y w h
+/drawrrect { newpath rrect stroke } bind def
+
+% fillrect x y w h
+/fillrrect { newpath rrect fill } bind def
+
+% drawrect x y w h cornerw cornerh
+/drawrect { newpath rectstroke } bind def
+
+% fillrect x y w h cornerw cornerh
+/fillrect { newpath rectfill } bind def
+
+% drawoval x y w h
+/drawoval { newpath 0 360 oval stroke } bind def
+% filloval x y w h
+/filloval { newpath 0 360 oval fill } bind def
+
+% drawarc x y w h startDeg lenDeg
+/drawarc { newpath oval stroke } def
+% fillarc x y w h startDeg lenDeg
+/fillarc {
+  /lengthangle exch def
+  /startangle exch def
+  /yrad exch def
+  /xrad exch def
+  /y exch def
+  /x exch def
+  newpath x y xrad yrad startangle lengthangle oval x y lineto closepath fill
+} bind def
+
+% drawpoint x y
+/drawpoint { /y exch def /x exch def gsave newpath [] 0 setdash x y currentlinewidth 2 sub 0 360 arc fill grestore } bind def
+
+% drawline x1 y1 x2 y2
+/drawline { /y2 exch def /x2 exch def /y1 exch def /x1 exch def newpath x1 y1 moveto x2 y2 lineto stroke } bind def
+
+% drawpolyline 
+/drawpolyline { newpath polyline stroke } bind def
+
+% drawpolygon 
+/drawpolygon { newpath polyline closepath stroke } bind def
+
+% fillpolygon 
+/fillpolygon { newpath polyline closepath fill } bind def
+
+/textAlignmentPosn { /ury exch def /urx exch def /lly exch def /llx exch def
+    /wr urx llx sub 2 div def /hr ury lly sub 2 div def
+    /northy 0 def
+    /middley hr neg def
+    /southy hr 2 mul neg def
+    /westx wr 2 mul neg def
+    /centrex wr neg def
+    /eastx 0 def
+    aligntype (N) eq { centrex northy }
+    {
+      aligntype (NW) eq { westx northy }
+      {
+        aligntype (W) eq { westx middley }
+        {
+          aligntype (SW) eq { westx southy }
+          {
+            aligntype (S) eq { centrex southy }
+            {
+              aligntype (SE) eq { eastx southy }
+              {
+                aligntype (E) eq { eastx middley }
+                {
+                  aligntype (NE) eq { eastx northy }
+                  {
+                    %C
+                    centrex middley
+                  } ifelse  
+                } ifelse  
+                } ifelse  
+              } ifelse  
+          } ifelse  
+        } ifelse  
+      } ifelse  
+    } ifelse
+  } bind def
+
+/drawstring { /txt exch def /aligntype exch def /y exch def /x exch def  
+    newpath x y moveto gsave txt false charpath pathbbox grestore
+    gsave 1 -1 scale textAlignmentPosn rmoveto txt show grestore
+  } bind def
+
+/fillstring { /txt exch def /aligntype exch def /y exch def /x exch def
+    newpath x y moveto gsave txt false charpath pathbbox grestore
+    gsave 1 -1 scale textAlignmentPosn rmoveto
+    txt true charpath pathbbox /ury exch def /urx exch def /lly exch def /llx exch def
+    llx lly moveto llx ury lineto urx ury lineto urx lly lineto closepath
+    fill
+    grestore
+} bind def
+
+/setfontinfo {
+  /size exch def /styles exch def
+  mark
+  styles (I) search /isItalic exch def
+  styles (B) search /isBold exch def
+  cleartomark
+  isItalic isBold and { /Helvetica-BoldOblique }
+  {
+    isItalic { /Helvetica-Oblique  }
+    {
+      isBold { /Helvetica-Bold }
+      {
+        /Helvetica
+      } ifelse
+    } ifelse
+  } ifelse
+  findfont
+  size scalefont
+  setfont
+} bind def
+
+/setlinestyle {
+  /style exch def
+  style (S) eq {
+    []
+  }
+  {
+    style (D) eq {
+      [6]
+    }
+    {
+      style (DT) eq {
+        [6 2 2 2]
+      }
+      {
+        style (DTT) eq {
+          [6 2 2 2 2 2]
+        }
+        {
+          % T - dots
+          [2]
+        } ifelse
+      } ifelse
+    } ifelse
+  } ifelse
+  0 setdash
+} bind def
+
+% set coordinate system to have origin at top left corner
+%  and y-axis pointing down the page and x-axis pointing right
+0 700 translate
+1 -1 scale
+
+% End of Header
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+10.0 10.0 60.0 40.0 filloval
+0 0 0 setrgbcolor
+10.0 10.0 60.0 40.0 drawoval
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 10.0 60.0 40.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 -10.0 (E) (Unspecified Entity) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+121.5 11.5 27.0 27.0 filloval
+0 0 0 setrgbcolor
+121.5 11.5 27.0 27.0 drawoval
+0 0 0 setrgbcolor
+150.0 10.0 120.0 40.0 drawline
+ 1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+120.0 10.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+120.0 -10.0 (E) (Sink) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+230.0 10.0 40.0 30.0 30.0 30.0 fillrrect
+0 0 0 setrgbcolor
+230.0 10.0 40.0 30.0 30.0 30.0 drawrrect
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+230.0 10.0 40.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+230.0 -10.0 (E) (State) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+340.0 10.0 45.0 25.0 fillrect
+ 0 0 0 setrgbcolor
+340.0 10.0 45.0 25.0 drawrect 
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+340.0 10.0 45.0 25.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+340.0 -10.0 (E) (Unit Of Information) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+10.0 110.0 200.0 162.0 fillrect
+ 0 255 0 setrgbcolor
+90.0 90.0 44.0 20.0 fillrect
+ 0 255 0 setrgbcolor
+90.0 270.0 44.0 20.0 fillrect
+ 0 0 0 setrgbcolor
+10.0 270.0 10.0 110.0 drawline
+ 0 0 0 setrgbcolor
+90.0 90.0 130.0 90.0 drawline
+ 0 0 0 setrgbcolor
+210.0 110.0 210.0 270.0 drawline
+ 0 0 0 setrgbcolor
+130.0 290.0 90.0 290.0 drawline
+ 0 255 0 setrgbcolor
+10.0 90.0 160.0 40.0 90.0 90.0 fillarc
+0 0 0 setrgbcolor
+10.0 90.0 160.0 40.0 90.0 90.0 drawarc
+0 255 0 setrgbcolor
+50.0 90.0 160.0 40.0 0.0 90.0 fillarc
+0 0 0 setrgbcolor
+50.0 90.0 160.0 40.0 0.0 90.0 drawarc
+0 255 0 setrgbcolor
+10.0 250.0 160.0 40.0 180.0 90.0 fillarc
+0 0 0 setrgbcolor
+10.0 250.0 160.0 40.0 180.0 90.0 drawarc
+0 255 0 setrgbcolor
+50.0 250.0 160.0 40.0 270.0 90.0 fillarc
+0 0 0 setrgbcolor
+50.0 250.0 160.0 40.0 270.0 90.0 drawarc
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 90.0 200.0 200.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 70.0 (E) (Compartment) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+[220.0 102.0 238.0 90.0 322.0 90.0 340.0 102.0 340.0 158.0 322.0 170.0 238.0 170.0 220.0 158.0] fillpolygon
+0 0 0 setrgbcolor
+[220.0 102.0 238.0 90.0 322.0 90.0 340.0 102.0 340.0 158.0 322.0 170.0 238.0 170.0 220.0 158.0] drawpolygon
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+220.0 90.0 120.0 80.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+220.0 70.0 (E) (Complex) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+350.0 90.0 60.0 32.8 fillrect
+ 0 255 0 setrgbcolor
+362.0 122.0 37.2 8.0 fillrect
+ 0 255 0 setrgbcolor
+350.0 114.0 24.0 16.0 180.0 90.0 fillarc
+0 255 0 setrgbcolor
+386.0 114.0 24.0 16.0 270.0 90.0 fillarc
+0 0 0 setrgbcolor
+[350.0 122.0 350.0 90.0 410.0 90.0 410.0 122.0] drawpolyline
+0 0 0 setrgbcolor
+362.0 130.0 398.0 130.0 drawline
+ 0 255 0 setrgbcolor
+350.0 114.0 24.0 16.0 180.0 90.0 fillarc
+0 0 0 setrgbcolor
+350.0 114.0 24.0 16.0 180.0 90.0 drawarc
+0 255 0 setrgbcolor
+386.0 114.0 24.0 16.0 270.0 90.0 fillarc
+0 0 0 setrgbcolor
+386.0 114.0 24.0 16.0 270.0 90.0 drawarc
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+350.0 90.0 60.0 40.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+350.0 70.0 (E) (Nucleic Acid Feature) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 0 0 setrgbcolor
+10.0 345.0 14.5 345.0 drawline
+ 0 0 0 setrgbcolor
+35.5 345.0 40.0 345.0 drawline
+ 0 255 0 setrgbcolor
+14.5 330.0 21.0 30.0 fillrect
+ 0 0 0 setrgbcolor
+14.5 330.0 21.0 30.0 drawrect 
+(N) 15.0 setfontinfo
+0 255 0 setrgbcolor
+25.0 345.0 (C) (\\) fillstring
+0 0 0 setrgbcolor
+25.0 345.0 (C) (\\\\) drawstring
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 330.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 310.0 (E) (Omitted Process) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+120.0 330.0 60.0 40.0 12.0 8.0 fillrrect
+0 0 0 setrgbcolor
+120.0 330.0 60.0 40.0 12.0 8.0 drawrrect
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+120.0 330.0 60.0 40.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+120.0 310.0 (E) (Macromolecule) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 0 0 setrgbcolor
+230.0 345.0 234.5 345.0 drawline
+ 0 0 0 setrgbcolor
+255.5 345.0 260.0 345.0 drawline
+ 0 255 0 setrgbcolor
+234.5 330.0 21.0 30.0 fillrect
+ 0 0 0 setrgbcolor
+234.5 330.0 21.0 30.0 drawrect 
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+230.0 330.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+230.0 310.0 (E) (Process) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+340.0 330.0 40.0 40.0 filloval
+0 0 0 setrgbcolor
+340.0 330.0 40.0 40.0 drawoval
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+340.0 330.0 40.0 40.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+340.0 310.0 (E) (Simple Chemical) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+[30.0 410.0 70.0 410.0 90.0 440.0 70.0 470.0 30.0 470.0 10.0 440.0] fillpolygon
+0 0 0 setrgbcolor
+[30.0 410.0 70.0 410.0 90.0 440.0 70.0 470.0 30.0 470.0 10.0 440.0] drawpolygon
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 410.0 80.0 60.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 390.0 (E) (Phenotype) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+[120.0 410.0 200.0 410.0 176.0 440.0 200.0 470.0 120.0 470.0 144.0 440.0] fillpolygon
+0 0 0 setrgbcolor
+[120.0 410.0 200.0 410.0 176.0 440.0 200.0 470.0 120.0 470.0 144.0 440.0] drawpolygon
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+120.0 410.0 80.0 60.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+120.0 390.0 (E) (Perturbing Agent) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+231.5 411.5 27.0 27.0 filloval
+0 0 0 setrgbcolor
+231.5 411.5 27.0 27.0 drawoval
+0 0 0 setrgbcolor
+260.0 410.0 230.0 440.0 drawline
+ 1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+230.0 410.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+230.0 390.0 (E) (Source) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+340.0 410.0 30.0 30.0 filloval
+0 0 0 setrgbcolor
+340.0 410.0 30.0 30.0 drawoval
+(N) 10.5 setfontinfo
+0 0 0 setrgbcolor
+355.0 425.0 (C) (NOT) drawstring
+0 0 0 setrgbcolor
+340.0 425.0 334.0 425.0 drawline
+ 0 0 0 setrgbcolor
+376.0 425.0 370.0 425.0 drawline
+ 1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+340.0 410.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+340.0 390.0 (E) (NOT) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+10.0 510.0 30.0 30.0 filloval
+0 0 0 setrgbcolor
+10.0 510.0 30.0 30.0 drawoval
+(N) 10.5 setfontinfo
+0 0 0 setrgbcolor
+25.0 525.0 (C) (OR) drawstring
+0 0 0 setrgbcolor
+10.0 525.0 4.0 525.0 drawline
+ 0 0 0 setrgbcolor
+46.0 525.0 40.0 525.0 drawline
+ 1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 510.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 490.0 (E) (OR) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 255 0 setrgbcolor
+120.0 510.0 30.0 30.0 filloval
+0 0 0 setrgbcolor
+120.0 510.0 30.0 30.0 drawoval
+(N) 10.5 setfontinfo
+0 0 0 setrgbcolor
+135.0 525.0 (C) (AND) drawstring
+0 0 0 setrgbcolor
+120.0 525.0 114.0 525.0 drawline
+ 0 0 0 setrgbcolor
+156.0 525.0 150.0 525.0 drawline
+ 1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+120.0 510.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+120.0 490.0 (E) (AND) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 0 0 setrgbcolor
+230.0 525.0 234.5 525.0 drawline
+ 0 0 0 setrgbcolor
+255.5 525.0 260.0 525.0 drawline
+ 0 255 0 setrgbcolor
+234.5 510.0 21.0 30.0 filloval
+0 0 0 setrgbcolor
+234.5 510.0 21.0 30.0 drawoval
+0 255 0 setrgbcolor
+238.7 516.0 12.6 18.0 filloval
+0 0 0 setrgbcolor
+238.7 516.0 12.6 18.0 drawoval
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+230.0 510.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+230.0 490.0 (E) (Dissociation) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 0 0 setrgbcolor
+340.0 525.0 344.5 525.0 drawline
+ 0 0 0 setrgbcolor
+365.5 525.0 370.0 525.0 drawline
+ 0 0 0 setrgbcolor
+344.5 510.0 21.0 30.0 filloval
+0 0 0 setrgbcolor
+344.5 510.0 21.0 30.0 drawoval
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+340.0 510.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+340.0 490.0 (E) (Association) drawstring
+1.0 setlinewidth
+(S) setlinestyle
+(N) 12.0 setfontinfo
+(N) 12.0 setfontinfo
+0 0 0 setrgbcolor
+10.0 595.0 14.5 595.0 drawline
+ 0 0 0 setrgbcolor
+35.5 595.0 40.0 595.0 drawline
+ 0 255 0 setrgbcolor
+14.5 580.0 21.0 30.0 fillrect
+ 0 0 0 setrgbcolor
+14.5 580.0 21.0 30.0 drawrect 
+(N) 15.0 setfontinfo
+0 255 0 setrgbcolor
+25.0 595.0 (C) (?) fillstring
+0 0 0 setrgbcolor
+25.0 595.0 (C) (?) drawstring
+1.0 setlinewidth
+(T) setlinestyle
+255 0 0 setrgbcolor
+10.0 580.0 30.0 30.0 drawrect 
+(I) 10.0 setfontinfo
+255 0 0 setrgbcolor
+10.0 560.0 (E) (Uncertain Process) drawstring
+% footer
+showpage

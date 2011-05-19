@@ -162,87 +162,95 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
 			+ "[0 xoffset 0 yoffset 1.00 xoffset 0 yoffset 0.70 xoffset 0.50 yoffset 1.00 xoffset 1.00 yoffset 0 xoffset 1.00 yoffset 0.30 xoffset 0.50 yoffset] pgon";
 	private static final String PROCESS_DEFN =
-//		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
-//		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-//		+ ":vertFlag\n"
-//		+ "{"
-//		+ "0.50 xoffset 0 yoffset 0.50 xoffset 0.20 yoffset line\n"
-//		+ "0.50 xoffset 0.8 yoffset 0.50 xoffset 1.00 yoffset line\n"
-//		+ "0.2 xoffset 0.2 yoffset 0.6 w mul 0.6 h mul rect\n"
-//		+ "[0.2 xoffset 0.5 yoffset 0.8 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor\n"
-//		+ "}"
-//		+ "{"
-//		+ "0 xoffset 0.50 yoffset 0.20 xoffset 0.50 yoffset line\n"
-//		+ "1.0 xoffset 0.50 yoffset 0.80 xoffset 0.50 yoffset line\n"
-//		+ "0.2 xoffset 0.2 yoffset 0.6 w mul 0.6 h mul rect\n"
-//		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.2 yoffset 0.5 xoffset 0.8 yoffset] (S) setanchor\n"
-//		+ "}"
-//		+  "ifelse\n";
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "0 xoffset y w h rect\n"
+		+ "/lugLen 0.15 def /firstBoxOffset lugLen def /sndBoxOffset 1.0 lugLen sub def\n"
 		+ ":vertFlag\n"
-		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
-		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
-		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
-		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
-		+ "ifelse\n";
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset firstBoxOffset yoffset line\n"
+		+ "0.50 xoffset sndBoxOffset yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "0.0 xoffset firstBoxOffset yoffset w 1.0 lugLen 2.0 mul sub h mul rect\n"
+		+ "}\n"
+		+ "{0 xoffset 0.50 yoffset firstBoxOffset xoffset 0.50 yoffset line\n"
+		+ "sndBoxOffset xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "firstBoxOffset xoffset 0.0 yoffset 1.0 lugLen 2.0 mul sub w mul h rect\n"
+		+ "}\n"
+		+ "ifelse\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		;
 	private static final String OMITTED_PROCESS_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "0 xoffset y w h rect\n"
-		+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (\\\\) text\n"
+		+ "/lugLen 0.15 def /firstBoxOffset lugLen def /sndBoxOffset 1.0 lugLen sub def\n"
 		+ ":vertFlag\n"
-		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
-		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
-		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
-		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
-		+  "ifelse\n";
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset firstBoxOffset yoffset line\n"
+		+ "0.50 xoffset sndBoxOffset yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "0.0 xoffset firstBoxOffset yoffset w 1.0 lugLen 2.0 mul sub h mul rect\n"
+		+ "}\n"
+		+ "{0 xoffset 0.50 yoffset firstBoxOffset xoffset 0.50 yoffset line\n"
+		+ "sndBoxOffset xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "firstBoxOffset xoffset 0.0 yoffset 1.0 lugLen 2.0 mul sub w mul h rect\n"
+		+ "}\n"
+		+ "ifelse\n"
+		+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (\\\\) text\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		;
 	private static final String UNCERTAIN_PROCESS_DEFN =
 			"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "0 xoffset y w h rect\n"
-			+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (?) text\n"
+			+ "/lugLen 0.15 def /firstBoxOffset lugLen def /sndBoxOffset 1.0 lugLen sub def\n"
 			+ ":vertFlag\n"
-			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
-			+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
-			+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-			+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
-			+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset 0.5 xoffset 0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
-			+  "ifelse\n";
+			+ "{0.50 xoffset 0 yoffset 0.50 xoffset firstBoxOffset yoffset line\n"
+			+ "0.50 xoffset sndBoxOffset yoffset 0.50 xoffset 1.00 yoffset line\n"
+			+ "0.0 xoffset firstBoxOffset yoffset w 1.0 lugLen 2.0 mul sub h mul rect\n"
+			+ "}\n"
+			+ "{0 xoffset 0.50 yoffset firstBoxOffset xoffset 0.50 yoffset line\n"
+			+ "sndBoxOffset xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+			+ "firstBoxOffset xoffset 0.0 yoffset 1.0 lugLen 2.0 mul sub w mul h rect\n"
+			+ "}\n"
+			+ "ifelse\n"
+			+ "0.5 h mul setfontsize 0.5 xoffset 0.5 yoffset (C) (?) text\n"
+			+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+			;
 	private static final String ASSOC_DEFN =
-		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
-		"/xoffset { w mul x add } def /yoffset { h mul y add } def\n" +
-		"curlinecol setfillcol\n" +
-		"0 xoffset 0.0 yoffset 1.0 w mul 1.00 h mul oval\n"
+		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
+		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
+		+ "curlinecol setfillcol\n"
+		+ "/lugLen 0.15 def /firstBoxOffset lugLen def /sndBoxOffset 1.0 lugLen sub def\n"
 		+ ":vertFlag\n"
-		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
-		+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
-		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
-		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
-		+  "ifelse\n";
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset firstBoxOffset yoffset line\n"
+		+ "0.50 xoffset sndBoxOffset yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "0.0 xoffset firstBoxOffset yoffset w 1.0 lugLen 2.0 mul sub h mul oval\n"
+		+ "}\n"
+		+ "{0 xoffset 0.50 yoffset firstBoxOffset xoffset 0.50 yoffset line\n"
+		+ "sndBoxOffset xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "firstBoxOffset xoffset 0.0 yoffset 1.0 lugLen 2.0 mul sub w mul h oval\n"
+		+ "}\n"
+		+ "ifelse\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		;
 	private static final String DISSOC_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "0 xoffset 0 yoffset 1.0 w mul 1.0 h mul oval\n"
+		+ "/lugLen 0.15 def /firstBoxOffset lugLen def /sndBoxOffset 1.0 lugLen sub def\n"
+		+ "/diampc 1.0 lugLen 2.0 mul sub def"
+		+ ":vertFlag\n"
+		+ "{0.50 xoffset 0 yoffset 0.50 xoffset firstBoxOffset yoffset line\n"
+		+ "0.50 xoffset sndBoxOffset yoffset 0.50 xoffset 1.00 yoffset line\n"
+		+ "0.0 xoffset firstBoxOffset yoffset w diampc h mul oval\n"
 		+ "/indim 0.6 def\n"
 		+ "/inoffset 0.2 def\n"
-		+ "inoffset xoffset inoffset yoffset indim w mul indim h mul oval\n"
-		+ ":vertFlag\n"
-		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
-		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
-		+ "[0.5 xoffset -0.2 yoffset 0.5 xoffset 1.2 yoffset] (S) setanchor}\n"
-		+ "{0 xoffset 0.50 yoffset -0.20 xoffset 0.50 yoffset line\n"
-		+ "1.20 xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
-		+ "[-0.2 xoffset 0.5 yoffset 1.2 xoffset 0.5 yoffset] (S) setanchor}\n"
-		+  "ifelse\n";
+		+ "inoffset xoffset firstBoxOffset inoffset diampc mul add yoffset indim w mul indim diampc mul h mul oval\n"
+		+ "}\n"
+		+ "{0 xoffset 0.50 yoffset firstBoxOffset xoffset 0.50 yoffset line\n"
+		+ "sndBoxOffset xoffset 0.50 yoffset 1.00 xoffset 0.50 yoffset line\n"
+		+ "firstBoxOffset xoffset 0.0 yoffset 1.0 lugLen 2.0 mul sub w mul h oval\n"
+		+ "/indim 0.6 def\n"
+		+ "/inoffset 0.2 def\n"
+		+ "firstBoxOffset inoffset diampc mul add xoffset inoffset yoffset indim diampc mul w mul indim h mul oval\n"
+		+ "}\n"
+		+ "ifelse\n"
+		+ "[0.0 xoffset 0.5 yoffset 1.0 xoffset 0.5 yoffset 0.5 xoffset 0.0 yoffset 0.5 xoffset 1.0 yoffset] (S) setanchor}\n"
+		;
 	private static final String MACROMOLECULE_DEFN =
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n" +
@@ -1217,7 +1225,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Process.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Process.getDefaultAttributes().setShapeDefinition(PROCESS_DEFN);
 		this.Process.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.Process.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.Process.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Process.getDefaultAttributes().setLineWidth(1);
 		this.Process.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Process.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1265,7 +1273,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.OmittedProcess.getDefaultAttributes().setShapeDefinition(OMITTED_PROCESS_DEFN);
 		this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(30, 30.0*0.7));
 		this.OmittedProcess.getDefaultAttributes().setLineWidth(1);
 		this.OmittedProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.OmittedProcess.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1303,7 +1311,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.UncertainProcess.getDefaultAttributes().setShapeDefinition(UNCERTAIN_PROCESS_DEFN);
 		this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(30, 30.0*0.7));
 		this.UncertainProcess.getDefaultAttributes().setLineWidth(1);
 		this.UncertainProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.UncertainProcess.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1340,7 +1348,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Association.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Association.getDefaultAttributes().setShapeDefinition(ASSOC_DEFN);
 		this.Association.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.Association.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.Association.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Association.getDefaultAttributes().setLineWidth(1);
 		this.Association.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Association.getDefaultAttributes().setLineColour(RGB.BLACK);
@@ -1383,7 +1391,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Dissociation.getDefaultAttributes().setShapeDefinition(DISSOC_DEFN);
 		this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.Dissociation.getDefaultAttributes().setSize(new Dimension(30, 30));
+		this.Dissociation.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Dissociation.getDefaultAttributes().setLineWidth(1);
 		this.Dissociation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Dissociation.getDefaultAttributes().setLineColour(RGB.BLACK);
