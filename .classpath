@@ -15,7 +15,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/BusinessObjects"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Toolkit"/>
+	<classpathentry kind="lib" path="lib/BusinessObjects/BusinessObjects.jar"/>
+	<classpathentry kind="lib" path="lib/Toolkit/toolkit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
