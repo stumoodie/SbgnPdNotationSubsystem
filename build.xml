@@ -19,8 +19,8 @@
 	<path id="classpath">
 		<pathelement location="${build.dir.src}" />
 		<pathelement location="${lib.dir}/CompoundGraph/CompoundGraph.jar" />
-		<pathelement location="${lib.dir}/BusinessObjects/BusinessObjects.jar" />
-		<pathelement location="${lib.dir}/Toolkit/toolkit.jar" />
+		<pathelement location="${lib.dir}/VisualLanguageToolkit/VisualLanguageToolkit.jar" />
+		<pathelement location="${lib.dir}/NotationSubsystemUtils/NotationSubsystemUtils.jar" />
 		<pathelement location="${lib.dir}/stringtemplate-3.2/lib/stringtemplate.jar" />
 		<pathelement location="${lib.dir}/stringtemplate-3.2/lib/antlr-2.7.7.jar" />
 		<pathelement location="${lib.dir}/apache-log4j-1.2.15/log4j-1.2.15.jar" />
