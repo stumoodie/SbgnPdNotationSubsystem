@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Colour;
 import org.pathwayeditor.figure.rendering.GraphicalTextAlignment;
 import org.pathwayeditor.figure.rendering.IFont;
 import org.pathwayeditor.figure.rendering.IFont.Style;
@@ -47,8 +47,8 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	private static final String DOT_LINESTYLE = "T";
 	private BufferedWriter writer;
 	private final StringTemplateGroup stg;
-	private RGB fillColour;
-	private RGB lineColour;
+	private Colour fillColour;
+	private Colour lineColour;
 	private final Map<Style, String> fontStyleMapping;
 
 	public PostscriptGraphicsEngine(){
@@ -60,12 +60,12 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		this.fontStyleMapping.put(Style.NORMAL, "N");
 	}
 	
-	private void writeColour(RGB col){
+	private void writeColour(Colour col){
 		try {
 			StringTemplate t = stg.getInstanceOf("setColour");
-			t.setAttribute("red", col.getRed());
-			t.setAttribute("green", col.getGreen());
-			t.setAttribute("blue", col.getBlue());
+			t.setAttribute("red", col.getRgb().getRed());
+			t.setAttribute("green", col.getRgb().getGreen());
+			t.setAttribute("blue", col.getRgb().getBlue());
 			this.writer.append(t.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -314,7 +314,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 
-	public void setFillColor(RGB color) {
+	public void setFillColor(Colour color) {
 		this.fillColour = color;
 	}
 
@@ -335,7 +335,7 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		}
 	}
 
-	public void setLineColor(RGB color) {
+	public void setLineColor(Colour color) {
 		this.lineColour = color;
 	}
 

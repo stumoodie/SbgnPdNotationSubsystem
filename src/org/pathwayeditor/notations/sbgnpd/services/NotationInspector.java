@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Colour;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IBooleanPropertyDefinition;
@@ -93,7 +94,7 @@ public class NotationInspector {
 			assignedBoundValues(controller, boundProps);
 			Dimension shapeSize = objectType.getDefaultAttributes().getSize();
 			controller.setRequestedEnvelope(new Envelope(new Point(x, y), shapeSize));
-			controller.setFillColour(RGB.GREEN);
+			controller.setFillColour(Colour.GREEN);
 			controller.generateFigureDefinition();
 			shapeSize = controller.getRequestedEnvelope().getDimension();
 			GraphicsInstructionList graphicsInst = controller.getFigureDefinition();
@@ -101,7 +102,7 @@ public class NotationInspector {
 			Envelope env = controller.getRequestedEnvelope();
 			this.graphicsEngine.setLineWidth(1.0);
 			this.graphicsEngine.setLineStyle(LineStyle.DOT);
-			this.graphicsEngine.setLineColor(RGB.RED);
+			this.graphicsEngine.setLineColor(Colour.RED);
 			this.graphicsEngine.drawRectangle(env.getOrigin().getX(), env.getOrigin().getY(),
 					env.getDimension().getWidth(), env.getDimension().getHeight());
 			writeTypeName(controller.getEnvelope(), objectType);

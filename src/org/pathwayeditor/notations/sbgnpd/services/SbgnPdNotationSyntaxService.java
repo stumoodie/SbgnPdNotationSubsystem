@@ -31,7 +31,7 @@ import java.util.Set;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LabelLocationPolicy;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LineStyle;
 import org.pathwayeditor.businessobjects.drawingprimitives.attributes.LinkEndDecoratorShape;
-import org.pathwayeditor.businessobjects.drawingprimitives.attributes.RGB;
+import org.pathwayeditor.businessobjects.drawingprimitives.attributes.Colour;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.INumberPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPlainTextPropertyDefinition;
 import org.pathwayeditor.businessobjects.drawingprimitives.properties.IPropertyDefinition;
@@ -636,10 +636,10 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 //		this.State.getDefaultAttributes().addPropertyDefinition(createStoichiometryProperty());
 		this.State.getDefaultAttributes().addPropertyDefinition(this.stateValuePropertyDescription);
 		this.State.getDefaultAttributes().setShapeDefinition(STATE_DEFN);
-		this.State.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.State.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.State.getDefaultAttributes().setLineWidth(1);
 		this.State.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.State.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.State.getDefaultAttributes().setLineColour(Colour.BLACK);
 		this.State.getDefaultAttributes().setSize(new Dimension(40, 30));
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
@@ -682,11 +682,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		
 		this.UnitOfInf.getDefaultAttributes().addPropertyDefinition(this.unitOfInfoPropertyDescription);
 		this.UnitOfInf.getDefaultAttributes().setShapeDefinition(UNIT_OF_INFO_DEFN);
-		this.UnitOfInf.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.UnitOfInf.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.UnitOfInf.getDefaultAttributes().setSize(new Dimension(45, 25));
 		this.UnitOfInf.getDefaultAttributes().setLineWidth(1);
 		this.UnitOfInf.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.UnitOfInf.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.UnitOfInf.getDefaultAttributes().setLineColour(Colour.BLACK);
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
 		if (true) {
@@ -718,11 +718,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createCompartmentVolumeProperty());
 		this.Compartment.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Compartment.getDefaultAttributes().setShapeDefinition(COMPARTMENT_DEFN);
-		this.Compartment.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.Compartment.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.Compartment.getDefaultAttributes().setSize(new Dimension(200, 200));
 		this.Compartment.getDefaultAttributes().setLineWidth(3);
 		this.Compartment.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Compartment.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Compartment.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -776,8 +776,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		cardinalityProp.setEditable(true);
 		cardinalityProp.setDisplayName("Cardinality");
 //		cardinalityProp.getLabelDefaults().setLineWidth(1.0);
-//		cardinalityProp.getLabelDefaults().setFillColour(RGB.WHITE);
-//		cardinalityProp.getLabelDefaults().setLineColour(RGB.BLACK);
+//		cardinalityProp.getLabelDefaults().setFillColour(Colour.WHITE);
+//		cardinalityProp.getLabelDefaults().setLineColour(Colour.BLACK);
 //		cardinalityProp.getLabelDefaults().setNoFill(false);
 //		cardinalityProp.getLabelDefaults().setNoBorder(false);
 //		cardinalityProp.getLabelDefaults().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
@@ -790,8 +790,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		stoichiometryPropertyDefinition.setEditable(true);
 		stoichiometryPropertyDefinition.setDisplayName("Stoichiometry");
 		stoichiometryLabelObjectType.getDefaultAttributes().setLineWidth(1.0);
-		stoichiometryLabelObjectType.getDefaultAttributes().setFillColour(RGB.WHITE);
-		stoichiometryLabelObjectType.getDefaultAttributes().setLineColour(RGB.BLACK);
+		stoichiometryLabelObjectType.getDefaultAttributes().setFillColour(Colour.WHITE);
+		stoichiometryLabelObjectType.getDefaultAttributes().setLineColour(Colour.BLACK);
 		stoichiometryLabelObjectType.getDefaultAttributes().setNoFill(false);
 		stoichiometryLabelObjectType.getDefaultAttributes().setNoBorder(false);
 		stoichiometryLabelObjectType.getDefaultAttributes().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
@@ -860,11 +860,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.Complex.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Complex.getDefaultAttributes().setShapeDefinition(COMPLEX_DEFN);
-		this.Complex.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.Complex.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.Complex.getDefaultAttributes().setSize(new Dimension(120, 80));
 		this.Complex.getDefaultAttributes().setLineWidth(1);
 		this.Complex.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Complex.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Complex.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -903,11 +903,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.nucleicAcidFeature.getDefaultAttributes().setShapeDefinition(NUCLEIC_ACID_FEATURE_DEFN);
-		this.nucleicAcidFeature.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.nucleicAcidFeature.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.nucleicAcidFeature.getDefaultAttributes().setSize(new Dimension(60, 40));
 		this.nucleicAcidFeature.getDefaultAttributes().setLineWidth(1);
 		this.nucleicAcidFeature.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.nucleicAcidFeature.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.nucleicAcidFeature.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -946,8 +946,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.Macromolecule.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Macromolecule.getDefaultAttributes().setShapeDefinition(MACROMOLECULE_DEFN);
-		this.Macromolecule.getDefaultAttributes().setFillColour(RGB.WHITE);
-		this.Macromolecule.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Macromolecule.getDefaultAttributes().setFillColour(Colour.WHITE);
+		this.Macromolecule.getDefaultAttributes().setLineColour(Colour.BLACK);
 		this.Macromolecule.getDefaultAttributes().setLineWidth(1);
 		this.Macromolecule.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Macromolecule.getDefaultAttributes().setSize(new Dimension(60, 40));
@@ -993,11 +993,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.SimpleChem.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.SimpleChem.getDefaultAttributes().setShapeDefinition(SIMPLE_CHEM_DEFN);
-		this.SimpleChem.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.SimpleChem.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.SimpleChem.getDefaultAttributes().setSize(new Dimension(40, 40));
 		this.SimpleChem.getDefaultAttributes().setLineWidth(1.0);
 		this.SimpleChem.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.SimpleChem.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.SimpleChem.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1035,11 +1035,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createEntityCountProperty());
 		this.UnspecEntity.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.UnspecEntity.getDefaultAttributes().setShapeDefinition(UNSPECIFIED_ENTITY_DEFN);
-		this.UnspecEntity.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.UnspecEntity.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.UnspecEntity.getDefaultAttributes().setSize(new Dimension(60, 40));
 		this.UnspecEntity.getDefaultAttributes().setLineWidth(1);
 		this.UnspecEntity.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.UnspecEntity.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.UnspecEntity.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1075,11 +1075,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Sink.setDescription("Sink");
 		this.Sink.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Sink.getDefaultAttributes().setShapeDefinition(EMPTY_SET_DEFN);
-		this.Sink.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.Sink.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.Sink.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.Sink.getDefaultAttributes().setLineWidth(1);
 		this.Sink.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Sink.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Sink.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1110,11 +1110,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Source.setDescription("Source");
 		this.Source.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Source.getDefaultAttributes().setShapeDefinition(EMPTY_SET_DEFN);
-		this.Source.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.Source.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.Source.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.Source.getDefaultAttributes().setLineWidth(1);
 		this.Source.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Source.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Source.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1149,11 +1149,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
 		this.PerturbingAgent.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.PerturbingAgent.getDefaultAttributes().setShapeDefinition(PERTURBATION_DEFN);
-		this.PerturbingAgent.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.PerturbingAgent.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.PerturbingAgent.getDefaultAttributes().setSize(new Dimension(80, 60));
 		this.PerturbingAgent.getDefaultAttributes().setLineWidth(1);
 		this.PerturbingAgent.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.PerturbingAgent.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.PerturbingAgent.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1185,8 +1185,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Phenotype.getDefaultAttributes().setShapeDefinition(PHENOTYPE_DEFN);
 		this.Phenotype.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Phenotype.getDefaultAttributes().addPropertyDefinition(this.nameLabelPropertyDefinition);
-		this.Phenotype.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
-		this.Phenotype.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Phenotype.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
+		this.Phenotype.getDefaultAttributes().setLineColour(Colour.BLACK);
 		this.Phenotype.getDefaultAttributes().setSize(new Dimension(80, 60));
 		this.Phenotype.getDefaultAttributes().setLineWidth(1);
 		this.Phenotype.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
@@ -1224,11 +1224,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Process.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Process.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Process.getDefaultAttributes().setShapeDefinition(PROCESS_DEFN);
-		this.Process.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.Process.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.Process.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Process.getDefaultAttributes().setLineWidth(1);
 		this.Process.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Process.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Process.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1272,11 +1272,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.OmittedProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.OmittedProcess.getDefaultAttributes().setShapeDefinition(OMITTED_PROCESS_DEFN);
-		this.OmittedProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.OmittedProcess.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.OmittedProcess.getDefaultAttributes().setSize(new Dimension(30, 30.0*0.7));
 		this.OmittedProcess.getDefaultAttributes().setLineWidth(1);
 		this.OmittedProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.OmittedProcess.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.OmittedProcess.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1310,11 +1310,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.UncertainProcess.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.UncertainProcess.getDefaultAttributes().setShapeDefinition(UNCERTAIN_PROCESS_DEFN);
-		this.UncertainProcess.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.UncertainProcess.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.UncertainProcess.getDefaultAttributes().setSize(new Dimension(30, 30.0*0.7));
 		this.UncertainProcess.getDefaultAttributes().setLineWidth(1);
 		this.UncertainProcess.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.UncertainProcess.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.UncertainProcess.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1347,11 +1347,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Association.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Association.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Association.getDefaultAttributes().setShapeDefinition(ASSOC_DEFN);
-		this.Association.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.Association.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.Association.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Association.getDefaultAttributes().setLineWidth(1);
 		this.Association.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Association.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Association.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1390,11 +1390,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createForwardRateEquationProperty());
 		this.Dissociation.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.Dissociation.getDefaultAttributes().setShapeDefinition(DISSOC_DEFN);
-		this.Dissociation.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.Dissociation.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.Dissociation.getDefaultAttributes().setSize(new Dimension(30.0, 30.0*0.7));
 		this.Dissociation.getDefaultAttributes().setLineWidth(1);
 		this.Dissociation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Dissociation.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Dissociation.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1426,11 +1426,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.AndGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.AndGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.AndGate.getDefaultAttributes().setShapeDefinition(AND_SHAPE_DEFN);
-		this.AndGate.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.AndGate.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.AndGate.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.AndGate.getDefaultAttributes().setLineWidth(1);
 		this.AndGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.AndGate.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.AndGate.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1462,11 +1462,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.OrGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.OrGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.OrGate.getDefaultAttributes().setShapeDefinition(OR_SHAPE_DEFN);
-		this.OrGate.getDefaultAttributes().setFillColour(new RGB(255, 255, 255));
+		this.OrGate.getDefaultAttributes().setFillColour(new Colour(255, 255, 255));
 		this.OrGate.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.OrGate.getDefaultAttributes().setLineWidth(1);
 		this.OrGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.OrGate.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.OrGate.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1499,11 +1499,11 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.NotGate.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.NotGate.getDefaultAttributes().addPropertyDefinition(createVerticalAlignmentProperty());
 		this.NotGate.getDefaultAttributes().setShapeDefinition(NOT_SHAPE_DEFN);
-		this.NotGate.getDefaultAttributes().setFillColour(RGB.WHITE);
+		this.NotGate.getDefaultAttributes().setFillColour(Colour.WHITE);
 		this.NotGate.getDefaultAttributes().setSize(new Dimension(30, 30));
 		this.NotGate.getDefaultAttributes().setLineWidth(1);
 		this.NotGate.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.NotGate.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.NotGate.getDefaultAttributes().setLineColour(Colour.BLACK);
 
 		EnumSet<EditableShapeAttributes> editableAttributes = EnumSet
 				.noneOf(EditableShapeAttributes.class);
@@ -1537,7 +1537,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Consumption.getDefaultAttributes().addPropertyDefinition(this.stoichiometryPropertyDefinition);
 		this.Consumption.getDefaultAttributes().setLineWidth(1);
 		this.Consumption.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Consumption.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Consumption.getDefaultAttributes().setLineColour(Colour.BLACK);
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet.noneOf(LinkEditableAttributes.class);
 		if (true) {
 			editableAttributes.add(LinkEditableAttributes.COLOUR);
@@ -1645,7 +1645,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Production.getDefaultAttributes().addPropertyDefinition(createExportNameProperty());
 		this.Production.getDefaultAttributes().setLineWidth(1);
 		this.Production.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
-		this.Production.getDefaultAttributes().setLineColour(RGB.BLACK);
+		this.Production.getDefaultAttributes().setLineColour(Colour.BLACK);
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -1752,7 +1752,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Modulation.getDefaultAttributes().setLineWidth(1);
 		this.Modulation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Modulation.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -1859,7 +1859,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Stimulation.getDefaultAttributes().setLineWidth(1);
 		this.Stimulation.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Stimulation.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -1990,7 +1990,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Catalysis.getDefaultAttributes().setLineWidth(1);
 		this.Catalysis.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Catalysis.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -2114,7 +2114,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Inhibition.getDefaultAttributes().setLineWidth(1);
 		this.Inhibition.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Inhibition.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -2219,7 +2219,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.Trigger.getDefaultAttributes().setLineWidth(1);
 		this.Trigger.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.Trigger.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
@@ -2326,7 +2326,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		this.LogicArc.getDefaultAttributes().setLineWidth(1);
 		this.LogicArc.getDefaultAttributes().setLineStyle(LineStyle.SOLID);
 		this.LogicArc.getDefaultAttributes().setLineColour(
-				new RGB(lc[0], lc[1], lc[2]));
+				new Colour(lc[0], lc[1], lc[2]));
 		EnumSet<LinkEditableAttributes> editableAttributes = EnumSet
 				.noneOf(LinkEditableAttributes.class);
 		if (true) {
