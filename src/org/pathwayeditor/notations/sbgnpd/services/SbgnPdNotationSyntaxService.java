@@ -75,7 +75,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
 		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
 		"gsave\n" +
-		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"0 0 0 0 setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
 		"grestore\n" +
 		"} def\n" +
 		":cardinality 1 gt {\n" +
@@ -91,7 +91,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String COMPARTMENT_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "gsave null setlinecol\n"
+		+ "gsave 0 0 0 0 setlinecol\n"
 		+ "x 0.10 yoffset w 0.81 h mul rect\n"
 		+ "0.4 xoffset y 0.22 w mul 0.10 h mul rect\n"
 		+ " 0.4 xoffset 0.90 yoffset 0.22 w mul 0.10 h mul rect\n"
@@ -112,7 +112,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
 		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
 		"gsave\n" +
-		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"0 0 0 0 setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
 		"grestore\n" +
 		"} def\n" +
 		"/xoffset { w 0.9 mul mul x 0.1 w mul add add } def /yoffset { h 0.9 mul mul y 0.1 h mul add add } def\n" +
@@ -137,7 +137,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"(C) setanchor\n" +
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "gsave null setlinecol x y w 0.82 h mul rect\n"
+			+ "gsave 0 0 0 0 setlinecol x y w 0.82 h mul rect\n"
 			+ "0.20 xoffset 0.80 yoffset 0.62 w mul 0.20 h mul rect\n"
 			+ "0 xoffset 0.60 yoffset 0.40 w mul 0.40 h mul 180 90 arc\n"
 			+ "0.60 xoffset 0.60 yoffset 0.40 w mul 0.40 h mul 270 90 arc\n" 
@@ -260,7 +260,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		"card cvs textbounds /hoff exch curlinewidth 2 mul add h div def /woff exch curlinewidth 2 mul add w div def \n" +
 		"cpx woff 2 div sub xoffset cpy hoff 2 div sub yoffset woff w mul hoff h mul rect\n" +
 		"gsave\n" +
-		"null setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
+		"0 0 0 0 setfillcol cpx xoffset cpy yoffset (C) card cvs text\n" +
 		"grestore\n" +
 		"} def\n" +
 		":cardinality 1 gt {\n" +
@@ -272,7 +272,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String AND_SHAPE_DEFN =
 			"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (AND) text\n"
+			+ "x y w h oval h 0.35 mul setfontsize 0 0 0 0 setfillcol 0.5 xoffset 0.5 yoffset (C) (AND) text\n"
 			+ ":vertFlag\n"
 			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
 			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
@@ -284,7 +284,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 	private static final String NOT_SHAPE_DEFN =
 		"curbounds /h exch def /w exch def /y exch def /x exch def\n"
 		+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-		+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (NOT) text\n"
+		+ "x y w h oval h 0.35 mul setfontsize 0 0 0 0 setfillcol 0.5 xoffset 0.5 yoffset (C) (NOT) text\n"
 		+ ":vertFlag\n"
 		+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
 		+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
@@ -295,7 +295,7 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		+  "ifelse\n";
 	private static final String OR_SHAPE_DEFN = "curbounds /h exch def /w exch def /y exch def /x exch def\n"
 			+ "/xoffset { w mul x add } def /yoffset { h mul y add } def\n"
-			+ "x y w h oval h 0.35 mul setfontsize null setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n"
+			+ "x y w h oval h 0.35 mul setfontsize 0 0 0 0 setfillcol 0.5 xoffset 0.5 yoffset (C) (OR) text\n"
 			+ ":vertFlag\n"
 			+ "{0.50 xoffset 0 yoffset 0.50 xoffset -0.20 yoffset line\n"
 			+ "0.50 xoffset 1.20 yoffset 0.50 xoffset 1.00 yoffset line\n"
