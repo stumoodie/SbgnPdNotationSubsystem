@@ -47,8 +47,9 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	private static final String DOT_LINESTYLE = "T";
 	private BufferedWriter writer;
 	private final StringTemplateGroup stg;
-	private Colour fillColour;
-	private Colour lineColour;
+	private Colour fillColour = Colour.WHITE;
+	private Colour lineColour = Colour.BLACK;
+	private Colour fontColour = Colour.BLACK;
 	private final Map<Style, String> fontStyleMapping;
 
 	public PostscriptGraphicsEngine(){
@@ -88,15 +89,17 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	public void drawArc(double pos, double pos2, double widthSize,
 			double heightSize, double roundedOffset, double roundedLength) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawArc");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("w", widthSize);
-			t.setAttribute("h", heightSize);
-			t.setAttribute("startAng", roundedOffset);
-			t.setAttribute("lenAng", roundedLength);
-			this.writer.append(t.toString());
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawArc");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("w", widthSize);
+				t.setAttribute("h", heightSize);
+				t.setAttribute("startAng", roundedOffset);
+				t.setAttribute("lenAng", roundedLength);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -105,13 +108,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	@Override
 	public void drawLine(double beginPos, double beginPos2, double endPos, double endPos2) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawLine");
-			t.setAttribute("x1", beginPos);
-			t.setAttribute("y1", beginPos2);
-			t.setAttribute("x2", endPos);
-			t.setAttribute("y2", endPos2);
-			this.writer.append(t.toString());
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawLine");
+				t.setAttribute("x1", beginPos);
+				t.setAttribute("y1", beginPos2);
+				t.setAttribute("x2", endPos);
+				t.setAttribute("y2", endPos2);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -120,13 +125,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	@Override
 	public void drawOval(double pos, double pos2, double widthSize,	double heightSize) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawOval");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("w", widthSize);
-			t.setAttribute("h", heightSize);
-			this.writer.append(t.toString());
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawOval");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("w", widthSize);
+				t.setAttribute("h", heightSize);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -135,11 +142,13 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	@Override
 	public void drawPoint(double pos, double pos2) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawPoint");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			this.writer.append(t.toString());
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawPoint");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -147,14 +156,16 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void drawPolygon(double[] pointArr) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawPolygon");
-			List<Double> points = new ArrayList<Double>(pointArr.length);
-			for(double point : pointArr){
-				points.add(point);
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawPolygon");
+				List<Double> points = new ArrayList<Double>(pointArr.length);
+				for(double point : pointArr){
+					points.add(point);
+				}
+				t.setAttribute("points", points);
+				this.writer.append(t.toString());
 			}
-			t.setAttribute("points", points);
-			this.writer.append(t.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -162,14 +173,16 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void drawPolyline(double[] pointArr) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawPolyline");
-			List<Double> points = new ArrayList<Double>(pointArr.length);
-			for(double point : pointArr){
-				points.add(point);
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawPolyline");
+				List<Double> points = new ArrayList<Double>(pointArr.length);
+				for(double point : pointArr){
+					points.add(point);
+				}
+				t.setAttribute("points", points);
+				this.writer.append(t.toString());
 			}
-			t.setAttribute("points", points);
-			this.writer.append(t.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -177,13 +190,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void drawRectangle(double pos, double pos2, double widthSize, double heightSize) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawRect");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("w", widthSize);
-			t.setAttribute("h", heightSize);
-			this.writer.append(t.toString());
+			if(this.lineColour.getAlpha() > 0){
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawRect");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("w", widthSize);
+				t.setAttribute("h", heightSize);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -192,15 +207,17 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	public void drawRoundRectangle(double x, double y, double width,
 			double height, double arcWidthSize, double arcHeightSize) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawRRect");
-			t.setAttribute("x", x);
-			t.setAttribute("y", y);
-			t.setAttribute("w", width);
-			t.setAttribute("h", height);
-			t.setAttribute("cornerWidth", arcWidthSize);
-			t.setAttribute("cornerHeight", arcHeightSize);
-			this.writer.append(t.toString());
+			if (this.lineColour.getAlpha() > 0) {
+				writeLineColour();
+				StringTemplate t = stg.getInstanceOf("drawRRect");
+				t.setAttribute("x", x);
+				t.setAttribute("y", y);
+				t.setAttribute("w", width);
+				t.setAttribute("h", height);
+				t.setAttribute("cornerWidth", arcWidthSize);
+				t.setAttribute("cornerHeight", arcHeightSize);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -208,33 +225,43 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void drawString(String text, double pos, double pos2, GraphicalTextAlignment alignment) {
 		try {
-			writeLineColour();
-			StringTemplate t = stg.getInstanceOf("drawString");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("alignment", alignment.toString());
-			Pattern pat = Pattern.compile("\\\\");
-			Matcher mat = pat.matcher(text);
-			String processedText = mat.replaceAll("\\\\\\\\");
-			t.setAttribute("text", processedText);
-			this.writer.append(t.toString());
+			if (this.fontColour.getAlpha() > 0) {
+				writeFontColour();
+				StringTemplate t = stg.getInstanceOf("drawString");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("alignment", alignment.toString());
+				Pattern pat = Pattern.compile("\\\\");
+				Matcher mat = pat.matcher(text);
+				String processedText = mat.replaceAll("\\\\\\\\");
+				t.setAttribute("text", processedText);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	private void writeFontColour() {
+		if(this.fontColour != null){
+			writeColour(this.fontColour);
 		}
 	}
 
 	public void fillArc(double pos, double pos2, double widthSize,
 			double heightSize, double roundedOffset, double roundedLength) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillArc");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("w", widthSize);
-			t.setAttribute("h", heightSize);
-			t.setAttribute("startAng", roundedOffset);
-			t.setAttribute("lenAng", roundedLength);
-			this.writer.append(t.toString());
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillArc");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("w", widthSize);
+				t.setAttribute("h", heightSize);
+				t.setAttribute("startAng", roundedOffset);
+				t.setAttribute("lenAng", roundedLength);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -242,13 +269,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void fillOval(double pos, double pos2, double widthSize,	double heightSize) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillOval");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("w", widthSize);
-			t.setAttribute("h", heightSize);
-			this.writer.append(t.toString());
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillOval");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("w", widthSize);
+				t.setAttribute("h", heightSize);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -256,14 +285,16 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void fillPolygon(double[] pointArr) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillPolygon");
-			List<Double> points = new ArrayList<Double>(pointArr.length);
-			for(double point : pointArr){
-				points.add(point);
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillPolygon");
+				List<Double> points = new ArrayList<Double>(pointArr.length);
+				for (double point : pointArr) {
+					points.add(point);
+				}
+				t.setAttribute("points", points);
+				this.writer.append(t.toString());
 			}
-			t.setAttribute("points", points);
-			this.writer.append(t.toString());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -271,13 +302,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void fillRectangle(double x, double y, double width,	double height) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillRect");
-			t.setAttribute("x", x);
-			t.setAttribute("y", y);
-			t.setAttribute("w", width);
-			t.setAttribute("h", height);
-			this.writer.append(t.toString());
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillRect");
+				t.setAttribute("x", x);
+				t.setAttribute("y", y);
+				t.setAttribute("w", width);
+				t.setAttribute("h", height);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -286,15 +319,17 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 	public void fillRoundRectangle(double x, double y, double width,
 			double height, double arcWidthSize, double arcHeightSize) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillRRect");
-			t.setAttribute("x", x);
-			t.setAttribute("y", y);
-			t.setAttribute("w", width);
-			t.setAttribute("h", height);
-			t.setAttribute("cornerWidth", arcWidthSize);
-			t.setAttribute("cornerHeight", arcHeightSize);
-			this.writer.append(t.toString());
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillRRect");
+				t.setAttribute("x", x);
+				t.setAttribute("y", y);
+				t.setAttribute("w", width);
+				t.setAttribute("h", height);
+				t.setAttribute("cornerWidth", arcWidthSize);
+				t.setAttribute("cornerHeight", arcHeightSize);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -302,13 +337,15 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 
 	public void fillString(String text, double pos, double pos2, GraphicalTextAlignment alignment) {
 		try {
-			writeFillColour();
-			StringTemplate t = stg.getInstanceOf("fillString");
-			t.setAttribute("x", pos);
-			t.setAttribute("y", pos2);
-			t.setAttribute("alignment", alignment.toString());
-			t.setAttribute("text", text);
-			this.writer.append(t.toString());
+			if (this.fillColour.getAlpha() > 0) {
+				writeFillColour();
+				StringTemplate t = stg.getInstanceOf("fillString");
+				t.setAttribute("x", pos);
+				t.setAttribute("y", pos2);
+				t.setAttribute("alignment", alignment.toString());
+				t.setAttribute("text", text);
+				this.writer.append(t.toString());
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -394,5 +431,10 @@ public class PostscriptGraphicsEngine implements IGraphicsEngine {
 		StringTemplate t = stg.getInstanceOf("footer");
 		this.writer.append(t.toString());
 		this.writer = null;
+	}
+
+	@Override
+	public void setFontColor(Colour color) {
+		this.fontColour = color;
 	}
 }

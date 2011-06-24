@@ -15,15 +15,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/NotationSubsystemUtils/NotationSubsystemUtils.jar" sourcepath="lib/NotationSubsystemUtils/NotationSubsystemUtils-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SbgnPdNotationSubsystem/lib/NotationSubsystemUtils/NotationSubsystemUtils-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/VisualLanguageToolkit/VisualLanguageToolkit.jar" sourcepath="lib/VisualLanguageToolkit/VisualLanguageToolkit-src.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SbgnPdNotationSubsystem/lib/VisualLanguageToolkit/VisualLanguageToolkit-docs.jar!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/VisualLanguageToolkit"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NotationSubsystemUtils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
