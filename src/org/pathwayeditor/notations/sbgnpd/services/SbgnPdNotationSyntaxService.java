@@ -625,8 +625,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		stateValuePropertyDescription.setEditable(true);
 		stateValuePropertyDescription.setDisplayName("Value");
 		stateValueLabelObjectType.setAlwaysDisplayed(true);
-		stateValueLabelObjectType.getDefaultAttributes().setNoBorder(true);
-		stateValueLabelObjectType.getDefaultAttributes().setNoFill(true);
+		stateValueLabelObjectType.getDefaultAttributes().setLineColour(new Colour(0, 0, 0, 0));
+		stateValueLabelObjectType.getDefaultAttributes().setFillColour(new Colour(255, 255, 255, 0));
 		stateValueLabelObjectType.getDefaultAttributes().setMinimumSize(new Dimension(30, 30));
 		this.labelPropMap.put(stateValuePropertyDescription, stateValueLabelObjectType);
 	}
@@ -672,8 +672,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		unitOfInfoPropertyDescription.setEditable(true);
 		unitOfInfoPropertyDescription.setDisplayName("Information");
 		this.unitOfInfoLabelObjectType.setAlwaysDisplayed(true);
-		this.unitOfInfoLabelObjectType.getDefaultAttributes().setNoFill(true);
-		this.unitOfInfoLabelObjectType.getDefaultAttributes().setNoBorder(true);
+		this.unitOfInfoLabelObjectType.getDefaultAttributes().setFillColour(new Colour(255, 255, 255, 0));
+		this.unitOfInfoLabelObjectType.getDefaultAttributes().setLineColour(new Colour(0, 0, 0, 255));
 		this.labelPropMap.put(unitOfInfoPropertyDescription, unitOfInfoLabelObjectType);
 	}
 
@@ -792,8 +792,6 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 		stoichiometryLabelObjectType.getDefaultAttributes().setLineWidth(1.0);
 		stoichiometryLabelObjectType.getDefaultAttributes().setFillColour(Colour.WHITE);
 		stoichiometryLabelObjectType.getDefaultAttributes().setLineColour(Colour.BLACK);
-		stoichiometryLabelObjectType.getDefaultAttributes().setNoFill(false);
-		stoichiometryLabelObjectType.getDefaultAttributes().setNoBorder(false);
 		stoichiometryLabelObjectType.getDefaultAttributes().setLabelLocationPolicy(LabelLocationPolicy.COMPASS);
 		this.labelPropMap.put(stoichiometryPropertyDefinition, stoichiometryLabelObjectType);
 	}
@@ -804,8 +802,8 @@ public class SbgnPdNotationSyntaxService implements INotationSyntaxService {
 //		nameProp.setAlwaysDisplayed(true);
 		nameLabelPropertyDefinition.setEditable(true);
 		nameLabelPropertyDefinition.setDisplayName("Name");
-		nameLabelObjectType.getDefaultAttributes().setNoFill(true);
-		nameLabelObjectType.getDefaultAttributes().setNoBorder(true);
+		nameLabelObjectType.getDefaultAttributes().setFillColour(new Colour(255, 255, 255, 0));
+		nameLabelObjectType.getDefaultAttributes().setLineColour(new Colour(0, 0, 0, 0));
 		this.labelPropMap.put(nameLabelPropertyDefinition, nameLabelObjectType);
 	}
 	
